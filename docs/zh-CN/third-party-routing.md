@@ -1,6 +1,6 @@
 # 第三方路由接入教程
 
-[文档目录](README.md) · 简体中文 | [English](../en/third-party-routing.md)
+[English (primary)](../en/third-party-routing.md) · [中文目录](README.md) · 简体中文（辅助翻译）
 
 适用站点：[UNEXHub](https://unexhub.ai/) · 界面核对：2026-09-22
 

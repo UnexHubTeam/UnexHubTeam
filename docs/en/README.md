@@ -1,8 +1,10 @@
 # UNEXHub API Documentation
 
-[简体中文](../zh-CN/README.md)
+[Repository home](../../README.md) · English (primary) | [简体中文（辅助翻译）](../zh-CN/README.md)
 
-Create an API key → Call a model → Review billing. Separate Chinese and English guides organized into installation, getting started, AI editors, and command-line tools.
+> English is the primary version. Simplified Chinese is maintained as a companion translation.
+
+Create an API key → Call a model → Review billing. The primary English guides are organized into installation, getting started, AI editors, and command-line tools, with complete Simplified Chinese translations available alongside them.
 
 Updated: 2026-09-23 · Main UNEXHub interface reviewed: 2026-09-22
 

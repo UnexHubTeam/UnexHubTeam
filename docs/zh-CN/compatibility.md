@@ -1,6 +1,6 @@
 # 客户端与协议兼容说明
 
-[文档目录](README.md) · 简体中文 | [English](../en/compatibility.md)
+[English (primary)](../en/compatibility.md) · [中文目录](README.md) · 简体中文（辅助翻译）
 
 适用站点：[UNEXHub](https://unexhub.ai/) · 文档更新：2026-09-23
 

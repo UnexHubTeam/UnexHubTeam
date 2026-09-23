@@ -1,6 +1,6 @@
 # GPT-Codex installation tutorial
 
-[Documentation](README.md) · English | [简体中文](../zh-CN/codex-install.md)
+[Documentation](README.md) · English (primary) | [简体中文（辅助翻译）](../zh-CN/codex-install.md)
 
 Website: [UNEXHub](https://unexhub.ai/) · Updated: 2026-09-23
 

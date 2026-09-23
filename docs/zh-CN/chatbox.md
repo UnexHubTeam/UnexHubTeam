@@ -1,6 +1,6 @@
 # Chatbox 接入教程
 
-[文档目录](README.md) · 简体中文 | [English](../en/chatbox.md)
+[English (primary)](../en/chatbox.md) · [中文目录](README.md) · 简体中文（辅助翻译）
 
 适用站点：[UNEXHub](https://unexhub.ai/) · 界面核对：2026-09-22
 

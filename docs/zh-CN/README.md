@@ -1,8 +1,10 @@
 # UNEXHub API 接口文档
 
-[English](../en/README.md)
+[English documentation (primary)](../en/README.md) · 简体中文（辅助翻译）
 
-创建 API Key → 调用模型 → 查看计费记录。教程按安装接入、入门、AI 编辑器和命令行工具分组，中英文独立。
+> 英文文档为主版本，简体中文作为辅助翻译维护。
+
+创建 API Key → 调用模型 → 查看计费记录。中文翻译按安装接入、入门、AI 编辑器和命令行工具分组，并与英文主版本对应。
 
 文档更新：2026-09-23 · UNEXHub 主要界面核对：2026-09-22
 
@@ -51,7 +53,7 @@
 
 先按[协议兼容说明](compatibility.md)确认工具与端点。文档已核对 PoloAPI 参考页面及所列官方／项目说明；未执行安装命令、修改客户端配置或完成付费调用。新教程中的 Messages、Responses、CC MAX 和编辑器原生网关支持，均按核对结果注明条件。
 
-站点截图使用中文界面；英文文档独立解释对应操作。模型 ID、版本、价格与路由以实际使用时为准。
+站点截图使用中文界面；英文主文档解释对应操作，本中文版本作为辅助翻译保留界面术语。模型 ID、版本、价格与路由以实际使用时为准。
 
 [打开 UNEXHub](https://unexhub.ai/) · [交易中心](https://unexhub.ai/market?tab=models) · [调用日志](https://unexhub.ai/console/log) · [资金账户](https://unexhub.ai/console/topup)
 

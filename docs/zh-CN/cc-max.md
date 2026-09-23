@@ -1,6 +1,6 @@
 # CC MAX
 
-[文档目录](README.md) · 简体中文 | [English](../en/cc-max.md)
+[English (primary)](../en/cc-max.md) · [中文目录](README.md) · 简体中文（辅助翻译）
 
 适用站点：[UNEXHub](https://unexhub.ai/) · 文档更新：2026-09-23
 

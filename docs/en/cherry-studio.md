@@ -1,6 +1,6 @@
 # Cherry Studio integration tutorial
 
-[Documentation](README.md) · English | [简体中文](../zh-CN/cherry-studio.md)
+[Documentation](README.md) · English (primary) | [简体中文（辅助翻译）](../zh-CN/cherry-studio.md)
 
 Website: [UNEXHub](https://unexhub.ai/) · Interface reviewed: 2026-09-22
 

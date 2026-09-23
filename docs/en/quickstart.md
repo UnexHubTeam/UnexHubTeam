@@ -1,6 +1,6 @@
 # Site guide — Get started with model APIs
 
-[Documentation](README.md) · English | [简体中文](../zh-CN/quickstart.md)
+[Documentation](README.md) · English (primary) | [简体中文（辅助翻译）](../zh-CN/quickstart.md)
 
 Website: [UNEXHub](https://unexhub.ai/) · Interface reviewed: 2026-09-22
 

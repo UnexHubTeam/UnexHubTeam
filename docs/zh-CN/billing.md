@@ -1,6 +1,6 @@
 # 查看计费记录与导出账单
 
-[文档目录](README.md) · 简体中文 | [English](../en/billing.md)
+[English (primary)](../en/billing.md) · [中文目录](README.md) · 简体中文（辅助翻译）
 
 适用站点：[UNEXHub](https://unexhub.ai/) · 界面核对：2026-09-22
 

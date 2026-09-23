@@ -1,6 +1,6 @@
 # Third-party routing tutorial
 
-[Documentation](README.md) · English | [简体中文](../zh-CN/third-party-routing.md)
+[Documentation](README.md) · English (primary) | [简体中文（辅助翻译）](../zh-CN/third-party-routing.md)
 
 Website: [UNEXHub](https://unexhub.ai/) · Interface reviewed: 2026-09-22
 

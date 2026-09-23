@@ -1,6 +1,6 @@
 # Claude Code
 
-[文档目录](README.md) · 简体中文 | [English](../en/claude-code.md)
+[English (primary)](../en/claude-code.md) · [中文目录](README.md) · 简体中文（辅助翻译）
 
 适用站点：[UNEXHub](https://unexhub.ai/) · 文档更新：2026-09-23
 

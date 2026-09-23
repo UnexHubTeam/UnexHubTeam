@@ -1,6 +1,6 @@
 # Chatbox integration tutorial
 
-[Documentation](README.md) · English | [简体中文](../zh-CN/chatbox.md)
+[Documentation](README.md) · English (primary) | [简体中文（辅助翻译）](../zh-CN/chatbox.md)
 
 Website: [UNEXHub](https://unexhub.ai/) · Interface reviewed: 2026-09-22
 

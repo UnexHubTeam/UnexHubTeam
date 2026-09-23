@@ -1,6 +1,6 @@
 # Quick start
 
-[Documentation](README.md) · English | [简体中文](../zh-CN/getting-started.md)
+[Documentation](README.md) · English (primary) | [简体中文（辅助翻译）](../zh-CN/getting-started.md)
 
 Website: [UNEXHub](https://unexhub.ai/) · Updated: 2026-09-23
 

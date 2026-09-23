@@ -1,6 +1,6 @@
 # Billing records and exports
 
-[Documentation](README.md) · English | [简体中文](../zh-CN/billing.md)
+[Documentation](README.md) · English (primary) | [简体中文（辅助翻译）](../zh-CN/billing.md)
 
 Website: [UNEXHub](https://unexhub.ai/) · Interface reviewed: 2026-09-22
 

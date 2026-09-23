@@ -1,6 +1,6 @@
 # 站点操作指南-快速上手调用大模型 API
 
-[文档目录](README.md) · 简体中文 | [English](../en/quickstart.md)
+[English (primary)](../en/quickstart.md) · [中文目录](README.md) · 简体中文（辅助翻译）
 
 适用站点：[UNEXHub](https://unexhub.ai/) · 界面核对：2026-09-22
 
@@ -14,7 +14,7 @@ API Base URL：[https://api.unexhub.ai/](https://api.unexhub.ai/)
 
 | 配置 | 填写值                                                  |
 | --- |---------------------------------------------------------|
-| API 根地址 | `https://unexhub.ai`                                    |
+| API 根地址 | `https://api.unexhub.ai`                                |
 | SDK Base URL | `https://api.unexhub.ai/v1`                             |
 | API Key | 你创建的完整密钥；示例中以 `YOUR_API_KEY` 代替。        |
 | 模型 ID | 当前可用的准确模型标识；示例中以 `YOUR_MODEL_ID` 代替。 |
