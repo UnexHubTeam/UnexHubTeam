@@ -1,76 +1,60 @@
-# UNEXHub API Documentation
+# UNEXHub Developer Documentation
 
-Create an API key → Call a model → Review billing. Includes all requested client, editor, and command-line tutorials.
+Build with the UNEXHub API, configure supported clients, review billing, or publish an Agent.
 
-创建 API Key → 调用模型 → 查看计费记录。包含全部指定客户端、编辑器与命令行工具教程。
+使用 UNEXHub API、配置客户端、核对计费，或发布 Agent。
 
 **[English documentation (primary)](docs/en/README.md) · [简体中文（辅助翻译）](docs/zh-CN/README.md)**
 
-> English is the primary documentation language. Simplified Chinese is provided as a companion translation.
+[Public API reference ↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK) · [Agent Developer Center ↗](https://unexhub.ai/agent-doc) · [UNEXHub console ↗](https://unexhub.ai/)
 
-Updated / 更新: 2026-09-23
+> English is the primary documentation language. Simplified Chinese is maintained as a companion translation.
+>
+> Agent tutorial status: **Mode B · Cloudflare Container is available. Mode A is not yet documented.**
 
-## Site workflow / 站点操作
+Updated / 更新: 2026-09-24
 
-| English (Primary) | 简体中文（辅助翻译） |
-| --- | --- |
-| [Site guide — Get started with model APIs](docs/en/quickstart.md) | [站点操作指南-快速上手调用大模型 API](docs/zh-CN/quickstart.md) |
+## Find the right guide / 精准查找
 
-## Installation and integration tutorials / 安装与接入教程
+| I want to… | Start here | 中文入口 |
+| --- | --- | --- |
+| Create a key and send my first request | [Console walkthrough](docs/en/quickstart.md) | [控制台完整操作](docs/zh-CN/quickstart.md) |
+| Choose the correct endpoint or protocol | [Protocol compatibility](docs/en/compatibility.md) | [协议兼容说明](docs/zh-CN/compatibility.md) |
+| Call the API with cURL or Python | [Chat Completions](docs/en/chat-completions.md) | [聊天补全 API](docs/zh-CN/chat-completions.md) |
+| Read the complete endpoint reference | [Public API reference ↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK) | [公开 API 开发文档 ↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK) |
+| Configure Chatbox or Cherry Studio | [Apps and editors](docs/en/README.md#apps-and-editors) | [客户端与编辑器](docs/zh-CN/README.md#apps-and-editors) |
+| Configure Claude Code, Codex, or Aider | [CLI and coding agents](docs/en/README.md#cli-and-coding-agents) | [命令行与编程 Agent](docs/zh-CN/README.md#cli-and-coding-agents) |
+| Review charges or export billing | [Billing records](docs/en/billing.md) | [计费记录与导出](docs/zh-CN/billing.md) |
+| Fix an error | [FAQ and troubleshooting](docs/en/faq.md) | [常见问题与排障](docs/zh-CN/faq.md) |
+| Publish a Mode B Agent | [Mode B development and upload](docs/en/agent-development-upload.md) | [模式 B 开发与上传](docs/zh-CN/agent-development-upload.md) |
+| Find current Agent platform requirements | [Agent Developer Center ↗](https://unexhub.ai/agent-doc) | [Agent 开发中心 ↗](https://unexhub.ai/agent-doc) |
 
-| English (Primary) | 简体中文（辅助翻译） |
-| --- | --- |
-| [Install Claude Code on Windows/macOS](docs/en/claude-code-install.md) | [Claude Code 安装教程（Windows / macOS）](docs/zh-CN/claude-code-install.md) |
-| [GPT-Codex installation](docs/en/codex-install.md) | [GPT-codex 安装教程](docs/zh-CN/codex-install.md) |
-| [Claude Code in VS Code](docs/en/vscode-claude-code.md) | [VS Code 安装 Claude Code 教程](docs/zh-CN/vscode-claude-code.md) |
-| [openclaw-cn integration](docs/en/openclaw-cn.md) | [openclaw-cn 接入教程](docs/zh-CN/openclaw-cn.md) |
-| [Chatbox integration](docs/en/chatbox.md) | [Chatbox 接入教程](docs/zh-CN/chatbox.md) |
-| [Cherry Studio integration](docs/en/cherry-studio.md) | [Cherry Studio 接入教程](docs/zh-CN/cherry-studio.md) |
+## Recommended paths / 推荐路径
 
-## Getting started / 入门
+### API integration
 
-| English (Primary) | 简体中文（辅助翻译） |
-| --- | --- |
-| [Quick start](docs/en/getting-started.md) | [快速开始](docs/zh-CN/getting-started.md) |
-| [FAQ](docs/en/faq.md) | [常见问题](docs/zh-CN/faq.md) |
+1. [Choose an integration](docs/en/getting-started.md)
+2. [Create a key and make a first call](docs/en/quickstart.md)
+3. [Confirm protocol compatibility](docs/en/compatibility.md)
+4. [Use the API reference](https://documenter.getpostman.com/view/57297668/2sBYArUsxK)
+5. [Review billing](docs/en/billing.md)
 
-## AI editors / AI 编辑器
+### Agent development
 
-| English (Primary) | 简体中文（辅助翻译） |
-| --- | --- |
-| [Cursor](docs/en/cursor.md) | [Cursor](docs/zh-CN/cursor.md) |
-| [Windsurf](docs/en/windsurf.md) | [Windsurf](docs/zh-CN/windsurf.md) |
+| Mode | Status | Documentation |
+| --- | --- | --- |
+| Mode A | **Coming soon** — no tutorial has been published in this repository. | [Check the Agent Developer Center for current requirements ↗](https://unexhub.ai/agent-doc) |
+| Mode B · Cloudflare Container | **Available** | [English guide](docs/en/agent-development-upload.md) · [中文指南](docs/zh-CN/agent-development-upload.md) · [中文 PDF](assets/documents/agent-development-upload.zh-CN.pdf) |
 
-## Command-line tools / 命令行工具
+## Browse documentation / 浏览全部文档
 
-| English (Primary) | 简体中文（辅助翻译） |
-| --- | --- |
-| [Claude Code](docs/en/claude-code.md) | [Claude Code](docs/zh-CN/claude-code.md) |
-| [CC Switch](docs/en/cc-switch.md) | [CC Switch](docs/zh-CN/cc-switch.md) |
-| [CC MAX](docs/en/cc-max.md) | [CC MAX](docs/zh-CN/cc-max.md) |
-| [Aider](docs/en/aider.md) | [Aider](docs/zh-CN/aider.md) |
-| [Codex](docs/en/codex.md) | [Codex](docs/zh-CN/codex.md) |
+| Section | English | 简体中文 |
+| --- | --- | --- |
+| Start here | [Getting started](docs/en/getting-started.md) · [Console walkthrough](docs/en/quickstart.md) · [Compatibility](docs/en/compatibility.md) | [快速开始](docs/zh-CN/getting-started.md) · [控制台操作](docs/zh-CN/quickstart.md) · [协议兼容](docs/zh-CN/compatibility.md) |
+| API and account | [Chat Completions](docs/en/chat-completions.md) · [Routing](docs/en/third-party-routing.md) · [Billing](docs/en/billing.md) · [FAQ](docs/en/faq.md) | [聊天补全](docs/zh-CN/chat-completions.md) · [路由](docs/zh-CN/third-party-routing.md) · [计费](docs/zh-CN/billing.md) · [常见问题](docs/zh-CN/faq.md) |
+| Apps and editors | [Chatbox](docs/en/chatbox.md) · [Cherry Studio](docs/en/cherry-studio.md) · [Cursor](docs/en/cursor.md) · [Windsurf](docs/en/windsurf.md) | [Chatbox](docs/zh-CN/chatbox.md) · [Cherry Studio](docs/zh-CN/cherry-studio.md) · [Cursor](docs/zh-CN/cursor.md) · [Windsurf](docs/zh-CN/windsurf.md) |
+| CLI and coding agents | [Aider](docs/en/aider.md) · [Claude Code](docs/en/claude-code.md) · [Codex](docs/en/codex.md) · [CC Switch](docs/en/cc-switch.md) · [openclaw-cn](docs/en/openclaw-cn.md) | [Aider](docs/zh-CN/aider.md) · [Claude Code](docs/zh-CN/claude-code.md) · [Codex](docs/zh-CN/codex.md) · [CC Switch](docs/zh-CN/cc-switch.md) · [openclaw-cn](docs/zh-CN/openclaw-cn.md) |
+| Agent development | [Mode B guide](docs/en/agent-development-upload.md) · Mode A coming soon | [模式 B 指南](docs/zh-CN/agent-development-upload.md) · 模式 A 待发布 |
+| Reference | [Public API ↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK) · [Agent Developer Center ↗](https://unexhub.ai/agent-doc) | [公开 API ↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK) · [Agent 开发中心 ↗](https://unexhub.ai/agent-doc) |
 
-## Routing and billing / 路由与计费
-
-| English (Primary) | 简体中文（辅助翻译） |
-| --- | --- |
-| [Third-party routing](docs/en/third-party-routing.md) | [第三方路由接入教程](docs/zh-CN/third-party-routing.md) |
-| [Billing records and exports](docs/en/billing.md) | [查看计费记录与导出账单](docs/zh-CN/billing.md) |
-
-## API reference / API 参考
-
-| English (Primary) | 简体中文（辅助翻译） |
-| --- | --- |
-| [Create a chat completion](docs/en/chat-completions.md) | [创建聊天补全](docs/zh-CN/chat-completions.md) |
-| [Client and protocol compatibility](docs/en/compatibility.md) | [客户端与协议兼容说明](docs/zh-CN/compatibility.md) |
-
-## GitHub
-
-Keep `README.md`, `docs/`, `assets/`, and `CHANGELOG.md` in their current relative locations when adding them to a repository. Each page includes a language switch.
-
-将 `README.md`、`docs/`、`assets/` 和 `CHANGELOG.md` 保持当前相对位置，一起放入仓库即可。每页提供中英文切换链接。
-
-Documentation and configuration examples were reviewed; no paid model calls were executed. See [compatibility](docs/en/compatibility.md) for protocol and channel conditions.
-
-已核对文档与配置示例，未执行付费调用。具体协议与渠道适用条件见[兼容说明](docs/zh-CN/compatibility.md)。
+For the complete A–Z index and guided sequence, open the [English documentation home](docs/en/README.md) or [中文目录](docs/zh-CN/README.md).

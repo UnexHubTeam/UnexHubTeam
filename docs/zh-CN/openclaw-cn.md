@@ -1,11 +1,32 @@
 # openclaw-cn 接入教程
 
-[English (primary)](../en/openclaw-cn.md) · [中文目录](README.md) · 简体中文（辅助翻译）
+<!-- DOCS-NAV:START -->
+[English (primary)](../en/openclaw-cn.md) · [中文目录](README.md) · [公开 API 文档 ↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK) · [Agent 开发中心 ↗](https://unexhub.ai/agent-doc)
+
+**目录：** [开始使用](README.md#start-here) · [API 与账户](README.md#api-and-account) · [客户端与编辑器](README.md#apps-and-editors) · [命令行与编程 Agent](README.md#cli-and-coding-agents) · [Agent 开发](README.md#agent-development) · [API 参考](README.md#api-reference)
+<!-- DOCS-NAV:END -->
+
+<!-- DOCS-TOC:START -->
+<details open>
+<summary><strong>本页目录</strong></summary>
+
+1. [1）安装 Node.js](#section-1)
+2. [2）安装 openclaw-cn](#section-2)
+3. [3）启动配置向导](#section-3)
+4. [4）添加自定义模型](#section-4)
+5. [5）选择默认模型并完成向导](#section-5)
+6. [6）启动网关并打开控制界面](#section-6)
+7. [7）发送消息并核对费用](#section-7)
+8. [参考资料](#section-8)
+</details>
+<!-- DOCS-TOC:END -->
+
 
 适用站点：[UNEXHub](https://unexhub.ai/) · 文档更新：2026-09-23
 
-`openclaw-cn` 是 OpenClaw 的中文社区发行版。本页按 PoloAPI 的安装向导顺序配置 UNEXHub；它与 UNEXHub 自有的 UnexClaw 产品不是同一安装流程。
+`openclaw-cn` 是 OpenClaw 的中文社区发行版。本页按社区安装向导配置 UNEXHub；它与 UNEXHub 自有的 UnexClaw 产品不是同一安装流程。
 
+<a id="section-1"></a>
 ## 1）安装 Node.js
 
 从 [Node.js 官网](https://nodejs.org/en/download)安装 Node.js 22.12.0 或以上版本。该最低版本来自核对时 npm 包的 `engines` 字段；将来升级时也应核对新包要求。
@@ -15,6 +36,7 @@ node --version
 npm --version
 ```
 
+<a id="section-2"></a>
 ## 2）安装 openclaw-cn
 
 macOS / Linux：
@@ -33,6 +55,7 @@ openclaw-cn.cmd --version
 
 Windows 可使用 `.cmd` 入口，无需为本文修改整个用户的 PowerShell 执行策略。确认安装的是 [jiulingyun/openclaw-cn](https://github.com/jiulingyun/openclaw-cn)对应的社区包。
 
+<a id="section-3"></a>
 ## 3）启动配置向导
 
 ```bash
@@ -41,6 +64,7 @@ openclaw-cn onboard
 
 Windows 使用 `openclaw-cn.cmd onboard`。阅读向导说明并继续，选择「快速开始」。如果已有配置，先保留现有值，再编辑模型提供商。
 
+<a id="section-4"></a>
 ## 4）添加自定义模型
 
 依次选择「自定义模型 → 兼容接口 → OpenAI Compatible」，填写：
@@ -54,12 +78,14 @@ Windows 使用 `openclaw-cn.cmd onboard`。阅读向导说明并继续，选择�
 
 如果版本区分 Chat Completions 与 Responses，选择前者。本页默认走已有站点示例支持的聊天协议；仅在 UNEXHub 确认 Messages 可用时，才选择 Anthropic Compatible，并使用服务提供的根地址。
 
+<a id="section-5"></a>
 ## 5）选择默认模型并完成向导
 
 选择刚添加的提供商和模型。首次验证可暂时跳过外部消息通道、额外技能和启动钩子。按空格选择、按 Enter 确认的操作以向导提示为准。
 
 完成网关设置。希望后台常驻时可按社区文档使用 `openclaw-cn onboard --install-daemon`；首次测试使用下面的前台方式即可。
 
+<a id="section-6"></a>
 ## 6）启动网关并打开控制界面
 
 如果向导尚未启动网关，在新终端执行：
@@ -70,6 +96,7 @@ openclaw-cn gateway --port 18789 --verbose
 
 若已有网关进程，不要重复启动。打开终端给出的 **HTTP 控制界面 URL**，按提示连接；不要把 `ws://` WebSocket 地址直接当作网页地址。带访问令牌的本地链接保存在自己设备中。
 
+<a id="section-7"></a>
 ## 7）发送消息并核对费用
 
 在对话页选择 UNEXHub 模型，发送「只回复一句问候，不执行其他操作」。需要连接飞书等平台时，在本地对话通过后，再按社区对应通道教程配置。
@@ -78,8 +105,15 @@ openclaw-cn gateway --port 18789 --verbose
 
 如果 OpenAI Compatible 文本测试成功而 Agent 工具调用失败，核对模型的工具调用能力与协议转换，不能仅凭有模型回复就确认全部 Agent 功能可用。
 
+<a id="section-8"></a>
 ## 参考资料
 
-- [PoloAPI](https://poloapi.apifox.cn/8239615m0)
 - [Community project](https://github.com/jiulingyun/openclaw-cn)
 - [npm package metadata](https://registry.npmjs.org/openclaw-cn/latest)
+
+<!-- DOCS-PAGER:START -->
+
+---
+
+[← 上一篇：CC MAX](cc-max.md) · [中文目录](README.md) · [下一篇：模式 B Agent 开发 →](agent-development-upload.md)
+<!-- DOCS-PAGER:END -->

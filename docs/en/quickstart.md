@@ -1,6 +1,25 @@
 # Site guide — Get started with model APIs
 
-[Documentation](README.md) · English (primary) | [简体中文（辅助翻译）](../zh-CN/quickstart.md)
+<!-- DOCS-NAV:START -->
+[Documentation home](README.md) · [Public API reference ↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK) · [Agent Developer Center ↗](https://unexhub.ai/agent-doc) · [简体中文](../zh-CN/quickstart.md)
+
+**Browse:** [Start here](README.md#start-here) · [API & account](README.md#api-and-account) · [Apps & editors](README.md#apps-and-editors) · [CLI & coding agents](README.md#cli-and-coding-agents) · [Agent development](README.md#agent-development) · [API reference](README.md#api-reference)
+<!-- DOCS-NAV:END -->
+
+<!-- DOCS-TOC:START -->
+<details open>
+<summary><strong>On this page</strong></summary>
+
+1. [1) Add funds](#section-1)
+2. [2) Create an API key](#section-2)
+3. [3) Get the gateway connection details](#section-3)
+4. [4. Usage](#section-4)
+5. [5) Replace the API address](#section-5)
+6. [6) Review billing records](#section-6)
+7. [Contact support](#section-7)
+</details>
+<!-- DOCS-TOC:END -->
+
 
 Website: [UNEXHub](https://unexhub.ai/) · Interface reviewed: 2026-09-22
 
@@ -21,6 +40,7 @@ Create an account and sign in, then follow the steps below to call a model.
 
 Screenshots show the Chinese console. The instructions below describe the corresponding controls in English.
 
+<a id="section-1"></a>
 ## 1) Add funds
 
 In the console, open Personal Center → [Funds Account](https://unexhub.ai/console/topup) and check your available balance.
@@ -29,6 +49,7 @@ If needed, select Top Up, choose an amount, and complete the payment steps shown
 
 ![Funds account: top-up and export controls](../../assets/funds-entry.png)
 
+<a id="section-2"></a>
 ## 2) Create an API key
 
 ### a. Open API Keys and select Create Key
@@ -70,6 +91,7 @@ Copy the model ID, including its capitalization, hyphens, and version suffix. Co
 
 > The screenshot uses `gpt-5.5` to show where model details appear. Its Start Using button was unavailable when reviewed. Select a model currently available to your account and route; do not copy the screenshot's model name or prices as current recommendations.
 
+<a id="section-3"></a>
 ## 3) Get the gateway connection details
 
 Open your model's Code tab to view the connection settings and request format. The model code example uses:
@@ -85,6 +107,7 @@ API Key:  YOUR_API_KEY
 
 The website and console use `https://unexhub.ai/`; API calls use `https://api.unexhub.ai/v1`. Do not enter the website URL as the `base_url`.
 
+<a id="section-4"></a>
 ## 4. Usage
 
 Send the API key in an HTTP header:
@@ -116,6 +139,7 @@ Read the model's reply from `choices[0].message.content` in the JSON response. W
 
 See [Create a chat completion](chat-completions.md) for Python and parameter details. For a client application, follow the [Cherry Studio tutorial](cherry-studio.md) or [Chatbox tutorial](chatbox.md).
 
+<a id="section-5"></a>
 ## 5) Replace the API address
 
 For existing OpenAI-compatible code, replace the API address with the appropriate UNEXHub address and update the key and model ID.
@@ -131,6 +155,7 @@ The final chat request should reach `/v1/chat/completions`. If a client version 
 
 For other protocols, images, audio, and video, use the selected model's details and the [protocol compatibility notes](compatibility.md).
 
+<a id="section-6"></a>
 ## 6) Review billing records
 
 ### a. Find the request
@@ -151,6 +176,14 @@ Open [Funds Account](https://unexhub.ai/console/topup), filter by date and API c
 
 Funds records may aggregate consumption by day. Use request logs for individual charges. See [Billing records and exports](billing.md) for details.
 
+<a id="section-7"></a>
 ## Contact support
 
 Check the [FAQ](faq.md) and [service status](https://unexhub.ai/status) first. When contacting [support@unexhub.com](mailto:support@unexhub.com), include the request time and timezone, model, key name, Request ID, and error message. Do not send your complete API key.
+
+<!-- DOCS-PAGER:START -->
+
+---
+
+[← Previous: Getting started](getting-started.md) · [Documentation home](README.md) · [Next: Protocol compatibility →](compatibility.md)
+<!-- DOCS-PAGER:END -->

@@ -1,6 +1,25 @@
 # 站点操作指南-快速上手调用大模型 API
 
-[English (primary)](../en/quickstart.md) · [中文目录](README.md) · 简体中文（辅助翻译）
+<!-- DOCS-NAV:START -->
+[English (primary)](../en/quickstart.md) · [中文目录](README.md) · [公开 API 文档 ↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK) · [Agent 开发中心 ↗](https://unexhub.ai/agent-doc)
+
+**目录：** [开始使用](README.md#start-here) · [API 与账户](README.md#api-and-account) · [客户端与编辑器](README.md#apps-and-editors) · [命令行与编程 Agent](README.md#cli-and-coding-agents) · [Agent 开发](README.md#agent-development) · [API 参考](README.md#api-reference)
+<!-- DOCS-NAV:END -->
+
+<!-- DOCS-TOC:START -->
+<details open>
+<summary><strong>本页目录</strong></summary>
+
+1. [1）充值](#section-1)
+2. [2）创建 API Key](#section-2)
+3. [3）获取中转信息](#section-3)
+4. [4. 使用方法](#section-4)
+5. [5）替换 API 地址](#section-5)
+6. [6）查看计费记录](#section-6)
+7. [联系支持](#section-7)
+</details>
+<!-- DOCS-TOC:END -->
+
 
 适用站点：[UNEXHub](https://unexhub.ai/) · 界面核对：2026-09-22
 
@@ -19,6 +38,7 @@ API Base URL：[https://api.unexhub.ai/](https://api.unexhub.ai/)
 | API Key | 你创建的完整密钥；示例中以 `YOUR_API_KEY` 代替。        |
 | 模型 ID | 当前可用的准确模型标识；示例中以 `YOUR_MODEL_ID` 代替。 |
 
+<a id="section-1"></a>
 ## 1）充值
 
 进入控制台 → 个人中心 → [资金账户](https://unexhub.ai/console/topup)，确认账户有可用余额。
@@ -27,6 +47,7 @@ API Base URL：[https://api.unexhub.ai/](https://api.unexhub.ai/)
 
 ![资金账户中的充值与明细导出入口](../../assets/funds-entry.png)
 
+<a id="section-2"></a>
 ## 2）创建 API Key
 
 ### a. 进入 API 密钥，点击创建 Key
@@ -68,6 +89,7 @@ API Base URL：[https://api.unexhub.ai/](https://api.unexhub.ai/)
 
 > 图中 `gpt-5.5` 仅演示模型详情位置，核对时「开始使用」不可用。请从交易中心选择当前账户及路由可用的模型，不要直接照抄截图中的模型名称或价格。
 
+<a id="section-3"></a>
 ## 3）获取中转信息
 
 打开所选模型详情 →「代码」，查看接入地址与调用格式。模型代码示例使用：
@@ -83,6 +105,7 @@ API Key:  YOUR_API_KEY
 
 网站与控制台使用 `https://unexhub.ai/`；API 调用使用 `https://api.unexhub.ai/v1`。不要将网站地址填入 `base_url`。
 
+<a id="section-4"></a>
 ## 4. 使用方法
 
 API Key 放在 HTTP Header 中：
@@ -114,6 +137,7 @@ curl -sS -i "$UNEXHUB_BASE_URL/chat/completions" \
 
 Python 示例和参数说明见[创建聊天补全](chat-completions.md)。使用客户端可直接参考 [Cherry Studio 接入教程](cherry-studio.md)或 [Chatbox 接入教程](chatbox.md)。
 
+<a id="section-5"></a>
 ## 5）替换 API 地址
 
 已有 OpenAI 兼容代码时，把原先的 API 地址替换为 UNEXHub 对应地址，同时更换 Key 和模型 ID。
@@ -129,6 +153,7 @@ Python 示例和参数说明见[创建聊天补全](chat-completions.md)。使�
 
 其他协议、图像、音频和视频接口，请以所选模型详情及 [协议兼容说明](compatibility.md)为准。
 
+<a id="section-6"></a>
 ## 6）查看计费记录
 
 ### a. 找到本次调用
@@ -149,6 +174,14 @@ Python 示例和参数说明见[创建聊天补全](chat-completions.md)。使�
 
 资金记录可能按日汇总；逐笔费用请查调用日志。详细解释见[查看计费记录与导出账单](billing.md)。
 
+<a id="section-7"></a>
 ## 联系支持
 
 遇到问题先查看[常见问题](faq.md)和[服务状态](https://unexhub.ai/status)。联系 [support@unexhub.com](mailto:support@unexhub.com) 时，提供调用时间及所在时区、模型、Key 名称、Request ID 和错误信息，不要发送完整密钥。
+
+<!-- DOCS-PAGER:START -->
+
+---
+
+[← 上一篇：快速开始](getting-started.md) · [中文目录](README.md) · [下一篇：协议兼容说明 →](compatibility.md)
+<!-- DOCS-PAGER:END -->

@@ -1,6 +1,25 @@
 # Chatbox 接入教程
 
-[English (primary)](../en/chatbox.md) · [中文目录](README.md) · 简体中文（辅助翻译）
+<!-- DOCS-NAV:START -->
+[English (primary)](../en/chatbox.md) · [中文目录](README.md) · [公开 API 文档 ↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK) · [Agent 开发中心 ↗](https://unexhub.ai/agent-doc)
+
+**目录：** [开始使用](README.md#start-here) · [API 与账户](README.md#api-and-account) · [客户端与编辑器](README.md#apps-and-editors) · [命令行与编程 Agent](README.md#cli-and-coding-agents) · [Agent 开发](README.md#agent-development) · [API 参考](README.md#api-reference)
+<!-- DOCS-NAV:END -->
+
+<!-- DOCS-TOC:START -->
+<details open>
+<summary><strong>本页目录</strong></summary>
+
+1. [1）打开 Chatbox](#section-1)
+2. [2）打开设置，选择模型服务商](#section-2)
+3. [3）填写 API Host 和 API Key](#section-3)
+4. [4）添加模型，测试并保存](#section-4)
+5. [5）关闭设置，选择模型](#section-5)
+6. [6）发送消息并确认回复](#section-6)
+7. [7）在 UNEXHub 查看计费记录](#section-7)
+</details>
+<!-- DOCS-TOC:END -->
+
 
 适用站点：[UNEXHub](https://unexhub.ai/) · 界面核对：2026-09-22
 
@@ -8,16 +27,19 @@
 
 本教程以 Chatbox 网页版的内置 OpenAI 配置为例，使用 OpenAI 兼容的 Chat Completions 接口。
 
+<a id="section-1"></a>
 ## 1）打开 Chatbox
 
 进入 [Chatbox 网页版](https://web.chatboxai.app/)，或打开已安装的桌面客户端。
 
+<a id="section-2"></a>
 ## 2）打开设置，选择模型服务商
 
 点击左下角「Settings」，进入「Model Provider」，选择「OpenAI」。
 
 如果已有 OpenAI 配置需要保留，可选择「Add → Add Custom Provider」，名称填 `UNEXHub`，API Mode 选择 `OpenAI API Compatible`。不同版本的自定义配置字段可能不同，请核对最终请求地址。
 
+<a id="section-3"></a>
 ## 3）填写 API Host 和 API Key
 
 | 配置项 | 填写值 |
@@ -28,20 +50,24 @@
 
 确认 Preview 没有出现 `/v1/v1` 或缺少 `/chat/completions`。
 
+<a id="section-4"></a>
 ## 4）添加模型，测试并保存
 
 在模型区域点击「New」，将 UNEXHub 模型详情中的准确标识填入 Model ID。点击「Test Model」验证后，点击「Save」；测试可能产生费用。
 
 也可以尝试「Fetch」获取模型，但仍需核对模型是否适用于当前账户和路由。
 
+<a id="section-5"></a>
 ## 5）关闭设置，选择模型
 
 关闭设置或按 Esc，新建对话，在「Select Model」中选择刚配置的服务和模型。
 
+<a id="section-6"></a>
 ## 6）发送消息并确认回复
 
 发送「请用一句话打招呼」。收到回复后，记下调用时间、Key 名称和模型 ID；失败时检查 Key、API Host、Preview 和模型状态。
 
+<a id="section-7"></a>
 ## 7）在 UNEXHub 查看计费记录
 
 打开[调用日志](https://unexhub.ai/console/log)，按 Key 名称、模型和时间查找请求，在详情中查看「最终扣费」。
@@ -49,3 +75,10 @@
 ![调用日志中的时间范围、类型、筛选与查询入口](../../assets/log-filters.png)
 
 一条聊天消息可能触发模型测试、重试或其他额外请求，客户端估算也可能与最终扣费不同。UNEXHub API 费用与 Chatbox 自身订阅费用分别核对。账单导出见[计费记录与账单导出](billing.md)。
+
+<!-- DOCS-PAGER:START -->
+
+---
+
+[← 上一篇：常见问题与排障](faq.md) · [中文目录](README.md) · [下一篇：Cherry Studio →](cherry-studio.md)
+<!-- DOCS-PAGER:END -->
