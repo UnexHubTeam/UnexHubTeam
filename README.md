@@ -16,18 +16,18 @@ Updated / 更新: 2026-09-24
 
 ## Find the right guide / 精准查找
 
-| I want to… | Start here | 中文入口 |
+| Goal | English guide | 中文指南 |
 | --- | --- | --- |
-| Create a key and send my first request | [Console walkthrough](docs/en/quickstart.md) | [控制台完整操作](docs/zh-CN/quickstart.md) |
-| Choose the correct endpoint or protocol | [Protocol compatibility](docs/en/compatibility.md) | [协议兼容说明](docs/zh-CN/compatibility.md) |
-| Call the API with cURL or Python | [Chat Completions](docs/en/chat-completions.md) | [聊天补全 API](docs/zh-CN/chat-completions.md) |
-| Read the complete endpoint reference | [Public API reference ↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK) | [公开 API 开发文档 ↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK) |
-| Configure Chatbox or Cherry Studio | [Apps and editors](docs/en/README.md#apps-and-editors) | [客户端与编辑器](docs/zh-CN/README.md#apps-and-editors) |
-| Configure Claude Code, Codex, or Aider | [CLI and coding agents](docs/en/README.md#cli-and-coding-agents) | [命令行与编程 Agent](docs/zh-CN/README.md#cli-and-coding-agents) |
-| Review charges or export billing | [Billing records](docs/en/billing.md) | [计费记录与导出](docs/zh-CN/billing.md) |
-| Fix an error | [FAQ and troubleshooting](docs/en/faq.md) | [常见问题与排障](docs/zh-CN/faq.md) |
-| Publish a Mode B Agent | [Mode B development and upload](docs/en/agent-development-upload.md) | [模式 B 开发与上传](docs/zh-CN/agent-development-upload.md) |
-| Find current Agent platform requirements | [Agent Developer Center ↗](https://unexhub.ai/agent-doc) | [Agent 开发中心 ↗](https://unexhub.ai/agent-doc) |
+| Get an API key and make your first call | [Quickstart](docs/en/quickstart.md) | [快速开始](docs/zh-CN/quickstart.md) |
+| Choose an API protocol and endpoint | [Protocols and endpoints](docs/en/compatibility.md) | [协议与端点](docs/zh-CN/compatibility.md) |
+| Send an API request with cURL or Python | [Chat Completions API](docs/en/chat-completions.md) | [Chat Completions API](docs/zh-CN/chat-completions.md) |
+| Browse all public endpoints | [API reference (Postman) ↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK) | [API 参考文档（Postman）↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK) |
+| Set up Chatbox or Cherry Studio | [Client setup guides](docs/en/README.md#apps-and-editors) | [客户端配置指南](docs/zh-CN/README.md#apps-and-editors) |
+| Set up Claude Code, Codex, or Aider | [Coding agent setup guides](docs/en/README.md#cli-and-coding-agents) | [编程 Agent 配置指南](docs/zh-CN/README.md#cli-and-coding-agents) |
+| Review usage and export billing records | [Billing and usage](docs/en/billing.md) | [计费与用量](docs/zh-CN/billing.md) |
+| Troubleshoot an issue | [Troubleshooting](docs/en/faq.md) | [故障排查](docs/zh-CN/faq.md) |
+| Build and publish a Mode B Agent | [Mode B deployment guide](docs/en/agent-development-upload.md) | [模式 B 部署指南](docs/zh-CN/agent-development-upload.md) |
+| Review current Agent platform requirements | [Agent Developer Center ↗](https://unexhub.ai/agent-doc) | [Agent 开发中心 ↗](https://unexhub.ai/agent-doc) |
 
 ## Recommended paths / 推荐路径
 
