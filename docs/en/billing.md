@@ -31,7 +31,7 @@ Open [Request Logs](https://unexhub.ai/console/log) and select today, the last 7
 
 Filter by consumption for successful requests, or use all records or errors when investigating failures. Select Add Filter, use the token name, model name, or Request ID, then select Search.
 
-![Request logs: date range, type, filters, and search](../../assets/log-filters.png)
+![Request logs: date range, type, filters, and search](../../assets/en/log-filters.png)
 
 | Field | What to verify |
 | --- | --- |
@@ -78,7 +78,7 @@ A top-up marked pending payment has not completed payment. Confirm that it has b
 
 Set the required date and API consumption filters, then select Export Details.
 
-![Export scope: current filtered results or all records](../../assets/export-options.png)
+![Export scope: current filtered results or all records](../../assets/en/export-options.png)
 
 Choose an export scope:
 

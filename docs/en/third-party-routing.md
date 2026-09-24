@@ -30,7 +30,7 @@ Open [API Keys](https://unexhub.ai/console/token) → User View, if shown → Cr
 
 Enter a purpose-specific name such as `cherry-thirdparty` or `chatbox-thirdparty`. Set expiration and channel discount, select Third-party Routing, and create the key.
 
-![Select third-party routing when creating an API key](../../assets/third-party-routing.png)
+![Select third-party routing when creating an API key](../../assets/en/third-party-routing.png)
 
 The screenshot uses an example form name. Create a separate key for each client, confirm it is enabled, copy it, and set a budget limit.
 
@@ -66,7 +66,7 @@ Request flow: Code or client → UNEXHub authentication and routing → Availabl
 
 Open [Request Logs](https://unexhub.ai/console/log) and filter by the dedicated key name, model, and time. Open the matching details and review Final Charge. Check the channel field as well if it is shown.
 
-![Request logs: date range, type, filters, and search](../../assets/log-filters.png)
+![Request logs: date range, type, filters, and search](../../assets/en/log-filters.png)
 
 Client checks, model tests, automatic retries, title generation, and multiple-model replies may create extra requests. Conversation history may increase input usage. One visible message does not necessarily correspond to one API request.
 

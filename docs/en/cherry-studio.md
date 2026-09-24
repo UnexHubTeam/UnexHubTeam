@@ -78,7 +78,7 @@ Create a conversation and choose the model under `UNEXHub`. Send “Reply with o
 
 Open [Request Logs](https://unexhub.ai/console/log) and filter by date, key name, and model. Open the request details → Billing Details and review Final Charge.
 
-![Request logs: date range, type, filters, and search](../../assets/log-filters.png)
+![Request logs: date range, type, filters, and search](../../assets/en/log-filters.png)
 
 Model checks, automatic retries, and title generation may cause extra calls; include them in your review. See [Billing records and exports](billing.md) for details, or [FAQ](faq.md) if the connection fails.
 

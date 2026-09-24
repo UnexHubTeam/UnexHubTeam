@@ -72,7 +72,7 @@ Send “Reply with one short greeting.” After receiving a reply, note the time
 
 Open [Request Logs](https://unexhub.ai/console/log), locate the request by key name, model, and time, and review Final Charge in its details.
 
-![Request logs: date range, type, filters, and search](../../assets/log-filters.png)
+![Request logs: date range, type, filters, and search](../../assets/en/log-filters.png)
 
 Tests, retries, or other client features may create additional requests. A client estimate may differ from the final charge. Review UNEXHub API charges separately from any Chatbox subscription. See [Billing records and exports](billing.md) to export your records.
 

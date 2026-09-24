@@ -38,7 +38,7 @@ Create an account and sign in, then follow the steps below to call a model.
 | API key | Your complete key; shown as `YOUR_API_KEY` in examples. |
 | Model ID | An exact, currently available model ID; shown as `YOUR_MODEL_ID`. |
 
-Screenshots show the Chinese console. The instructions below describe the corresponding controls in English.
+The screenshots below use English labels for the corresponding console controls.
 
 <a id="section-1"></a>
 ## 1) Add funds
@@ -47,7 +47,7 @@ In the console, open Personal Center → [Funds Account](https://unexhub.ai/cons
 
 If needed, select Top Up, choose an amount, and complete the payment steps shown. Return to the funds account and confirm that the payment has been credited before making requests.
 
-![Funds account: top-up and export controls](../../assets/funds-entry.png)
+![Funds account: top-up and export controls](../../assets/en/funds-entry.png)
 
 <a id="section-2"></a>
 ## 2) Create an API key
@@ -56,13 +56,13 @@ If needed, select Top Up, choose an amount, and complete the payment steps shown
 
 Open [API Keys](https://unexhub.ai/console/token) in the console. If a view switch is shown, select User View, then Create Key.
 
-![API Keys: User View and Create Key](../../assets/api-keys-entry.png)
+![API Keys: User View and Create Key](../../assets/en/api-keys-entry.png)
 
 ### b. Set the name, expiration, and routing policy
 
 Use a name such as `demo-api-test`. Choose the expiration, channel discount, and routing policy, then select Create.
 
-![Create API Key: name, expiration, discount, and routing policy](../../assets/create-key.png)
+![Create API Key: name, expiration, discount, and routing policy](../../assets/en/create-key.png)
 
 | Setting | Description |
 | --- | --- |
@@ -87,7 +87,7 @@ Open [Marketplace → Models](https://unexhub.ai/market?tab=models), search for 
 
 Copy the model ID, including its capitalization, hyphens, and version suffix. Confirm that the model supports the Chat Completions interface used here.
 
-![Model details: model ID and supported protocol](../../assets/model-details.png)
+![Model details: model ID and supported protocol](../../assets/en/model-details.png)
 
 > The screenshot uses `gpt-5.5` to show where model details appear. Its Start Using button was unavailable when reviewed. Select a model currently available to your account and route; do not copy the screenshot's model name or prices as current recommendations.
 
@@ -101,7 +101,7 @@ Base URL: https://api.unexhub.ai/v1
 API Key:  YOUR_API_KEY
 ```
 
-![Model code example: Base URL and placeholder API key](../../assets/model-code.png)
+![Model code example: Base URL and placeholder API key](../../assets/en/model-code.png)
 
 > The screenshot identifies the `base_url` and `api_key` fields. Replace both the key and model ID before running an example.
 
@@ -164,7 +164,7 @@ Open [Request Logs](https://unexhub.ai/console/log) and choose a date range cove
 
 Select Add Filter and narrow the results by token name, model name, or Request ID, then select Search.
 
-![Request logs: date range, type, filters, and search](../../assets/log-filters.png)
+![Request logs: date range, type, filters, and search](../../assets/en/log-filters.png)
 
 ### b. Review the final charge
 

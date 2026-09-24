@@ -9,6 +9,8 @@
 - Added the Mode B Agent development and upload guide in English and Simplified Chinese, covering container requirements, Alibaba Cloud Registry push, platform configuration, release checks, and troubleshooting.
 - Added a current Chinese PDF edition generated from the guide and linked the download from the repository home and both language indexes.
 - Documented managed key/Base URL pairing, session-aware routing, SSE error handling, and the SOL Agent 1.0.4 Base URL override, including the scope of the previously verified connection.
+- Clarified that Agents without backend persistence may temporarily use browser `localStorage` only for non-sensitive, disposable frontend state, with reset and security requirements.
+- Added English UI reference images for every screenshot used by the primary English documentation while retaining the original Chinese images for the companion translation.
 
 ## 2026-09-23
 

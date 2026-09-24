@@ -34,7 +34,7 @@ Register or sign in at the [UNEXHub](https://unexhub.ai/). Check available funds
 
 Open [API Keys](https://unexhub.ai/console/token) → Create Key. Set a purpose-specific name, expiration, channel discount, and routing policy. Confirm that the key is enabled, copy it, and set a budget if needed.
 
-![API key creation dialog](../../assets/create-key.png)
+![API key creation dialog](../../assets/en/create-key.png)
 
 Select Third-party Routing to use third-party upstream channels. [Third-party routing](third-party-routing.md) is independent of the client application and does not require an upstream provider's key.
 

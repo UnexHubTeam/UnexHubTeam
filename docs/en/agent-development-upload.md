@@ -77,9 +77,11 @@ The steps below use an Alibaba Cloud **public repository**. Use a private reposi
 | Health check | `GET /health` promptly returns HTTP 200 JSON, such as `{"ok":true}`, without calling a model. |
 | Process and permissions | Run as a non-root user, keep the main process in the foreground, and do not require privileged mode or the Docker Socket. |
 | Shutdown | Handle SIGTERM, exit within a bounded period, and cancel unfinished model requests. |
-| Storage | Treat container memory and disk as temporary. Use explicit external storage for data that must survive restarts. |
+| Storage | Treat container memory and disk as temporary. Without backend persistence, browser `localStorage` may temporarily hold only non-sensitive, disposable frontend state; see the note below. |
 | Network requests | Set connection and response timeouts. Close upstream streams when the browser disconnects or cancels. |
 | Logs and errors | Record request IDs, stages, durations, and status. Do not log keys, complete session URLs, or raw sensitive inputs. |
+
+**Temporary browser storage:** If no persistent backend storage is configured, the frontend may keep a small amount of non-sensitive, user-local state—such as display preferences or a disposable draft—in browser `localStorage`. Treat it only as a convenience cache: it is scoped to one browser profile and origin, may be cleared or unavailable, and is not reliably synchronized across devices, browsers, or users. Never store API keys, Authorization headers, `session` values, credentials, sensitive chat content, or data that must be recoverable there. Use an explicitly configured external data store for durable, shared, or server-side data.
 
 Port 8080 is used throughout this guide and the example project. If you use another non-privileged port permitted by the platform, the application listener, image declaration, and platform form must agree. Keep 8080 for an initial integration.
 
@@ -200,6 +202,8 @@ function apiUrl(path: "config" | "chat"): URL {
   return url;
 }
 ```
+
+Read `session` from the current entry URL only when building same-origin requests; do not copy it into `localStorage` or `sessionStorage`.
 
 If you keep separate assets, verify that every asset request meets the routing requirements, including fonts, images, and dynamically imported modules. Vite's `base: "./"` alone does not preserve query parameters.
 
@@ -368,6 +372,8 @@ Include `agent-manifest.json` at the project root and describe the application's
 
 The manifest is a deployment draft, not a replacement for platform validation. If automatic import is unavailable, enter its values manually.
 
+This example sets `needs_persistent_storage` to `false` because it does not require durable server-side data. Optional browser `localStorage` is not platform persistence and cannot satisfy a durable-storage requirement.
+
 | Form field | Example value |
 | --- | --- |
 | Deployment mode | Mode B · Cloudflare Containers |
@@ -455,7 +461,8 @@ When reporting a problem, include the Agent ID, application version, image diges
 - [ ] The key and Base URL belong to the same trusted runtime environment.
 - [ ] Page, asset, and API requests preserve the required session routing.
 - [ ] A streamed answer, cancellation, and an error response have been verified.
-- [ ] SIGTERM causes a bounded exit; persistent data does not depend on temporary disk.
+- [ ] SIGTERM causes a bounded exit; persistent data does not depend on temporary disk or browser `localStorage`.
+- [ ] If browser `localStorage` is used, it contains only non-sensitive, disposable UI state, and clearing it does not break the Agent.
 - [ ] The platform can pull the repository, the digest is recorded, and scanning passes.
 - [ ] The runtime is ready and a new instance passes testing before review and publication.
 
@@ -482,7 +489,10 @@ Delivery requirements:
 6. Provide streaming results, errors, cancellation, copying,
    and a mobile-compatible interface.
 7. Set timeouts, cancel upstream on disconnect, and handle SIGTERM.
-8. Treat container disk as temporary; declare any external storage.
+8. Treat container disk as temporary. Use external persistence for
+   durable, shared, or server-side data. localStorage may hold only
+   non-sensitive, disposable UI state; never store keys, session values,
+   credentials, sensitive content, or records that must be retained.
 9. Include Dockerfile, .dockerignore, agent-manifest.json, README,
    and a local mock gateway or equivalent tests.
 10. Include build, run, Alibaba Cloud tag/push, and docker save commands.
