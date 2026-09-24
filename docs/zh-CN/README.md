@@ -21,8 +21,7 @@
 | 配置编程 Agent | [Claude Code](claude-code.md) · [Codex](codex.md) · [Aider](aider.md) | 选择正确协议与 Base URL |
 | 查看或导出费用 | [计费记录](billing.md) | 定位请求、核对最终扣费并导出记录 |
 | 排查错误 | [常见问题](faq.md) | 排查 401、404、429、5xx、模型与路径问题 |
-| 发布模式 B Agent | [模式 B 开发与上传](agent-development-upload.md) | 构建、推送、配置、测试并提交容器 |
-| 查看当前 Agent 规范 | [Agent 开发中心 ↗](https://unexhub.ai/agent-doc) | 打开平台维护的开发中心；可能需要登录 |
+| 查看 Agent 开发文档 | [Agent 开发文档](agent-development-upload.md) | 构建、推送、配置、测试并提交模式 B 容器；模式 A 教程待发布 |
 
 ## 推荐阅读顺序
 

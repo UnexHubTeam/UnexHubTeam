@@ -21,8 +21,7 @@ Updated: 2026-09-24
 | Configure a coding agent | [Claude Code](claude-code.md) · [Codex](codex.md) · [Aider](aider.md) | Select the correct protocol and Base URL |
 | Review or export charges | [Billing records](billing.md) | Find requests, review Final Charge, and export records |
 | Diagnose a failure | [FAQ](faq.md) | Work through 401, 404, 429, 5xx, model, and path issues |
-| Publish a Mode B Agent | [Mode B development and upload](agent-development-upload.md) | Build, push, configure, test, and submit a container |
-| Check current Agent requirements | [Agent Developer Center ↗](https://unexhub.ai/agent-doc) | Open the platform-maintained developer center; sign-in may be required |
+| Open the Agent developer guide | [Agent developer guide](agent-development-upload.md) | Build, push, configure, test, and submit a Mode B container; Mode A is coming soon |
 
 ## Suggested reading order
 

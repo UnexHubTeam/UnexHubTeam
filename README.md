@@ -26,8 +26,7 @@ Updated / 更新: 2026-09-24
 | Set up Claude Code, Codex, or Aider | [Coding agent setup guides](docs/en/README.md#cli-and-coding-agents) | [编程 Agent 配置指南](docs/zh-CN/README.md#cli-and-coding-agents) |
 | Review usage and export billing records | [Billing and usage](docs/en/billing.md) | [计费与用量](docs/zh-CN/billing.md) |
 | Troubleshoot an issue | [Troubleshooting](docs/en/faq.md) | [故障排查](docs/zh-CN/faq.md) |
-| Build and publish a Mode B Agent | [Mode B deployment guide](docs/en/agent-development-upload.md) | [模式 B 部署指南](docs/zh-CN/agent-development-upload.md) |
-| Review current Agent platform requirements | [Agent Developer Center ↗](https://unexhub.ai/agent-doc) | [Agent 开发中心 ↗](https://unexhub.ai/agent-doc) |
+| Open the Agent developer guide | [Agent developer guide](docs/en/agent-development-upload.md) | [Agent 开发文档](docs/zh-CN/agent-development-upload.md) |
 
 ## Recommended paths / 推荐路径
 
