@@ -24,7 +24,7 @@
 <!-- DOCS-TOC:END -->
 
 
-[Download the Chinese PDF](../../assets/documents/agent-development-upload.zh-CN.pdf) · [Repository home](../../README.md)
+[Repository home](../../README.md)
 
 For Agent developers · Mode B / Cloudflare Containers
 

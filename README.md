@@ -42,7 +42,7 @@ Updated / 更新: 2026-09-28
 | Mode | Status | Documentation |
 | --- | --- | --- |
 | Mode A · Platform-managed Dedicated Server | **Technical preview** — entry security, topology validation, and persistence gaps must be closed before production use. | [English guide](docs/en/agent-development-mode-a.md) · [中文指南](docs/zh-CN/agent-development-mode-a.md) |
-| Mode B · Cloudflare Container | **Available** | [English guide](docs/en/agent-development-upload.md) · [中文指南](docs/zh-CN/agent-development-upload.md) · [中文 PDF](assets/documents/agent-development-upload.zh-CN.pdf) |
+| Mode B · Cloudflare Container | **Available** | [English guide](docs/en/agent-development-upload.md) · [中文指南](docs/zh-CN/agent-development-upload.md) |
 
 ## Browse documentation / 浏览全部文档
 

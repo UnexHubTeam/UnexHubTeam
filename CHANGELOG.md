@@ -17,10 +17,9 @@
 - Clarified that Mode A currently provides no server-side persistence guarantee: `storage_gb` is not a persistent volume, and browser `localStorage` may hold only non-sensitive, disposable interface state.
 - Clarified that `gpu_count=1` represents one whole schedulable node rather than one physical GPU, and that the platform-confirmed node specification determines the actual hardware and image architecture.
 - Added Mode A beside Mode B in the repository home, both language indexes, A–Z indexes, cross-links, and Previous/Next navigation.
-- Renamed the existing container workflow and its PDF as Mode B, kept the Mode B content separate, and added direct links between the two mode-specific guides.
+- Renamed the existing container workflow as Mode B, kept the Mode B content separate, and added direct links between the two mode-specific guides.
 - Set the final English portal entry label to **Agent Developer Build and Upload Documentation**, with direct English and Simplified Chinese links for both Mode A and Mode B.
 
-### PDF and verification
+### Verification
 
-- Regenerated the nine-page Simplified Chinese Mode B PDF with its updated Mode B title and direct links to the local Mode A and Chat Completions documentation; it contains no Postman redirect.
-- Verified all 48 Markdown files, 1,241 local links and anchors, and the NAV/TOC/PAGER markers on all 44 topic pages. No broken local links, stale Mode A coming-soon claims, real credentials, or internal administration details remain.
+- Verified all Markdown files, local links and anchors, and the NAV/TOC/PAGER markers on every topic page. No broken local links, stale Mode A coming-soon claims, real credentials, or internal administration details remain.

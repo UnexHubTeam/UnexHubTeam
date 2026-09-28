@@ -76,7 +76,7 @@
 | 模式 | 状态 | 入口 |
 | --- | --- | --- |
 | 模式 A · 平台托管独立节点 | **技术预览。** 入口安全、拓扑验证与持久化等已知缺口在生产使用前必须闭环。 | 21. [独立节点开发指南](agent-development-mode-a.md) |
-| 模式 B · Cloudflare Container | **已提供** | 22. [开发与上传指南](agent-development-upload.md) · [中文 PDF](../../assets/documents/agent-development-upload.zh-CN.pdf) |
+| 模式 B · Cloudflare Container | **已提供** | 22. [开发与上传指南](agent-development-upload.md) |
 
 模式 A 指南说明开发者交付契约及各拓扑的预览限制。模式 B 指南包含容器规范、阿里云镜像推送、平台部署、托管凭据、发布检查和故障排查。
 

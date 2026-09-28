@@ -24,7 +24,7 @@
 <!-- DOCS-TOC:END -->
 
 
-[下载中文 PDF](../../assets/documents/agent-development-upload.zh-CN.pdf) · [项目首页](../../README.md)
+[项目首页](../../README.md)
 
 面向普通 Agent 开发者 · 模式 B / Cloudflare 容器
 

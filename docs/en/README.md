@@ -76,7 +76,7 @@ Then jump to the client, editor, coding agent, or Agent deployment guide you nee
 | Mode | Status | Entry |
 | --- | --- | --- |
 | Mode A · Platform-managed Dedicated Server | **Technical preview.** Entry security, topology validation, and persistence gaps must be closed before production use. | 21. [Dedicated-node development guide](agent-development-mode-a.md) |
-| Mode B · Cloudflare Container | **Available** | 22. [Development and upload guide](agent-development-upload.md) · [Chinese PDF](../../assets/documents/agent-development-upload.zh-CN.pdf) |
+| Mode B · Cloudflare Container | **Available** | 22. [Development and upload guide](agent-development-upload.md) |
 
 The Mode A guide documents the developer contract and topology-specific preview limits. The Mode B guide covers container requirements, Alibaba Cloud image push, platform deployment, managed credentials, release checks, and troubleshooting.
 
