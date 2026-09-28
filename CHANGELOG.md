@@ -18,7 +18,6 @@
 - Clarified that `gpu_count=1` represents one whole schedulable node rather than one physical GPU, and that the platform-confirmed node specification determines the actual hardware and image architecture.
 - Added Mode A beside Mode B in the repository home, both language indexes, A–Z indexes, cross-links, and Previous/Next navigation.
 - Renamed the existing container workflow as Mode B, kept the Mode B content separate, and added direct links between the two mode-specific guides.
-- Set the final English portal entry label to **Agent Developer Build and Upload Documentation**, with direct English and Simplified Chinese links for both Mode A and Mode B.
 
 ### Verification
 

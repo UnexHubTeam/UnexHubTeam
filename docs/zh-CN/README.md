@@ -20,7 +20,6 @@
 | 配置编程 Agent | [Claude Code](claude-code.md) · [Codex](codex.md) · [Aider](aider.md) | 选择正确协议与 Base URL |
 | 查看或导出费用 | [计费记录](billing.md) | 定位请求、核对最终扣费并导出记录 |
 | 排查错误 | [常见问题](faq.md) | 排查 401、404、429、5xx、模型与路径问题 |
-| Agent开发者开发上传文档 | [模式 A · 平台托管独立节点](agent-development-mode-a.md) · [模式 B · Cloudflare 容器](agent-development-upload.md) | 选择模式 A 技术预览流程，或构建、推送、配置、测试并提交模式 B 容器 |
 
 ## 推荐阅读顺序
 
