@@ -115,5 +115,5 @@ openclaw-cn gateway --port 18789 --verbose
 
 ---
 
-[← 上一篇：CC MAX](cc-max.md) · [中文目录](README.md) · [下一篇：模式 B Agent 开发 →](agent-development-upload.md)
+[← 上一篇：CC MAX](cc-max.md) · [中文目录](README.md) · [下一篇：模式 A Agent 开发 →](agent-development-mode-a.md)
 <!-- DOCS-PAGER:END -->

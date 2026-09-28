@@ -10,7 +10,7 @@ Build with the UNEXHub API, configure supported clients, review billing, or publ
 
 > English is the primary documentation language. Simplified Chinese is maintained as a companion translation.
 >
-> Agent tutorial status: **Mode B · Cloudflare Container is available. Mode A is not yet documented.**
+> Agent tutorial status: **Mode A · Platform-managed Dedicated Server is documented as a technical preview with known production gaps. Mode B · Cloudflare Container is available.**
 
 Updated / 更新: 2026-09-28
 
@@ -25,7 +25,7 @@ Updated / 更新: 2026-09-28
 | Set up Claude Code, Codex, or Aider | [Coding agent setup guides](docs/en/README.md#cli-and-coding-agents) | [编程 Agent 配置指南](docs/zh-CN/README.md#cli-and-coding-agents) |
 | Review usage and export billing records | [Billing and usage](docs/en/billing.md) | [计费与用量](docs/zh-CN/billing.md) |
 | Troubleshoot an issue | [Troubleshooting](docs/en/faq.md) | [故障排查](docs/zh-CN/faq.md) |
-| Open the Agent developer guide | [Agent developer guide](docs/en/agent-development-upload.md) | [Agent 开发文档](docs/zh-CN/agent-development-upload.md) |
+| Open an Agent developer guide | [Mode A · Platform-managed Dedicated Server](docs/en/agent-development-mode-a.md) · [Mode B · Cloudflare Container](docs/en/agent-development-upload.md) | [模式 A · 平台托管独立节点](docs/zh-CN/agent-development-mode-a.md) · [模式 B · Cloudflare 容器](docs/zh-CN/agent-development-upload.md) |
 
 ## Recommended paths / 推荐路径
 
@@ -41,7 +41,7 @@ Updated / 更新: 2026-09-28
 
 | Mode | Status | Documentation |
 | --- | --- | --- |
-| Mode A | **Coming soon** — no tutorial has been published in this repository. | [Check the Agent Developer Center for current requirements ↗](https://unexhub.ai/agent-doc) |
+| Mode A · Platform-managed Dedicated Server | **Technical preview** — entry security, topology validation, and persistence gaps must be closed before production use. | [English guide](docs/en/agent-development-mode-a.md) · [中文指南](docs/zh-CN/agent-development-mode-a.md) |
 | Mode B · Cloudflare Container | **Available** | [English guide](docs/en/agent-development-upload.md) · [中文指南](docs/zh-CN/agent-development-upload.md) · [中文 PDF](assets/documents/agent-development-upload.zh-CN.pdf) |
 
 ## Browse documentation / 浏览全部文档
@@ -52,7 +52,7 @@ Updated / 更新: 2026-09-28
 | API and account | [Chat Completions](docs/en/chat-completions.md) · [Routing](docs/en/third-party-routing.md) · [Billing](docs/en/billing.md) · [FAQ](docs/en/faq.md) | [聊天补全](docs/zh-CN/chat-completions.md) · [路由](docs/zh-CN/third-party-routing.md) · [计费](docs/zh-CN/billing.md) · [常见问题](docs/zh-CN/faq.md) |
 | Apps and editors | [Chatbox](docs/en/chatbox.md) · [Cherry Studio](docs/en/cherry-studio.md) · [Cursor](docs/en/cursor.md) · [Windsurf](docs/en/windsurf.md) | [Chatbox](docs/zh-CN/chatbox.md) · [Cherry Studio](docs/zh-CN/cherry-studio.md) · [Cursor](docs/zh-CN/cursor.md) · [Windsurf](docs/zh-CN/windsurf.md) |
 | CLI and coding agents | [Aider](docs/en/aider.md) · [Claude Code](docs/en/claude-code.md) · [Codex](docs/en/codex.md) · [CC Switch](docs/en/cc-switch.md) · [openclaw-cn](docs/en/openclaw-cn.md) | [Aider](docs/zh-CN/aider.md) · [Claude Code](docs/zh-CN/claude-code.md) · [Codex](docs/zh-CN/codex.md) · [CC Switch](docs/zh-CN/cc-switch.md) · [openclaw-cn](docs/zh-CN/openclaw-cn.md) |
-| Agent development | [Mode B guide](docs/en/agent-development-upload.md) · Mode A coming soon | [模式 B 指南](docs/zh-CN/agent-development-upload.md) · 模式 A 待发布 |
+| Agent development | [Mode A · Platform-managed Dedicated Server](docs/en/agent-development-mode-a.md) · [Mode B · Cloudflare Container](docs/en/agent-development-upload.md) | [模式 A · 平台托管独立节点](docs/zh-CN/agent-development-mode-a.md) · [模式 B · Cloudflare 容器](docs/zh-CN/agent-development-upload.md) |
 | Reference | [Chat Completions API](docs/en/chat-completions.md) · [Agent Developer Center ↗](https://unexhub.ai/agent-doc) | [聊天补全 API](docs/zh-CN/chat-completions.md) · [Agent 开发中心 ↗](https://unexhub.ai/agent-doc) |
 
 For the complete A–Z index and guided sequence, open the [English documentation home](docs/en/README.md) or [中文目录](docs/zh-CN/README.md).

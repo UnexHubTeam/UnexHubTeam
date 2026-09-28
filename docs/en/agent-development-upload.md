@@ -1,7 +1,7 @@
-# Agent development and upload guide
+# Mode B Agent development and upload guide
 
 <!-- DOCS-NAV:START -->
-[Documentation home](README.md) · [Chat Completions API](chat-completions.md) · [Agent Developer Center ↗](https://unexhub.ai/agent-doc) · [简体中文](../zh-CN/agent-development-upload.md)
+[Documentation home](README.md) · [Mode A technical preview](agent-development-mode-a.md) · [Chat Completions API](chat-completions.md) · [Agent Developer Center ↗](https://unexhub.ai/agent-doc) · [简体中文](../zh-CN/agent-development-upload.md)
 
 **Browse:** [Start here](README.md#start-here) · [API & account](README.md#api-and-account) · [Apps & editors](README.md#apps-and-editors) · [CLI & coding agents](README.md#cli-and-coding-agents) · [Agent development](README.md#agent-development) · [API reference](README.md#api-reference)
 <!-- DOCS-NAV:END -->
@@ -28,9 +28,9 @@
 
 For Agent developers · Mode B / Cloudflare Containers
 
-Document version: 1.0 · Updated: 2026-09-24
+Document version: 1.0 · Updated: 2026-09-28
 
-> **Scope:** This guide covers Mode B only. A Mode A tutorial has not yet been published in this repository. Check the [Agent Developer Center](https://unexhub.ai/agent-doc) for current platform requirements.
+> **Scope:** This guide covers Mode B only. For the distinct platform-managed dedicated-node workflow, see the [Mode A technical-preview guide](agent-development-mode-a.md), including its known production gaps.
 
 This guide is for developers who have a web application, or plan to build an Agent with Python and Vue, and want to publish it through the platform. You deliver a working Docker image. The platform handles image processing, runtime deployment, and user instance startup. You do not need to deploy the platform's Cloudflare Worker yourself.
 
@@ -517,5 +517,5 @@ Cloudflare's documentation explains the underlying container capabilities. Agent
 
 ---
 
-[← Previous: openclaw-cn](openclaw-cn.md) · [Documentation home](README.md)
+[← Previous: Mode A Agent development](agent-development-mode-a.md) · [Documentation home](README.md)
 <!-- DOCS-PAGER:END -->

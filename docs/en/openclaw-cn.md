@@ -115,5 +115,5 @@ If text works but agent tools fail, check tool support and protocol conversion. 
 
 ---
 
-[← Previous: CC MAX](cc-max.md) · [Documentation home](README.md) · [Next: Mode B Agent development →](agent-development-upload.md)
+[← Previous: CC MAX](cc-max.md) · [Documentation home](README.md) · [Next: Mode A Agent development →](agent-development-mode-a.md)
 <!-- DOCS-PAGER:END -->

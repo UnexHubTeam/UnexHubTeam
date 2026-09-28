@@ -1,7 +1,7 @@
-# Agent 开发与上传指南
+# 模式 B Agent 开发与上传指南
 
 <!-- DOCS-NAV:START -->
-[English (primary)](../en/agent-development-upload.md) · [中文目录](README.md) · [聊天补全 API](chat-completions.md) · [Agent 开发中心 ↗](https://unexhub.ai/agent-doc)
+[English (primary)](../en/agent-development-upload.md) · [中文目录](README.md) · [模式 A 技术预览](agent-development-mode-a.md) · [聊天补全 API](chat-completions.md) · [Agent 开发中心 ↗](https://unexhub.ai/agent-doc)
 
 **目录：** [开始使用](README.md#start-here) · [API 与账户](README.md#api-and-account) · [客户端与编辑器](README.md#apps-and-editors) · [命令行与编程 Agent](README.md#cli-and-coding-agents) · [Agent 开发](README.md#agent-development) · [API 参考](README.md#api-reference)
 <!-- DOCS-NAV:END -->
@@ -28,9 +28,9 @@
 
 面向普通 Agent 开发者 · 模式 B / Cloudflare 容器
 
-文档版本：1.0　更新日期：2026-09-24
+文档版本：1.0　更新日期：2026-09-28
 
-> **范围说明：** 本指南只覆盖模式 B。本仓库尚未发布模式 A 教程；当前平台要求请以 [Agent 开发中心](https://unexhub.ai/agent-doc)为准。
+> **范围说明：** 本指南只覆盖模式 B。平台托管独立节点流程请查看[模式 A 技术预览指南](agent-development-mode-a.md)，并留意其中列出的生产环境已知缺口。
 
 本指南适用于已有 Web 应用或准备使用 Python + Vue 开发 Agent，并希望通过平台发布给用户使用的开发者。你需要交付一个可运行的 Docker 镜像；平台负责后续镜像处理、运行时部署和用户实例启动。无需自行部署平台的 Cloudflare Worker。
 
@@ -512,5 +512,5 @@ Cloudflare 文档用于理解底层容器能力；平台开发者仍通过平台
 
 ---
 
-[← 上一篇：openclaw-cn](openclaw-cn.md) · [中文目录](README.md)
+[← 上一篇：模式 A Agent 开发](agent-development-mode-a.md) · [中文目录](README.md)
 <!-- DOCS-PAGER:END -->

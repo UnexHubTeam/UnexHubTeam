@@ -2,6 +2,7 @@
 
 ## 2026-09-28
 
+- Added primary English and companion Simplified Chinese Mode A dedicated-node development documentation as a technical preview, with direct navigation alongside Mode B and explicit production-readiness limits.
 - Replaced every external API collection link with a direct, language-matched Chat Completions documentation link.
 - Removed unsupported “all public endpoints” wording and clarified the scope of the local API guide.
 - Regenerated the Chinese Mode B PDF so its API link opens the corresponding GitHub documentation page directly.
@@ -10,7 +11,7 @@
 
 - Reorganized the repository into a task-oriented documentation portal with quick-find tables, category navigation, per-page contents, and Previous/Next links.
 - Added public API and UNEXHub Agent Developer Center entries to topic-page navigation.
-- Marked the Agent guide as Mode B only and Mode A as not yet documented.
+- Marked the original Agent guide as Mode B only; Mode A is now covered by the 2026-09-28 technical-preview documentation with known production gaps.
 - Removed obsolete third-party service references and retained direct official or project documentation where available.
 - Added the Mode B Agent development and upload guide in English and Simplified Chinese, covering container requirements, Alibaba Cloud Registry push, platform configuration, release checks, and troubleshooting.
 - Added a current Chinese PDF edition generated from the guide and linked the download from the repository home and both language indexes.

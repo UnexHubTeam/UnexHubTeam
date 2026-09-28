@@ -20,7 +20,7 @@
 | 配置编程 Agent | [Claude Code](claude-code.md) · [Codex](codex.md) · [Aider](aider.md) | 选择正确协议与 Base URL |
 | 查看或导出费用 | [计费记录](billing.md) | 定位请求、核对最终扣费并导出记录 |
 | 排查错误 | [常见问题](faq.md) | 排查 401、404、429、5xx、模型与路径问题 |
-| 查看 Agent 开发文档 | [Agent 开发文档](agent-development-upload.md) | 构建、推送、配置、测试并提交模式 B 容器；模式 A 教程待发布 |
+| 查看 Agent 开发文档 | [模式 A · 平台托管独立节点](agent-development-mode-a.md) · [模式 B · Cloudflare 容器](agent-development-upload.md) | 选择模式 A 技术预览流程，或构建、推送、配置、测试并提交模式 B 容器 |
 
 ## 推荐阅读顺序
 
@@ -75,10 +75,10 @@
 
 | 模式 | 状态 | 入口 |
 | --- | --- | --- |
-| 模式 A | **待发布。** 本仓库尚未编写模式 A 教程。 | [在 Agent 开发中心核对当前平台规范 ↗](https://unexhub.ai/agent-doc) |
-| 模式 B · Cloudflare Container | **已提供** | 21. [开发与上传指南](agent-development-upload.md) · [中文 PDF](../../assets/documents/agent-development-upload.zh-CN.pdf) |
+| 模式 A · 平台托管独立节点 | **技术预览。** 入口安全、拓扑验证与持久化等已知缺口在生产使用前必须闭环。 | 21. [独立节点开发指南](agent-development-mode-a.md) |
+| 模式 B · Cloudflare Container | **已提供** | 22. [开发与上传指南](agent-development-upload.md) · [中文 PDF](../../assets/documents/agent-development-upload.zh-CN.pdf) |
 
-模式 B 指南包含容器规范、阿里云镜像推送、平台部署、托管凭据、发布检查和故障排查，不代表已覆盖模式 A。
+模式 A 指南说明开发者交付契约及各拓扑的预览限制。模式 B 指南包含容器规范、阿里云镜像推送、平台部署、托管凭据、发布检查和故障排查。
 
 <a id="api-reference"></a>
 ## API 参考
@@ -92,4 +92,4 @@
 
 ## A–Z 索引
 
-[Aider](aider.md) · [CC MAX](cc-max.md) · [CC Switch](cc-switch.md) · [Chatbox](chatbox.md) · [Cherry Studio](cherry-studio.md) · [Claude Code](claude-code.md) · [Claude Code 安装](claude-code-install.md) · [Codex](codex.md) · [Codex 安装](codex-install.md) · [Cursor](cursor.md) · [VS Code](vscode-claude-code.md) · [Windsurf](windsurf.md) · [常见问题](faq.md) · [第三方路由](third-party-routing.md) · [计费](billing.md) · [聊天补全](chat-completions.md) · [快速开始](getting-started.md) · [模式 B Agent 开发](agent-development-upload.md) · [控制台操作](quickstart.md) · [协议兼容](compatibility.md) · [openclaw-cn](openclaw-cn.md)
+[Aider](aider.md) · [CC MAX](cc-max.md) · [CC Switch](cc-switch.md) · [Chatbox](chatbox.md) · [Cherry Studio](cherry-studio.md) · [Claude Code](claude-code.md) · [Claude Code 安装](claude-code-install.md) · [Codex](codex.md) · [Codex 安装](codex-install.md) · [Cursor](cursor.md) · [VS Code](vscode-claude-code.md) · [Windsurf](windsurf.md) · [常见问题](faq.md) · [第三方路由](third-party-routing.md) · [计费](billing.md) · [聊天补全](chat-completions.md) · [快速开始](getting-started.md) · [模式 A Agent 开发](agent-development-mode-a.md) · [模式 B Agent 开发](agent-development-upload.md) · [控制台操作](quickstart.md) · [协议兼容](compatibility.md) · [openclaw-cn](openclaw-cn.md)

@@ -20,7 +20,7 @@ Updated: 2026-09-28
 | Configure a coding agent | [Claude Code](claude-code.md) · [Codex](codex.md) · [Aider](aider.md) | Select the correct protocol and Base URL |
 | Review or export charges | [Billing records](billing.md) | Find requests, review Final Charge, and export records |
 | Diagnose a failure | [FAQ](faq.md) | Work through 401, 404, 429, 5xx, model, and path issues |
-| Open the Agent developer guide | [Agent developer guide](agent-development-upload.md) | Build, push, configure, test, and submit a Mode B container; Mode A is coming soon |
+| Open an Agent developer guide | [Mode A · Platform-managed Dedicated Server](agent-development-mode-a.md) · [Mode B · Cloudflare Container](agent-development-upload.md) | Choose the Mode A technical-preview workflow or build, push, configure, test, and submit a Mode B container |
 
 ## Suggested reading order
 
@@ -75,10 +75,10 @@ Then jump to the client, editor, coding agent, or Agent deployment guide you nee
 
 | Mode | Status | Entry |
 | --- | --- | --- |
-| Mode A | **Coming soon.** This repository does not yet contain a Mode A tutorial. | [Check current platform requirements in the Agent Developer Center ↗](https://unexhub.ai/agent-doc) |
-| Mode B · Cloudflare Container | **Available** | 21. [Development and upload guide](agent-development-upload.md) · [Chinese PDF](../../assets/documents/agent-development-upload.zh-CN.pdf) |
+| Mode A · Platform-managed Dedicated Server | **Technical preview.** Entry security, topology validation, and persistence gaps must be closed before production use. | 21. [Dedicated-node development guide](agent-development-mode-a.md) |
+| Mode B · Cloudflare Container | **Available** | 22. [Development and upload guide](agent-development-upload.md) · [Chinese PDF](../../assets/documents/agent-development-upload.zh-CN.pdf) |
 
-The Mode B guide covers container requirements, Alibaba Cloud image push, platform deployment, managed credentials, release checks, and troubleshooting. It does not claim to document Mode A.
+The Mode A guide documents the developer contract and topology-specific preview limits. The Mode B guide covers container requirements, Alibaba Cloud image push, platform deployment, managed credentials, release checks, and troubleshooting.
 
 <a id="api-reference"></a>
 ## API reference
@@ -92,4 +92,4 @@ The Mode B guide covers container requirements, Alibaba Cloud image push, platfo
 
 ## A–Z index
 
-[Aider](aider.md) · [Billing](billing.md) · [CC MAX](cc-max.md) · [CC Switch](cc-switch.md) · [Chatbox](chatbox.md) · [Chat Completions](chat-completions.md) · [Cherry Studio](cherry-studio.md) · [Claude Code](claude-code.md) · [Claude Code installation](claude-code-install.md) · [Codex](codex.md) · [Codex installation](codex-install.md) · [Compatibility](compatibility.md) · [Cursor](cursor.md) · [FAQ](faq.md) · [Getting started](getting-started.md) · [Mode B Agent development](agent-development-upload.md) · [openclaw-cn](openclaw-cn.md) · [Quickstart](quickstart.md) · [Third-party routing](third-party-routing.md) · [VS Code](vscode-claude-code.md) · [Windsurf](windsurf.md)
+[Aider](aider.md) · [Billing](billing.md) · [CC MAX](cc-max.md) · [CC Switch](cc-switch.md) · [Chatbox](chatbox.md) · [Chat Completions](chat-completions.md) · [Cherry Studio](cherry-studio.md) · [Claude Code](claude-code.md) · [Claude Code installation](claude-code-install.md) · [Codex](codex.md) · [Codex installation](codex-install.md) · [Compatibility](compatibility.md) · [Cursor](cursor.md) · [FAQ](faq.md) · [Getting started](getting-started.md) · [Mode A Agent development](agent-development-mode-a.md) · [Mode B Agent development](agent-development-upload.md) · [openclaw-cn](openclaw-cn.md) · [Quickstart](quickstart.md) · [Third-party routing](third-party-routing.md) · [VS Code](vscode-claude-code.md) · [Windsurf](windsurf.md)
