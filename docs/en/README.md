@@ -20,7 +20,7 @@ Updated: 2026-09-28
 | Configure a coding agent | [Claude Code](claude-code.md) · [Codex](codex.md) · [Aider](aider.md) | Select the correct protocol and Base URL |
 | Review or export charges | [Billing records](billing.md) | Find requests, review Final Charge, and export records |
 | Diagnose a failure | [FAQ](faq.md) | Work through 401, 404, 429, 5xx, model, and path issues |
-| Open an Agent developer guide | [Mode A · Platform-managed Dedicated Server](agent-development-mode-a.md) · [Mode B · Cloudflare Container](agent-development-upload.md) | Choose the Mode A technical-preview workflow or build, push, configure, test, and submit a Mode B container |
+| Agent developer build and upload documentation | [Mode A · Platform-managed Dedicated Server](agent-development-mode-a.md) · [Mode B · Cloudflare Container](agent-development-upload.md) | Choose the Mode A technical-preview workflow or build, push, configure, test, and submit a Mode B container |
 
 ## Suggested reading order
 

@@ -25,7 +25,7 @@ Updated / 更新: 2026-09-28
 | Set up Claude Code, Codex, or Aider | [Coding agent setup guides](docs/en/README.md#cli-and-coding-agents) | [编程 Agent 配置指南](docs/zh-CN/README.md#cli-and-coding-agents) |
 | Review usage and export billing records | [Billing and usage](docs/en/billing.md) | [计费与用量](docs/zh-CN/billing.md) |
 | Troubleshoot an issue | [Troubleshooting](docs/en/faq.md) | [故障排查](docs/zh-CN/faq.md) |
-| Open an Agent developer guide | [Mode A · Platform-managed Dedicated Server](docs/en/agent-development-mode-a.md) · [Mode B · Cloudflare Container](docs/en/agent-development-upload.md) | [模式 A · 平台托管独立节点](docs/zh-CN/agent-development-mode-a.md) · [模式 B · Cloudflare 容器](docs/zh-CN/agent-development-upload.md) |
+| Agent developer build and upload documentation / Agent开发者开发上传文档 | [Mode A · Platform-managed Dedicated Server](docs/en/agent-development-mode-a.md) · [Mode B · Cloudflare Container](docs/en/agent-development-upload.md) | [模式 A · 平台托管独立节点](docs/zh-CN/agent-development-mode-a.md) · [模式 B · Cloudflare 容器](docs/zh-CN/agent-development-upload.md) |
 
 ## Recommended paths / 推荐路径
 
