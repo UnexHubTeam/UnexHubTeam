@@ -2,33 +2,25 @@
 
 ## 2026-09-28
 
-- Added primary English and companion Simplified Chinese Mode A dedicated-node development documentation as a technical preview, with direct navigation alongside Mode B and explicit production-readiness limits.
-- Replaced every external API collection link with a direct, language-matched Chat Completions documentation link.
-- Removed unsupported “all public endpoints” wording and clarified the scope of the local API guide.
-- Regenerated the Chinese Mode B PDF so its API link opens the corresponding GitHub documentation page directly.
+### API documentation
 
-## 2026-09-24
+- Replaced every external Postman/API-collection link across the repository with the corresponding local, language-matched Chat Completions guide.
+- Removed the unsupported claim that the local guide lists every public endpoint. Clarified that it documents Chat Completions while protocol, model, route, key, and account support must be confirmed separately.
+- Updated the repository home, English and Simplified Chinese documentation indexes, compatibility guides, and all topic-page navigation to use direct repository documentation links.
 
-- Reorganized the repository into a task-oriented documentation portal with quick-find tables, category navigation, per-page contents, and Previous/Next links.
-- Added public API and UNEXHub Agent Developer Center entries to topic-page navigation.
-- Marked the original Agent guide as Mode B only; Mode A is now covered by the 2026-09-28 technical-preview documentation with known production gaps.
-- Removed obsolete third-party service references and retained direct official or project documentation where available.
-- Added the Mode B Agent development and upload guide in English and Simplified Chinese, covering container requirements, Alibaba Cloud Registry push, platform configuration, release checks, and troubleshooting.
-- Added a current Chinese PDF edition generated from the guide and linked the download from the repository home and both language indexes.
-- Documented managed key/Base URL pairing, session-aware routing, SSE error handling, and the SOL Agent 1.0.4 Base URL override, including the scope of the previously verified connection.
-- Clarified that Agents without backend persistence may temporarily use browser `localStorage` only for non-sensitive, disposable frontend state, with reset and security requirements.
-- Added English UI reference images for every screenshot used by the primary English documentation while retaining the original Chinese images for the companion translation.
+### Agent developer documentation
 
-## 2026-09-23
+- Added a primary English Mode A Agent development guide and a companion Simplified Chinese guide for platform-managed dedicated nodes.
+- Marked Mode A and its `single`, `split`, and `frontend-package` topologies as a technical preview with explicit entry-security, service-discovery, authentication-context, query-string, refresh, and production-readiness limits.
+- Documented Mode A runtime and artifact requirements, including image architecture, non-root execution, ports, health checks, startup commands, public/pullable images, immutable image digests, platform configuration, testing, troubleshooting, release checks, and rollback preparation.
+- Documented the managed backend variables `UNEX_API_KEY`, `UNEX_API_BASE_URL`, `UNEX_AGENT_ID`, and `UNEX_USER_ID`, including credential-pairing, browser-exposure, logging, and rotation requirements.
+- Clarified that Mode A currently provides no server-side persistence guarantee: `storage_gb` is not a persistent volume, and browser `localStorage` may hold only non-sensitive, disposable interface state.
+- Clarified that `gpu_count=1` represents one whole schedulable node rather than one physical GPU, and that the platform-confirmed node specification determines the actual hardware and image architecture.
+- Added Mode A beside Mode B in the repository home, both language indexes, A–Z indexes, cross-links, and Previous/Next navigation.
+- Renamed the existing container workflow and its PDF as Mode B, kept the Mode B content separate, and added direct links between the two mode-specific guides.
+- Set the final English portal entry label to **Agent Developer Build and Upload Documentation**, with direct English and Simplified Chinese links for both Mode A and Mode B.
 
-- Set English as the primary documentation language and retained Simplified Chinese as a companion translation.
-- Updated UNEXHub branding, moved website and console links to `https://unexhub.ai/`, and updated API Base URLs to `https://api.unexhub.ai/` while retaining protocol-specific paths such as `/v1`.
-- Added primary English setup guides with corresponding Simplified Chinese translations for Claude Code, Codex, VS Code, openclaw-cn, Cursor, Windsurf, CC Switch, CC MAX, Aider, Chatbox, and Cherry Studio.
-- Retained Chatbox and Cherry Studio, expanded FAQ, and kept the original key, routing, model-call, and billing workflows.
-- Added a protocol compatibility reference, current provider configuration examples, and links to source documentation.
-- Grouped navigation to match the requested tutorial categories. Messages, Responses, CC MAX, and native editor support are explicitly qualified where unconfirmed.
-- Replaced reliance on the unavailable API reference with the compatibility page.
+### PDF and verification
 
-## 2026-09-22
-
-- Created English GitHub guides with corresponding Simplified Chinese translations and UNEXHub interface screenshots.
+- Regenerated the nine-page Simplified Chinese Mode B PDF with its updated Mode B title and direct links to the local Mode A and Chat Completions documentation; it contains no Postman redirect.
+- Verified all 48 Markdown files, 1,241 local links and anchors, and the NAV/TOC/PAGER markers on all 44 topic pages. No broken local links, stale Mode A coming-soon claims, real credentials, or internal administration details remain.
