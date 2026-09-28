@@ -1,7 +1,7 @@
 # 客户端与协议兼容说明
 
 <!-- DOCS-NAV:START -->
-[English (primary)](../en/compatibility.md) · [中文目录](README.md) · [公开 API 文档 ↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK) · [Agent 开发中心 ↗](https://unexhub.ai/agent-doc)
+[English (primary)](../en/compatibility.md) · [中文目录](README.md) · [聊天补全 API](chat-completions.md) · [Agent 开发中心 ↗](https://unexhub.ai/agent-doc)
 
 **目录：** [开始使用](README.md#start-here) · [API 与账户](README.md#api-and-account) · [客户端与编辑器](README.md#apps-and-editors) · [命令行与编程 Agent](README.md#cli-and-coding-agents) · [Agent 开发](README.md#agent-development) · [API 参考](README.md#api-reference)
 <!-- DOCS-NAV:END -->
@@ -14,13 +14,13 @@
 2. [2）聊天、Responses 和 Messages 的区别](#section-2)
 3. [3）如何确认一个工具已成功接入](#section-3)
 4. [4）网站与 API 地址](#section-4)
-5. [5）参考入口状态](#section-5)
+5. [5）API 文档范围](#section-5)
 6. [参考资料](#section-6)
 </details>
 <!-- DOCS-TOC:END -->
 
 
-适用站点：[UNEXHub](https://unexhub.ai/) · 文档更新：2026-09-23
+适用站点：[UNEXHub](https://unexhub.ai/) · 文档更新：2026-09-28
 
 同一模型名称可能出现在不同协议中。接入前同时确认「工具支持的协议」「UNEXHub 开放的端点」「当前 Key 的模型与路由权限」。
 
@@ -67,9 +67,9 @@ Chat Completions 使用 `messages` 请求体，常见客户端包括 Chatbox、C
 向支持人员确认尚未开放或未明确的协议时，提供工具名称、版本、模型 ID 和所需端点即可，不要发送完整密钥。
 
 <a id="section-5"></a>
-## 5）参考入口状态
+## 5）API 文档范围
 
-官方 [UnexHub Public API 开发文档](https://documenter.getpostman.com/view/57297668/2sBYArUsxK)以 Postman 集合形式发布，可用于查看当前公开端点。文档中存在端点不代表每个模型、路由、Key 或客户端都已支持相应协议；接入前仍需核对模型详情与账户权限。
+通过[聊天补全 API 指南](chat-completions.md)查看已记录的端点、请求头、请求体、响应字段，以及 cURL 和 Python 示例。其他协议与可选功能取决于所选模型、路由、Key 和账户权限，接入前仍需逐项确认。
 
 <a id="section-6"></a>
 ## 参考资料

@@ -1,7 +1,7 @@
 # CC Switch
 
 <!-- DOCS-NAV:START -->
-[English (primary)](../en/cc-switch.md) · [中文目录](README.md) · [公开 API 文档 ↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK) · [Agent 开发中心 ↗](https://unexhub.ai/agent-doc)
+[English (primary)](../en/cc-switch.md) · [中文目录](README.md) · [聊天补全 API](chat-completions.md) · [Agent 开发中心 ↗](https://unexhub.ai/agent-doc)
 
 **目录：** [开始使用](README.md#start-here) · [API 与账户](README.md#api-and-account) · [客户端与编辑器](README.md#apps-and-editors) · [命令行与编程 Agent](README.md#cli-and-coding-agents) · [Agent 开发](README.md#agent-development) · [API 参考](README.md#api-reference)
 <!-- DOCS-NAV:END -->

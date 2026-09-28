@@ -1,9 +1,15 @@
 # Changelog
 
+## 2026-09-28
+
+- Replaced every external API collection link with a direct, language-matched Chat Completions documentation link.
+- Removed unsupported “all public endpoints” wording and clarified the scope of the local API guide.
+- Regenerated the Chinese Mode B PDF so its API link opens the corresponding GitHub documentation page directly.
+
 ## 2026-09-24
 
 - Reorganized the repository into a task-oriented documentation portal with quick-find tables, category navigation, per-page contents, and Previous/Next links.
-- Added the official `UnexHub Public API` Postman reference and the UNEXHub Agent Developer Center to every topic page.
+- Added public API and UNEXHub Agent Developer Center entries to topic-page navigation.
 - Marked the Agent guide as Mode B only and Mode A as not yet documented.
 - Removed obsolete third-party service references and retained direct official or project documentation where available.
 - Added the Mode B Agent development and upload guide in English and Simplified Chinese, covering container requirements, Alibaba Cloud Registry push, platform configuration, release checks, and troubleshooting.

@@ -6,13 +6,13 @@ Build with the UNEXHub API, configure supported clients, review billing, or publ
 
 **[English documentation (primary)](docs/en/README.md) · [简体中文（辅助翻译）](docs/zh-CN/README.md)**
 
-[Public API reference ↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK) · [Agent Developer Center ↗](https://unexhub.ai/agent-doc) · [UNEXHub console ↗](https://unexhub.ai/)
+[Chat Completions API](docs/en/chat-completions.md) · [Agent Developer Center ↗](https://unexhub.ai/agent-doc) · [UNEXHub console ↗](https://unexhub.ai/)
 
 > English is the primary documentation language. Simplified Chinese is maintained as a companion translation.
 >
 > Agent tutorial status: **Mode B · Cloudflare Container is available. Mode A is not yet documented.**
 
-Updated / 更新: 2026-09-24
+Updated / 更新: 2026-09-28
 
 ## Find the right guide / 精准查找
 
@@ -21,7 +21,6 @@ Updated / 更新: 2026-09-24
 | Get an API key and make your first call | [Quickstart](docs/en/quickstart.md) | [快速开始](docs/zh-CN/quickstart.md) |
 | Choose an API protocol and endpoint | [Protocols and endpoints](docs/en/compatibility.md) | [协议与端点](docs/zh-CN/compatibility.md) |
 | Send an API request with cURL or Python | [Chat Completions API](docs/en/chat-completions.md) | [Chat Completions API](docs/zh-CN/chat-completions.md) |
-| Browse all public endpoints | [API reference (Postman) ↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK) | [API 参考文档（Postman）↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK) |
 | Set up Chatbox or Cherry Studio | [Client setup guides](docs/en/README.md#apps-and-editors) | [客户端配置指南](docs/zh-CN/README.md#apps-and-editors) |
 | Set up Claude Code, Codex, or Aider | [Coding agent setup guides](docs/en/README.md#cli-and-coding-agents) | [编程 Agent 配置指南](docs/zh-CN/README.md#cli-and-coding-agents) |
 | Review usage and export billing records | [Billing and usage](docs/en/billing.md) | [计费与用量](docs/zh-CN/billing.md) |
@@ -35,7 +34,7 @@ Updated / 更新: 2026-09-24
 1. [Choose an integration](docs/en/getting-started.md)
 2. [Create a key and make a first call](docs/en/quickstart.md)
 3. [Confirm protocol compatibility](docs/en/compatibility.md)
-4. [Use the API reference](https://documenter.getpostman.com/view/57297668/2sBYArUsxK)
+4. [Use the Chat Completions API guide](docs/en/chat-completions.md)
 5. [Review billing](docs/en/billing.md)
 
 ### Agent development
@@ -54,6 +53,6 @@ Updated / 更新: 2026-09-24
 | Apps and editors | [Chatbox](docs/en/chatbox.md) · [Cherry Studio](docs/en/cherry-studio.md) · [Cursor](docs/en/cursor.md) · [Windsurf](docs/en/windsurf.md) | [Chatbox](docs/zh-CN/chatbox.md) · [Cherry Studio](docs/zh-CN/cherry-studio.md) · [Cursor](docs/zh-CN/cursor.md) · [Windsurf](docs/zh-CN/windsurf.md) |
 | CLI and coding agents | [Aider](docs/en/aider.md) · [Claude Code](docs/en/claude-code.md) · [Codex](docs/en/codex.md) · [CC Switch](docs/en/cc-switch.md) · [openclaw-cn](docs/en/openclaw-cn.md) | [Aider](docs/zh-CN/aider.md) · [Claude Code](docs/zh-CN/claude-code.md) · [Codex](docs/zh-CN/codex.md) · [CC Switch](docs/zh-CN/cc-switch.md) · [openclaw-cn](docs/zh-CN/openclaw-cn.md) |
 | Agent development | [Mode B guide](docs/en/agent-development-upload.md) · Mode A coming soon | [模式 B 指南](docs/zh-CN/agent-development-upload.md) · 模式 A 待发布 |
-| Reference | [Public API ↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK) · [Agent Developer Center ↗](https://unexhub.ai/agent-doc) | [公开 API ↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK) · [Agent 开发中心 ↗](https://unexhub.ai/agent-doc) |
+| Reference | [Chat Completions API](docs/en/chat-completions.md) · [Agent Developer Center ↗](https://unexhub.ai/agent-doc) | [聊天补全 API](docs/zh-CN/chat-completions.md) · [Agent 开发中心 ↗](https://unexhub.ai/agent-doc) |
 
 For the complete A–Z index and guided sequence, open the [English documentation home](docs/en/README.md) or [中文目录](docs/zh-CN/README.md).

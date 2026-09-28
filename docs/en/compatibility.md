@@ -1,7 +1,7 @@
 # Client and protocol compatibility
 
 <!-- DOCS-NAV:START -->
-[Documentation home](README.md) · [Public API reference ↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK) · [Agent Developer Center ↗](https://unexhub.ai/agent-doc) · [简体中文](../zh-CN/compatibility.md)
+[Documentation home](README.md) · [Chat Completions API](chat-completions.md) · [Agent Developer Center ↗](https://unexhub.ai/agent-doc) · [简体中文](../zh-CN/compatibility.md)
 
 **Browse:** [Start here](README.md#start-here) · [API & account](README.md#api-and-account) · [Apps & editors](README.md#apps-and-editors) · [CLI & coding agents](README.md#cli-and-coding-agents) · [Agent development](README.md#agent-development) · [API reference](README.md#api-reference)
 <!-- DOCS-NAV:END -->
@@ -14,13 +14,13 @@
 2. [2) Chat Completions, Responses, and Messages](#section-2)
 3. [3) Confirm that an integration works](#section-3)
 4. [4) Website and API addresses](#section-4)
-5. [5) API reference availability](#section-5)
+5. [5) API guide scope](#section-5)
 6. [References](#section-6)
 </details>
 <!-- DOCS-TOC:END -->
 
 
-Website: [UNEXHub](https://unexhub.ai/) · Updated: 2026-09-23
+Website: [UNEXHub](https://unexhub.ai/) · Updated: 2026-09-28
 
 The same model name may appear behind different protocols. Check the tool's protocol, the endpoints UNEXHub exposes, and the model/route permissions on your key.
 
@@ -67,9 +67,9 @@ The website and console use `https://unexhub.ai/`. The API root is `https://api.
 To ask support about an unclear protocol, provide the tool, version, model ID, and required endpoint. Do not send a complete key.
 
 <a id="section-5"></a>
-## 5) API reference availability
+## 5) API guide scope
 
-The official [UnexHub Public API reference](https://documenter.getpostman.com/view/57297668/2sBYArUsxK) is published as a Postman collection. Use it to inspect currently documented public endpoints. Endpoint presence alone does not guarantee that every model, route, key, or client supports the protocol; confirm model details and account permissions before integration.
+Use the [Chat Completions API guide](chat-completions.md) for the documented endpoint, headers, request body, response fields, and cURL and Python examples. Other protocols and optional features depend on the selected model, route, key, and account permissions; confirm them before integration.
 
 <a id="section-6"></a>
 ## References

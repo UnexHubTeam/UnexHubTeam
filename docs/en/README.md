@@ -2,11 +2,11 @@
 
 [Repository home](../../README.md) · English (primary) | [简体中文](../zh-CN/README.md)
 
-[Public API reference ↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK) · [Agent Developer Center ↗](https://unexhub.ai/agent-doc) · [UNEXHub console ↗](https://unexhub.ai/)
+[Chat Completions API](chat-completions.md) · [Agent Developer Center ↗](https://unexhub.ai/agent-doc) · [UNEXHub console ↗](https://unexhub.ai/)
 
 > Use this page as the documentation map. Press `Ctrl+F` or `⌘+F` to find a product, protocol, task, or error code.
 
-Updated: 2026-09-24
+Updated: 2026-09-28
 
 ## Find the right guide
 
@@ -15,7 +15,6 @@ Updated: 2026-09-24
 | Make a first API call | [Console walkthrough](quickstart.md) | Create a key, choose a model, call it, and find the charge |
 | Choose a protocol | [Protocol compatibility](compatibility.md) | Match Chat Completions, Responses, or Messages to your tool |
 | Use cURL or Python | [Chat Completions](chat-completions.md) | Send an authenticated request to an exact model ID |
-| See every public endpoint | [Public API reference ↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK) | Open the official `UnexHub Public API` Postman collection |
 | Configure a desktop client | [Chatbox](chatbox.md) · [Cherry Studio](cherry-studio.md) | Add UNEXHub as an OpenAI-compatible provider |
 | Configure an editor | [Cursor](cursor.md) · [Windsurf](windsurf.md) | Check whether the current version accepts a custom gateway |
 | Configure a coding agent | [Claude Code](claude-code.md) · [Codex](codex.md) · [Aider](aider.md) | Select the correct protocol and Base URL |
@@ -84,10 +83,9 @@ The Mode B guide covers container requirements, Alibaba Cloud image push, platfo
 <a id="api-reference"></a>
 ## API reference
 
-- [Official Public API reference — Postman ↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK)
-- [Agent Developer Center ↗](https://unexhub.ai/agent-doc)
-- [Chat Completions examples](chat-completions.md)
+- [Chat Completions API guide](chat-completions.md)
 - [Client and protocol compatibility](compatibility.md)
+- [Agent Developer Center ↗](https://unexhub.ai/agent-doc)
 - [UNEXHub model marketplace ↗](https://unexhub.ai/market?tab=models)
 - [Request logs ↗](https://unexhub.ai/console/log)
 - [Funds account ↗](https://unexhub.ai/console/topup)

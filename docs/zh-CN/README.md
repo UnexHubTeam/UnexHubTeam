@@ -2,11 +2,11 @@
 
 [English documentation (primary)](../en/README.md) · 简体中文（辅助翻译） · [项目首页](../../README.md)
 
-[公开 API 开发文档 ↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK) · [Agent 开发中心 ↗](https://unexhub.ai/agent-doc) · [UNEXHub 控制台 ↗](https://unexhub.ai/)
+[聊天补全 API](chat-completions.md) · [Agent 开发中心 ↗](https://unexhub.ai/agent-doc) · [UNEXHub 控制台 ↗](https://unexhub.ai/)
 
 > 本页是中文文档地图。使用 `Ctrl+F` 或 `⌘+F` 可按产品、协议、任务或错误码精准查找。
 
-文档更新：2026-09-24
+文档更新：2026-09-28
 
 ## 精准找到教程
 
@@ -15,7 +15,6 @@
 | 第一次调用 API | [控制台完整操作](quickstart.md) | 创建 Key、选择模型、发起调用并找到扣费记录 |
 | 选择正确协议 | [协议兼容说明](compatibility.md) | 确认工具需要 Chat Completions、Responses 还是 Messages |
 | 使用 cURL 或 Python | [聊天补全 API](chat-completions.md) | 使用准确模型 ID 发起鉴权请求 |
-| 查看全部公开端点 | [公开 API 开发文档 ↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK) | 打开官方 `UnexHub Public API` Postman 集合 |
 | 配置桌面客户端 | [Chatbox](chatbox.md) · [Cherry Studio](cherry-studio.md) | 将 UNEXHub 添加为 OpenAI 兼容服务商 |
 | 配置编辑器 | [Cursor](cursor.md) · [Windsurf](windsurf.md) | 核对当前版本是否支持自定义网关 |
 | 配置编程 Agent | [Claude Code](claude-code.md) · [Codex](codex.md) · [Aider](aider.md) | 选择正确协议与 Base URL |
@@ -84,10 +83,9 @@
 <a id="api-reference"></a>
 ## API 参考
 
-- [官方公开 API 文档 — Postman ↗](https://documenter.getpostman.com/view/57297668/2sBYArUsxK)
-- [Agent 开发中心 ↗](https://unexhub.ai/agent-doc)
-- [聊天补全示例](chat-completions.md)
+- [聊天补全 API 指南](chat-completions.md)
 - [客户端与协议兼容说明](compatibility.md)
+- [Agent 开发中心 ↗](https://unexhub.ai/agent-doc)
 - [UNEXHub 模型交易中心 ↗](https://unexhub.ai/market?tab=models)
 - [调用日志 ↗](https://unexhub.ai/console/log)
 - [资金账户 ↗](https://unexhub.ai/console/topup)
