@@ -6,7 +6,7 @@
 
 > Use this page as the documentation map. Press `Ctrl+F` or `⌘+F` to find a product, protocol, task, or error code.
 
-Updated: 2026-09-28
+Updated: 2026-09-29
 
 ## Find the right guide
 
@@ -74,10 +74,10 @@ Then jump to the client, editor, coding agent, or Agent deployment guide you nee
 
 | Mode | Status | Entry |
 | --- | --- | --- |
-| Mode A · Platform-managed Dedicated Server | **Technical preview.** Entry security, topology validation, and persistence gaps must be closed before production use. | 21. [Dedicated-node development guide](agent-development-mode-a.md) |
-| Mode B · Cloudflare Container | **Available** | 22. [Development and upload guide](agent-development-upload.md) |
+| Mode A · Platform-managed Dedicated Server | **Technical preview.** Real-node validation and entry security remain required; frontend ZIP upload is currently blocked. | 21. [Dedicated-node development guide](agent-development-mode-a.md) |
+| Mode B · Cloudflare Container | **Current external-registry workflow.** Long-lived credential injection remains a barrier to safe third-party image releases; per-user persistence is not yet implemented. | 22. [Development and upload guide](agent-development-upload.md) |
 
-The Mode A guide documents the developer contract and topology-specific preview limits. The Mode B guide covers container requirements, Alibaba Cloud image push, platform deployment, managed credentials, release checks, and troubleshooting.
+The Mode A guide covers external image submission, topology limits, and whole-node specifications chosen by users before launch. The Mode B guide covers a single external image, six instance types locked at version publication, Cloudflare image transfer and runtime deployment, and current credential limits. Both guides distinguish working configuration paths from planned upload, model-proxy, and storage capabilities; container files remain temporary in both modes.
 
 <a id="api-reference"></a>
 ## API reference

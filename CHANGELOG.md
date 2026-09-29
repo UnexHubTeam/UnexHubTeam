@@ -1,24 +1,24 @@
 # Changelog
 
-## 2026-09-28
+## 2026-09-29
 
-### API documentation
+### Mode A
 
-- Replaced every external Postman/API-collection link across the repository with the corresponding local, language-matched Chat Completions guide.
-- Removed the unsupported claim that the local guide lists every public endpoint. Clarified that it documents Chat Completions while protocol, model, route, key, and account support must be confirmed separately.
-- Updated the repository home, English and Simplified Chinese documentation indexes, compatibility guides, and all topic-page navigation to use direct repository documentation links.
+- Updated the English guide and Simplified Chinese translation against the supplied dedicated-node implementation review, retaining the technical-preview status and the need for real-node validation.
+- Documented the external-registry submission, digest validation, scanning, platform image copy, configuration, and review sequence; distinguished platform validation from a node's ability to pull and run the approved image.
+- Corrected the current `linux/amd64` image requirement and documented the 1024–65535 port constraint for both backend and split-frontend containers.
+- Clarified that browser image-archive upload is not available, platform Docker Push should be used only for trusted testing pending scoped credentials, and the Mode A frontend ZIP upload is currently blocked by mode authorization.
+- Added the current split-image form and private-registry limitations, user-selected whole-node specifications, and the distinction between uploading an image and billing a running user session.
 
-### Agent developer documentation
+### Mode B
 
-- Added a primary English Mode A Agent development guide and a companion Simplified Chinese guide for platform-managed dedicated nodes.
-- Marked Mode A and its `single`, `split`, and `frontend-package` topologies as a technical preview with explicit entry-security, service-discovery, authentication-context, query-string, refresh, and production-readiness limits.
-- Documented Mode A runtime and artifact requirements, including image architecture, non-root execution, ports, health checks, startup commands, public/pullable images, immutable image digests, platform configuration, testing, troubleshooting, release checks, and rollback preparation.
-- Documented the managed backend variables `UNEX_API_KEY`, `UNEX_API_BASE_URL`, `UNEX_AGENT_ID`, and `UNEX_USER_ID`, including credential-pairing, browser-exposure, logging, and rotation requirements.
-- Clarified that Mode A currently provides no server-side persistence guarantee: `storage_gb` is not a persistent volume, and browser `localStorage` may hold only non-sensitive, disposable interface state.
-- Clarified that `gpu_count=1` represents one whole schedulable node rather than one physical GPU, and that the platform-confirmed node specification determines the actual hardware and image architecture.
-- Added Mode A beside Mode B in the repository home, both language indexes, A–Z indexes, cross-links, and Previous/Next navigation.
-- Renamed the existing container workflow as Mode B, kept the Mode B content separate, and added direct links between the two mode-specific guides.
+- Updated the English guide and Simplified Chinese translation to distinguish the current single-image external-registry workflow from planned browser uploads, platform Docker Push, trusted model proxy, and per-user storage.
+- Documented all six platform instance types and their resources, version-locked instance selection, the 1024–65535 port range, port-based readiness, optional startup command, and plaintext custom environment variables.
+- Clarified the limits of long-lived managed-key injection and documented the existing credential flow only for trusted compatibility testing; marked the future model and storage addresses as unavailable in the current runtime.
+- Updated the source-image validation, Cloudflare image transfer, runtime deployment, review, and user-launch sequence, including what to check after leaving the deployment page.
 
-### Verification
+### Shared guidance and navigation
 
-- Verified all Markdown files, local links and anchors, and the NAV/TOC/PAGER markers on every topic page. No broken local links, stale Mode A coming-soon claims, real credentials, or internal administration details remain.
+- Clarified that container files and uploaded user files are temporary, browser storage is limited to non-sensitive disposable state, and image-upload staging does not provide a persistent user workspace.
+- Updated repository and language-index status descriptions and mode-selection guidance to match the revised capability boundaries.
+- Retained direct documentation links, bilingual navigation, and the existing PDF-free layout.

@@ -10,9 +10,9 @@ Build with the UNEXHub API, configure supported clients, review billing, or publ
 
 > English is the primary documentation language. Simplified Chinese is maintained as a companion translation.
 >
-> Agent tutorial status: **Mode A · Platform-managed Dedicated Server is documented as a technical preview with known production gaps. Mode B · Cloudflare Container is available.**
+> Agent tutorial status: **Mode A · Platform-managed Dedicated Server remains a technical preview. Mode B · Cloudflare Container has an external-registry deployment workflow, with credential isolation and per-user persistence still pending.**
 
-Updated / 更新: 2026-09-28
+Updated / 更新: 2026-09-29
 
 ## Find the right guide / 精准查找
 
@@ -40,8 +40,10 @@ Updated / 更新: 2026-09-28
 
 | Mode | Status | Documentation |
 | --- | --- | --- |
-| Mode A · Platform-managed Dedicated Server | **Technical preview** — entry security, topology validation, and persistence gaps must be closed before production use. | [English guide](docs/en/agent-development-mode-a.md) · [中文指南](docs/zh-CN/agent-development-mode-a.md) |
-| Mode B · Cloudflare Container | **Available** | [English guide](docs/en/agent-development-upload.md) · [中文指南](docs/zh-CN/agent-development-upload.md) |
+| Mode A · Platform-managed Dedicated Server | **Technical preview** — real-node validation and entry security remain required; frontend ZIP upload is currently blocked. | [English guide](docs/en/agent-development-mode-a.md) · [中文指南](docs/zh-CN/agent-development-mode-a.md) |
+| Mode B · Cloudflare Container | **Current external-registry workflow** — long-lived credential injection remains a barrier to safe third-party image releases; per-user persistence is not yet implemented. | [English guide](docs/en/agent-development-upload.md) · [中文指南](docs/zh-CN/agent-development-upload.md) |
+
+Mode A users choose a whole-node specification before launch. Mode B developers select a container instance type that is locked when the version is published. Both modes currently treat container files as temporary data.
 
 ## Browse documentation / 浏览全部文档
 
