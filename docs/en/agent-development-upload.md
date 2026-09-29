@@ -346,13 +346,49 @@ Open [Agent deployment configuration](https://unexhub.ai/console/my_agents?tab=d
 
 ### Follow the deployment stages
 
-1. Create the Agent, choose Mode B, and enter the full external image reference. For a private image, save and select its read-only credentials.
-2. Select **Pull and validate image**. Check the source digest, size, and `linux/amd64` architecture. Validation also triggers image scanning; production releases require scanning to be enabled and passed.
-3. Set the entry port, health path, instance type, idle timeout, and any non-sensitive settings, then select **Save runtime configuration**. The instance type is fixed for the published version.
-4. Select **Deploy runtime**. The platform first copies the validated image asynchronously into its Cloudflare registry. The page shows copy progress or failure; after the copy finishes, the page triggers the subsequent Worker/Container deployment.
-5. Keep the deployment page open until it is ready. If you leave, return and inspect the state; trigger deployment again if the page requires it. Do not assume all later stages continue automatically after closing the page.
-6. Check each result separately: **source validated ≠ Cloudflare image copy ready ≠ Worker runtime available**. Inspect the error for the failed stage. Where developer testing is available, open a fresh test instance through the platform and verify the page, routing, application responses, and shutdown. Trusted internal compatibility testing does not resolve the third-party credential limitation in section 3.
-7. Only after scanning passes and the runtime is ready, submit the candidate for listing review. Ordinary users can launch only after review approval. Third-party model Agents must also satisfy the release prerequisites in section 10; a deployed runtime alone is insufficient.
+> **About these screenshots:** These are UI demonstrations of the current, unchanged application component rendered locally with fictional data and mocked backend states. This English guide shows the English UI; the Chinese companion shows the Chinese UI. Registry references and digests in the images are placeholders. The screenshots are not evidence of a production upload, validation, image copy, or deployment.
+
+#### Step 1: Enter the external image reference
+
+Create or select the Agent, choose **Mode B** and **External registry**, and enter the complete reference for one image. For a private image, save and select its read-only credentials. Set the matching entry port within `1024–65535`.
+
+![Mode B English UI: external image reference, Registry credentials, entry port, and verification action](../../assets/en/agent-mode-b-01-external-registry.png)
+
+*Figure B1. Mode B currently accepts one image reference from an external Registry; the reference shown is an example.*
+
+The helper paragraph still mentions a dedicated Tencent Cloud server because this is shared UI copy. Mode B deploys to Cloudflare Containers; that paragraph does not add a Tencent Cloud deployment option.
+
+**Checkpoint:** The reference points to the image you pushed, contains no `https://` prefix, and uses the appropriate public or private pull access. Mode B has no current browser TAR upload or direct platform Docker Push entry.
+
+#### Step 2: Verify the image and scan result
+
+Select **Pull & verify image**. Check the source digest, size, and `linux/amd64` architecture. Validation also triggers image scanning; production releases require scanning to be enabled and passed.
+
+![Mode B English UI: source digest, image metadata, and security-scan state](../../assets/en/agent-mode-b-02-validation.png)
+
+*Figure B2. Source-image validation and security scanning are separate from runtime deployment; the displayed states are demonstrations.*
+
+The green checklist and its per-session namespace/network-allowlist wording do not prove a specific isolation mechanism or resolve the credential limitations in section 3. Verify actual scan results and runtime behavior separately.
+
+**Checkpoint:** Record the resolved source digest and inspect the scan result. **Source validated ≠ Cloudflare image copy ready ≠ Worker runtime available.** Inspect the error for the failed stage, and do not treat a pending or disabled scan as a passed production check.
+
+#### Step 3: Save settings and deploy the runtime
+
+Set the entry port, health path, instance type, idle timeout, and any non-sensitive settings, then select **Save runtime config**. The instance type is fixed for the published version. Next, select **Deploy runtime**. The platform first copies the validated image asynchronously into its Cloudflare registry; the page shows copy progress or failure and triggers the subsequent Worker/Container deployment after copying finishes.
+
+![Mode B English UI: runtime settings, save action, runtime deployment, and listing-review entry](../../assets/en/agent-mode-b-03-runtime-deploy.png)
+
+*Figure B3. The page before runtime deployment: the save, deployment, and review actions are visible, but no deployed runtime is shown.*
+
+The shared form marks **Startup Command** as required and says it cannot be blank. For Mode B, omitting the command uses the image's `ENTRYPOINT` / `CMD`; the command shown is an optional example override. The **Minimum resource requirements** heading, user-selection hint, and GPU-pool message are also shared UI copy. Mode B uses the published version's fixed instance type, with no GPU tier or launch-time node-SKU selection.
+
+**Checkpoint:** Confirm both the Cloudflare copy and Worker runtime states. If the page says that no image is bound, return to image verification before trying to deploy. Keep the deployment page open until it is ready. If you leave, return and inspect the state; trigger deployment again if the page requires it. Do not assume all later stages continue automatically after closing the page.
+
+#### Test and submit for review
+
+Where developer testing is available, open a fresh test instance through the platform and verify the page, routing, application responses, and shutdown. Trusted internal compatibility testing does not resolve the third-party credential limitation in section 3.
+
+Only after scanning passes and the runtime is ready, select **Submit for listing review** for the candidate. Ordinary users can launch only after review approval. Third-party model Agents must also satisfy the release prerequisites in section 10; a deployed runtime alone is insufficient.
 
 Do not replace a version in place while it is under review or published. Use a new candidate and the platform's supported review process.
 

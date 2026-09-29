@@ -285,13 +285,57 @@ Private Registry credentials are encrypted and stored by the platform for read-o
 
 This sequence includes release checks that developers and the platform must verify; the current UI does not enforce every requirement below.
 
-1. Create or select the Agent, open its deployment configuration, and select **Mode A**. Choose `single` or `split` for the current image workflow. The `frontend-package` workflow remains blocked as described above.
-2. Select the image source. Enter one `linux/amd64` image reference for `single`, or both frontend and backend references for `split`; select read-only private Registry credentials where needed. Fill in the matching container ports within `1024–65535` and health paths. For `split`, recheck both images whenever reopening the form, and do not assume one credential covers different private registries.
-3. Choose **Pull and validate image** (“拉取并校验镜像”). Check the resolved source digest and image-scan state for every component. A tag alone is not the reviewed artifact identity; a production release must also have the required scans enabled and completed.
-4. Check the **platform TCR copy state**. Mode A queues external images for copying to TCR. If copying fails, use the copy retry action and verify the result before proceeding. For private external images, do not submit for release until the platform copy is ready and the node's read-only pull has been verified. For production, require a trusted immutable platform copy for every component, even if the current review UI permits an earlier submission for a public image.
-5. Save runtime configuration on the same page: frontend/backend container ports within `1024–65535`, health paths, startup command, minimum node specification, and idle timeout. `single` currently requires a command; for `split`, prefer each image's own default command. Keep `gpu_count=1` as one whole-node unit and treat `storage_gb` only as a configuration constraint.
-6. After the platform confirms that the selected real-node runtime is available for testing, run a developer test with synthetic data. Confirm the actual digest, image pull, startup, health, real user entry, assets, API routing, model requests, streaming, cancellation, errors, stop, and relaunch. Verify that logs and errors contain no credentials or sensitive data. Do not count platform validation or local container tests as this real-node test.
-7. When each digest, scan, required platform copy, saved configuration, and applicable test is ready, choose **Submit for listing review** (“提交上架审核”). The submitted digest must match the artifact tested. Await approval and platform confirmation that the entry and data design suit the intended audience before users launch it.
+> **About these screenshots:** These are UI demonstrations of the current, unchanged application component rendered locally with fictional data and mocked backend states. This English guide shows the English UI; the Chinese companion shows the Chinese UI. Registry references and digests in the images are placeholders. The screenshots are not evidence of a production upload, validation, image copy, or deployment.
+
+#### Step 1: Enter the external image reference
+
+Create or select the Agent, open its deployment configuration, and select **Mode A**. For one image, choose `single` and **External registry**. Enter the complete `linux/amd64` image reference, select read-only Registry credentials if the image is private, and fill in the matching container port within `1024–65535`.
+
+![Mode A English UI: single-container image reference, external Registry, credentials, and port](../../assets/en/agent-mode-a-01-external-registry.png)
+
+*Figure A1. External Registry fields for a single-container Agent; the reference is an example.*
+
+**Checkpoint:** The reference points to the image you built and pushed, and the port matches its listener. A populated form is not a validated image. Browser image TAR upload is unavailable, and the visible `frontend-package` ZIP control remains blocked for Mode A.
+
+For `split`, select the separate frontend and backend container topology and enter both references. Check both components' ports and health paths, and do not assume one credential covers different private registries.
+
+![Mode A English UI: separate frontend and backend image references](../../assets/en/agent-mode-a-04-split-images.png)
+
+*Split-container variant. Supply a frontend image and a backend image.*
+
+**Checkpoint for `split`:** Recheck both references whenever you reopen the form. Each component needs its own digest, scan, platform-copy, and node-pull checks; one validated image does not validate the pair.
+
+The helper text about automatically injecting the backend address is shared UI copy, not a verified routing contract. Confirm the supported frontend-to-backend route with the platform as described in section 5.
+
+#### Step 2: Verify the image, scan, and platform copy
+
+Select **Pull & verify image**. Check the resolved source digest and image-scan state for every component. A tag alone is not the reviewed artifact identity; a production release must have the required scans enabled and completed.
+
+![Mode A English UI: image validation, security scan, and platform TCR copy states](../../assets/en/agent-mode-a-02-validation-copy.png)
+
+*Figure A2. Validation, scanning, and platform copying are separate checks; the displayed states are demonstrations.*
+
+The green checklist and its per-session namespace/network-allowlist wording are also demonstration UI. They do not establish that those protections were enforced or that Mode A uses Kubernetes namespaces; the dedicated-node boundary in section 1 still applies.
+
+**Checkpoint:** Confirm each source digest and `linux/amd64` architecture, then inspect the **platform TCR copy state**. Mode A queues external images for copying to TCR. If copying fails, resolve the error, use the copy retry action, and verify the result before proceeding. For private external images, do not submit for release until the platform copy is ready and the node's read-only pull has been verified. For production, require a trusted immutable platform copy for every component, even if the current review UI permits an earlier submission for a public image. Platform validation does not prove that a real node can pull or run the image.
+
+#### Step 3: Save runtime settings
+
+On the same page, enter frontend/backend container ports within `1024–65535`, health paths, startup command, minimum node specification, and idle timeout, then select **Save runtime config**. `single` currently requires a command; for `split`, prefer each image's own default command. Keep `gpu_count=1` as one whole-node unit and treat `storage_gb` only as a configuration constraint.
+
+![Mode A English UI: runtime settings, save action, and listing-review entry](../../assets/en/agent-mode-a-03-runtime-review.png)
+
+*Figure A3. Save the runtime settings before testing and review; a visible review button does not establish release readiness.*
+
+The shared resource card still uses **GPU required**, **Minimum GPU model**, and **GPU count** labels. For Mode A, the displayed count of `1` means one whole-node unit, not one physical GPU. Neither these labels nor the sample selection establishes that a GPU is present; confirm the actual hardware in the platform's node SKU.
+
+**Checkpoint:** Confirm the settings were saved and still match the tested images. Saving the form does not confirm node availability, successful startup, or production readiness.
+
+#### Complete the real-node test and review
+
+After the platform confirms that the selected real-node runtime is available for testing, run a developer test with synthetic data. Confirm the actual digest, image pull, startup, health, real user entry, assets, API routing, model requests, streaming, cancellation, errors, stop, and relaunch. Verify that logs and errors contain no credentials or sensitive data. Do not count platform validation or local container tests as this real-node test.
+
+When each digest, scan, required platform copy, saved configuration, and applicable test is ready, select **Submit for listing review**. The submitted digest must match the artifact tested. Await approval and platform confirmation that the entry and data design suit the intended audience before users launch it.
 
 Compare the **candidate, actually tested, submitted, and approved/published digests** for every image. If one changes, repeat the relevant build, scan, topology, and platform tests and submit the new version for review. Keep the previously approved digest and a rollback procedure available.
 
