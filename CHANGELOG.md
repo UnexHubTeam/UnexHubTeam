@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-10-17
+
+### Mode B databases
+
+- Added English and Simplified Chinese guides for optional PostgreSQL/MySQL requirements below the instance-type selector, including available versions, connection limits, TLS, and disabled Redis/MongoDB choices.
+- Documented the two `UNEX_DATABASE_*` environment-variable families, first-use provisioning, per-user/per-Agent database reuse, reviewed configuration snapshots, and version-mismatch behavior.
+- Added runnable Python backend examples for PostgreSQL and MySQL with parameterized writes and reads, connection timeouts, TLS handling, and sanitized errors.
+- Clarified that PynamicDB control credentials stay on the platform backend; database credentials belong only in the Agent backend. Independent database logins do not grant cross-Agent SQL access.
+- Updated navigation, deployment steps, troubleshooting, release checklists, and development briefs to distinguish managed SQL persistence from temporary container files and the planned D1/R2 file workspace. Existing model-key limitations remain in effect.
+
 ## 2026-09-29
 
 ### Mode A

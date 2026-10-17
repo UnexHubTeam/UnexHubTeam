@@ -6,7 +6,7 @@
 
 > Use this page as the documentation map. Press `Ctrl+F` or `⌘+F` to find a product, protocol, task, or error code.
 
-Updated: 2026-09-29
+Updated: 2026-10-17
 
 ## Find the right guide
 
@@ -75,9 +75,11 @@ Then jump to the client, editor, coding agent, or Agent deployment guide you nee
 | Mode | Status | Entry |
 | --- | --- | --- |
 | Mode A · Platform-managed Dedicated Server | **Technical preview.** Real-node validation and entry security remain required; frontend ZIP upload is currently blocked. | 21. [Dedicated-node development guide](agent-development-mode-a.md) |
-| Mode B · Cloudflare Container | **Current external-registry workflow.** Long-lived credential injection remains a barrier to safe third-party image releases; per-user persistence is not yet implemented. | 22. [Development and upload guide](agent-development-upload.md) |
+| Mode B · Cloudflare Container | **External-registry workflow and optional PostgreSQL/MySQL databases.** Long-lived model-key injection remains a barrier to safe third-party image releases; D1/R2 file workspaces are planned. | 22. [Development and upload guide](agent-development-upload.md) |
 
-The Mode A guide covers external image submission, topology limits, and whole-node specifications chosen by users before launch. The Mode B guide covers a single external image, six instance types locked at version publication, Cloudflare image transfer and runtime deployment, and current credential limits. Both guides distinguish working configuration paths from planned upload, model-proxy, and storage capabilities; container files remain temporary in both modes.
+The Mode A guide covers external image submission, topology limits, and whole-node specifications chosen by users before launch. The Mode B guide covers a single external image, six instance types locked at version publication, Cloudflare image transfer and runtime deployment, optional per-user SQL databases, and current model-key limits. Both guides distinguish working configuration paths from planned upload, model-proxy, and file-workspace capabilities; container files remain temporary in both modes.
+
+For Mode B, see [database configuration and injected variables](agent-mode-b-databases.md), with [PostgreSQL](agent-mode-b-databases.md#postgresql-example) and [MySQL](agent-mode-b-databases.md#mysql-example) backend examples.
 
 <a id="api-reference"></a>
 ## API reference

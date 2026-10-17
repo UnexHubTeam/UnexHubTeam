@@ -12,7 +12,7 @@
 
 1. [1. Before you start](#section-1)
 2. [2. Runtime requirements and instance types](#section-2)
-3. [3. Model access and persistent storage: current limits](#section-3)
+3. [3. Databases, model access, and file persistence](#section-3)
 4. [4. Web routing and streaming responses](#section-4)
 5. [5. Build and verify locally](#section-5)
 6. [6. Push to your external image registry](#section-6)
@@ -27,13 +27,15 @@
 
 For Agent developers · Mode B / Cloudflare Containers
 
-Document version: 1.1 · Updated: 2026-09-29
+Document version: 1.2 · Updated: 2026-10-17
 
 > **Scope:** This guide covers Mode B. For the separate dedicated-node workflow, see the [Mode A technical-preview guide](agent-development-mode-a.md). “Current” below describes the available workflow; “planned” describes work that is not implemented.
 
 Mode B runs your single OCI container image on Cloudflare Containers. You build and publish the image; the platform copies it to its Cloudflare registry and deploys the Worker/Container runtime. User instances start for sessions and are reclaimed after idling. You do not deploy the platform's Worker yourself.
 
 The current artifact workflow is **build a `linux/amd64` image → push to your external Registry → validate the source image and scan it → save runtime settings → deploy the runtime → test and submit for review**. Public and private external registries are supported; private images use Registry read-only credentials saved through the platform's credential controls.
+
+Agents can also request optional PostgreSQL/MySQL databases. The platform provisions a separate database for each user and Agent, then injects backend connection settings at startup. See [database configuration, variables, and runnable examples](agent-mode-b-databases.md).
 
 > **Release limitation:** The image workflow exists, but safe model access for untrusted third-party images is not complete. Current runtime injection of a long-lived user–Agent model key should be used only for trusted internal compatibility tests; it is not a safe production contract. The trusted model proxy and per-user D1/R2 workspaces described in [section 3](#section-3) are planned. A successful deployment does not resolve these limitations.
 
@@ -79,7 +81,7 @@ The planned three-entry upload experience is described in [section 8](#section-8
 | Startup command | Optional. Leave it empty to use the image's `ENTRYPOINT` / `CMD`, even if a current form displays a required marker. |
 | Custom environment variables | Stored and returned as plaintext. Use only non-sensitive settings. Names must not begin with the reserved `UNEX_` prefix. |
 | Process and shutdown | Run as a non-root user, keep the main process in the foreground, handle SIGTERM, and cancel unfinished upstream requests. Do not require privileged mode or the Docker socket. |
-| Storage | Container memory and disk are temporary. Per-user platform persistence is not implemented. |
+| Storage | Container memory and disk are temporary. Optional managed PostgreSQL/MySQL databases persist per user and Agent; D1/R2 file workspaces are planned. |
 | Network and logs | Set connection and response timeouts; close streams on cancellation. Log request IDs, stages, durations, and safe errors, without keys, full session URLs, or sensitive inputs. |
 
 **Readiness currently checks whether the exposed port is reachable, not the HTTP response from the health path.** A reachable port can be marked ready even if `/health` returns 404 or the business API is broken. Supply a valid health path and test its response separately.
@@ -126,11 +128,28 @@ Use a multi-stage build when appropriate—for example, build Vue assets first, 
 Keep real `.env` files out of version control too. Scan the final image: deleting a secret in a later layer does not remove it from earlier layers.
 
 <a id="section-3"></a>
-## 3. Model access and persistent storage: current limits
+## 3. Databases, model access, and file persistence
+
+### Optional PostgreSQL and MySQL — available with platform database service
+
+In **Minimum resource requirements → Database configuration**, directly below **Instance type**, select **Add database** and choose an engine and version. The default is empty. Add at most one PostgreSQL and one MySQL entry; Redis and MongoDB are disabled. The live catalog shows versions, the default database connection limit, shared server connection capacity, and TLS mode.
+
+The platform creates or reuses one logical database-service user per UnexHub user and a separate database per Agent and engine. On startup it injects `UNEX_DATABASE_POSTGRESQL_*` and/or `UNEX_DATABASE_MYSQL_*` into the backend container. Each family has `HOST`, `PORT`, `DATABASE`, `USERNAME`, `PASSWORD`, `URL`, `SSL_MODE`, `CONNECTION_MODE`, and `CONNECTION_LIMIT`. Only selected engines are injected; your backend must read the variables explicitly.
+
+Databases persist across instance stops and image updates, with independent logins per database and no automatic cross-Agent access. Requirements belong to the reviewed version; changing them requires another review and does not automatically upgrade an existing database. Existing running containers need to be stopped and started to receive new variables. PynamicDB control credentials remain exclusively on the platform backend.
+
+Read the [full database guide](agent-mode-b-databases.md) for the variable table, lifecycle and TLS details, [PostgreSQL example](agent-mode-b-databases.md#postgresql-example), and [MySQL example](agent-mode-b-databases.md#mysql-example). Managed SQL does not make container files durable or enable the planned D1/R2 file workspace.
 
 ### Current model-key injection and its compatibility limit
 
 The current runtime injects `UNEX_API_KEY`, `UNEX_API_BASE_URL`, `UNEX_AGENT_ID`, and `UNEX_USER_ID`. The model key is created for a user–Agent pair, but it is a long-lived credential readable by the container process. A developer-controlled image, a dependency inside it, or an operator with environment access may obtain it. Keeping it out of the browser does not prevent those exposures.
+
+| Existing runtime variable | Meaning |
+| --- | --- |
+| `UNEX_API_KEY` | Long-lived managed model key for the user–Agent pair, subject to the limitation below |
+| `UNEX_API_BASE_URL` | Platform model API base URL, ending in `/v1` |
+| `UNEX_AGENT_ID` | Current Agent ID; informational, not authority to access another Agent |
+| `UNEX_USER_ID` | Current platform user ID; informational, not a container-supplied billing identity |
 
 Existing trusted internal test images may need this behavior for compatibility. **Do not make real `UNEX_API_KEY` injection a requirement for a new third-party Agent, and do not treat it as production isolation.** This guide therefore provides no real-key injection template. Do not work around missing credentials by hard-coding a key, requesting one in the browser, or using a shared developer key. Image instances do not normally provide an `unex_agent_token` URL fragment.
 
@@ -171,7 +190,7 @@ Setting that environment variable yourself does not enable the proxy. If a futur
 
 When model access is supported for your release, keep the actual model ID, any application setting such as `LLM_MODEL`, the Agent allowlist, and available account routes consistent. Return the active model from the backend for display. Treat unsupported parameters and tool calls as explicit errors; do not silently switch models or repeatedly retry paid requests.
 
-### Planned per-user storage — not implemented
+### Planned per-user file workspace — not implemented
 
 There is currently no per-user D1/R2 workspace. Local container files can disappear when the instance stops; interface text referring to persistent R2/D1 does not make that capability available.
 
@@ -340,13 +359,14 @@ Open [Agent deployment configuration](https://unexhub.ai/console/my_agents?tab=d
 | Health path | `/health`; required and begins with `/` |
 | Startup command | Empty to use the image's `ENTRYPOINT` / `CMD` |
 | Instance type | Required; select one of the six tiers based on measurements, for example `basic` |
+| Database configuration | Optional; below Instance type, add PostgreSQL/MySQL and select versions; see [database setup and limits](agent-mode-b-databases.md#database-configuration) |
 | Idle reclamation | Choose a supported duration appropriate for the workload; temporary files can be lost when the instance stops |
 | Custom environment variables | Non-sensitive application settings only, such as an allowed model ID in `LLM_MODEL`; stored as plaintext, with no `UNEX_` names |
 | Model allowlist | Include only the actual models required by the Agent; this setting does not enable the planned proxy |
 
 ### Follow the deployment stages
 
-> **About these screenshots:** These are UI demonstrations of the current, unchanged application component rendered locally with fictional data and mocked backend states. This English guide shows the English UI; the Chinese companion shows the Chinese UI. Registry references and digests in the images are placeholders. The screenshots are not evidence of a production upload, validation, image copy, or deployment.
+> **About these screenshots:** These are local UI demonstrations with fictional data and mocked backend states. They predate the optional database controls; use the current form and the database guide for those settings. This English guide shows the English UI; the Chinese companion shows the Chinese UI. Registry references and digests are placeholders. The screenshots are not evidence of a production upload, validation, image copy, or deployment.
 
 #### Step 1: Enter the external image reference
 
@@ -374,7 +394,7 @@ The green checklist and its per-session namespace/network-allowlist wording do n
 
 #### Step 3: Save settings and deploy the runtime
 
-Set the entry port, health path, instance type, idle timeout, and any non-sensitive settings, then select **Save runtime config**. The instance type is fixed for the published version. Next, select **Deploy runtime**. The platform first copies the validated image asynchronously into its Cloudflare registry; the page shows copy progress or failure and triggers the subsequent Worker/Container deployment after copying finishes.
+Set the entry port, health path, instance type, optional database engines and versions, idle timeout, and any non-sensitive settings, then select **Save runtime config**. The instance type and database requirements are captured for the reviewed version. Next, select **Deploy runtime**. The platform first copies the validated image asynchronously into its Cloudflare registry; the page shows copy progress or failure and triggers the subsequent Worker/Container deployment after copying finishes.
 
 ![Mode B English UI: runtime settings, save action, runtime deployment, and listing-review entry](../../assets/en/agent-mode-b-03-runtime-deploy.png)
 
@@ -388,6 +408,8 @@ The shared form marks **Startup Command** as required and says it cannot be blan
 
 Where developer testing is available, open a fresh test instance through the platform and verify the page, routing, application responses, and shutdown. Trusted internal compatibility testing does not resolve the third-party credential limitation in section 3.
 
+If the Agent uses SQL, run a write/read test, stop and start the instance, and confirm that the record remains. Also test two users and two Agents for isolation, keep credentials out of browser responses and logs, and check pool sizes against the actual injected limit. Developer self-tests use working database settings; ordinary users use the approved snapshot.
+
 Only after scanning passes and the runtime is ready, select **Submit for listing review** for the candidate. Ordinary users can launch only after review approval. Third-party model Agents must also satisfy the release prerequisites in section 10; a deployed runtime alone is insufficient.
 
 Do not replace a version in place while it is under review or published. Use a new candidate and the platform's supported review process.
@@ -395,6 +417,8 @@ Do not replace a version in place while it is under review or published. Use a n
 ### User startup and charging
 
 A user launches their instance through the platform, which checks access, balance, and pre-deduction rules before startup. Runtime-duration billing begins after the instance reaches `running`, not when the developer uploads or copies an image. Image processing before review may incur platform costs, but successful upload alone does not charge an end user for runtime.
+
+For configured databases, preparation and credential injection must succeed before compute pre-deduction and container creation. A database-preparation failure stops startup before those steps; already-created databases are retained for retry.
 
 Users open and stop their instance through the platform. Container runtime fees and model usage fees are separate; rates, budgets, settlement, maximum duration, and refund rules follow the platform's displayed terms. Future persistent-storage fees or allowances must be disclosed separately.
 
@@ -444,15 +468,19 @@ Future upload entry points must validate ownership, size, content, quota, and ar
 | No browser TAR upload or platform Docker Push option | These entries are planned. Use the current external Registry workflow. |
 | A legacy test image cannot read `UNEX_API_KEY` | This concerns the trusted-test compatibility path. Do not hard-code a long-lived key or ask the browser user for one. |
 | No `unex_agent_token` fragment in the page URL | Image instances do not normally provide one. Do not require pasted tokens. |
-| Planned model/storage virtual address is unavailable | Those proxies and per-user workspaces are not implemented. Setting their variables does not enable them. |
+| Database variables are missing | Select and save the engine/version, complete review for ordinary-user launch, and open a new instance. Only configured engines are injected. |
+| Database catalog or engine is unavailable | Ask the platform operator to check PynamicDB integration and engine readiness; do not request its control password. |
+| Database version mismatch blocks startup | An existing database remains on its allocated version; selecting another version does not migrate it. Coordinate migration or restore compatible requirements. |
+| SQL connection limit or TLS error | Bound total pools using the injected `CONNECTION_LIMIT`, preserve `SSL_MODE`, and check reachability and CA/hostname settings; do not log raw connection details. |
+| Planned model/storage virtual address is unavailable | The model proxy and D1/R2 file workspace are not implemented. Setting their variables does not enable them; SQL uses separate database variables. |
 | Model request returns an authentication or permission error | For a supported trusted test, inspect sanitized errors and the platform's session, model, and budget settings. Do not bypass checks with shared keys or claimed user IDs. |
 | Rate limit, timeout, or insufficient balance | Bound retries, stop paid retries for balance failures, and cancel upstream work when the user stops. |
 | Blank page, failed assets, or `missing_session` | Reopen through the platform; verify that assets and same-origin API requests preserve session routing and the entry path prefix. |
 | HTTP 200 but the interface reports failure | Inspect SSE error and terminal events, not only the HTTP status. |
-| Files disappeared after restart | Container disk is temporary; per-user D1/R2 persistence is not yet available. |
+| Files disappeared after restart | Container disk is temporary; the D1/R2 file workspace is not yet available. Records committed to configured SQL databases persist separately. |
 | Old page or model after an update | Check the bound digest, instance version, and application settings, then open a new instance for the released version. |
 
-For a support report, include the Agent ID, application version, image digest, stage, timestamp and timezone, request ID, HTTP status, sanitized error, and reproduction steps. Do not publish keys, Authorization headers, complete session URLs, Registry credentials, or another user's data.
+For a support report, include the Agent ID, application version, image digest, stage, timestamp and timezone, request ID, HTTP status, sanitized error, and reproduction steps. Do not publish keys, database passwords/URLs, Authorization headers, complete session URLs, Registry credentials, or another user's data.
 
 <a id="section-10"></a>
 ## 10. Release checklist and reusable development brief
@@ -462,6 +490,8 @@ For a support report, include the Agent ID, application version, image digest, s
 - [ ] One `linux/amd64` image runs as non-root and listens on `0.0.0.0` at the configured port in `1024–65535`.
 - [ ] The root page and health route work; the health path begins with `/`, and application behavior is tested separately from port readiness.
 - [ ] The chosen instance type fits measured resource use and is saved for the candidate version.
+- [ ] Required PostgreSQL/MySQL engines and versions are saved for review; backend reads the injected variables, preserves TLS, and bounds total connection pools.
+- [ ] SQL write/read, restart persistence, image-update reuse, and two-user/two-Agent isolation are verified; database passwords and URLs do not reach browsers or logs.
 - [ ] Image layers, browser responses, and logs contain no keys; custom environment variables are non-sensitive and do not use `UNEX_` names.
 - [ ] Page, asset, and API requests preserve session routing; session values do not reach external requests or browser storage.
 - [ ] Streaming success, errors, cancellation, timeouts, and bounded SIGTERM shutdown have been verified.
@@ -474,7 +504,7 @@ For a support report, include the Agent ID, application version, image digest, s
 The following platform work is still required; do not mark it complete because an internal test or Worker deployment succeeded:
 
 - [ ] Stop injecting long-lived `UNEX_API_KEY` credentials into third-party containers, rotate affected old keys, and deliver the trusted model proxy. Validate two-user attribution, model permissions, budgets, and revocation after the session stops, including any legacy token-exchange path.
-- [ ] Before promising persistent data, deliver the per-user D1/R2 workspace, trusted Storage Broker, and user file controls. Verify cross-user denial, recovery after restart, quota handling, and explicit deletion.
+- [ ] Before promising a persistent file workspace, deliver the per-user D1/R2 workspace, trusted Storage Broker, and user file controls. Verify cross-user denial, recovery after restart, quota handling, and explicit deletion. Optional managed SQL is documented separately and does not provide this file workflow.
 - [ ] Before offering the planned upload options, test archive rejection, resumable upload, narrowly scoped expiring push permissions, immutable digests, and stage-specific recovery.
 
 These checks establish specific release evidence; they do not justify a universal claim that every image or dependency is safe.
@@ -496,7 +526,7 @@ Delivery requirements:
 2. GET / serves the UI; GET /health promptly returns 200 JSON without
    a model call. Platform port readiness does not replace these tests.
 3. Do not require real UNEX_API_KEY injection, personal keys, or shared
-   keys. Keep unavailable model/storage integrations disabled. Planned
+   keys. Keep unavailable model/file-workspace integrations disabled. Planned
    virtual proxies may be used only after platform support is enabled;
    fail clearly without real-key, hostname, or fake-persistence fallbacks.
 4. Preserve session routing and entry path prefixes on same-origin
@@ -512,6 +542,13 @@ Delivery requirements:
    measured resource needs, and the selected platform instance type.
 9. Provide runtime form values and deployment-stage verification.
    Custom environment variables are plaintext and must be non-sensitive.
+10. If SQL is needed, select PostgreSQL and/or MySQL with versions in
+    Database configuration. Read UNEX_DATABASE_POSTGRESQL_* and/or
+    UNEX_DATABASE_MYSQL_* only in the backend; preserve TLS, use
+    parameterized queries, and bound total pools by CONNECTION_LIMIT.
+    Verify persistence and user/Agent isolation. Never expose database
+    passwords/URLs or request the PynamicDB control API password.
+    Databases have separate logins; cross-Agent SQL is not granted.
 
 Use the current external Registry workflow. Browser TAR upload and
 direct platform Docker Push are planned. A deployable image alone
@@ -520,7 +557,7 @@ does not complete the third-party production release prerequisites.
 
 ### References and scope
 
-This guide reflects the platform's Mode B baseline as of 2026-09-29. Instance tiers and user charging rules follow the platform's definitions and published pricing. Cloudflare limits and pricing can change; the links below explain the underlying services, not additional platform features:
+This guide reflects the platform's Mode B baseline as of 2026-10-17. Instance tiers and user charging rules follow the platform's definitions and published pricing. Cloudflare limits and pricing can change; the links below explain the underlying services, not additional platform features:
 
 - [Cloudflare Containers architecture and lifecycle](https://developers.cloudflare.com/containers/concepts/architecture/)
 - [Cloudflare Containers image management](https://developers.cloudflare.com/containers/guides/image-management/)
