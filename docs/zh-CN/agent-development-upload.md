@@ -134,9 +134,9 @@ Agent 还可按需选择 PostgreSQL/MySQL。平台为每位用户的每个 Agent
 
 在**最小资源要求 → 数据库配置**中，也就是**实例类型**下方，点击**添加数据库**并选择类型和版本。默认没有数据库；PostgreSQL 与 MySQL 各最多一项，Redis 和 MongoDB 保持禁用。实时目录会展示版本、数据库默认连接上限、共享服务器连接容量及 TLS 模式。
 
-平台为每个 UnexHub 用户创建或复用一个数据库服务逻辑用户，再按 Agent 和类型分配独立数据库。启动时向后端容器注入 `UNEX_DATABASE_POSTGRESQL_*` 和/或 `UNEX_DATABASE_MYSQL_*`，每组包含 `HOST`、`PORT`、`DATABASE`、`USERNAME`、`PASSWORD`、`URL`、`SSL_MODE`、`CONNECTION_MODE`、`CONNECTION_LIMIT`。只注入已选类型，应用后端必须显式读取。
+UnexHub 为每个用户的每个 Agent 按所选类型提供独立数据库。启动时向后端容器注入 `UNEX_DATABASE_POSTGRESQL_*` 和/或 `UNEX_DATABASE_MYSQL_*`，每组包含 `HOST`、`PORT`、`DATABASE`、`USERNAME`、`PASSWORD`、`URL`、`SSL_MODE`、`CONNECTION_MODE`、`CONNECTION_LIMIT`。只注入已选类型，应用后端必须显式读取。
 
-数据库在实例停止、镜像更新后仍会保留，每库使用独立账号，不自动开放跨 Agent 访问。数据库要求进入审核版本，修改后需要重新审核，不会自动升级已有数据库。运行中的容器需停止并重新启动，才能取得新变量。PynamicDB 控制凭据始终只保留在平台后端。
+数据库在实例停止、镜像更新后仍会保留，每库使用独立账号，不自动开放跨 Agent 访问。数据库要求进入审核版本，修改后需要重新审核，不会自动升级已有数据库。运行中的容器需停止并重新启动，才能取得新变量。
 
 完整变量表、生命周期、TLS 说明和 [PostgreSQL 示例](agent-mode-b-databases.md#postgresql-example)、[MySQL 示例](agent-mode-b-databases.md#mysql-example)见[数据库专题指南](agent-mode-b-databases.md)。托管 SQL 不会让容器文件自动持久保存，也不代表规划中的 D1/R2 文件工作区已启用。
 
@@ -469,7 +469,7 @@ docker save -o my-agent-1.0.0-amd64.tar my-agent:1.0.0
 | 旧测试镜像读不到 `UNEX_API_KEY` | 这是可信测试兼容路径的问题；不要硬编码长期 Key 或让浏览器用户填写 |
 | URL 没有 `unex_agent_token` fragment | 镜像实例通常不会提供，不应要求用户粘贴 Token |
 | 缺少数据库环境变量 | 选择并保存类型和版本，普通用户启动需完成审核，然后打开新实例；只注入已配置类型 |
-| 数据库目录或类型不可用 | 由平台运维检查 PynamicDB 集成和数据库就绪状态，不应索取控制密码 |
+| 数据库目录或类型不可用 | 向 UnexHub 支持提供 Agent ID 和脱敏错误，核查数据库可用状态 |
 | 数据库版本不匹配而无法启动 | 已有库保留原分配版本，改选版本不会迁移；应协调迁移或恢复兼容要求 |
 | SQL 连接上限或 TLS 错误 | 按注入的 `CONNECTION_LIMIT` 限制总连接池，保留 `SSL_MODE`，核对可达性、CA 与主机名设置；不要记录原始连接信息 |
 | 规划中的模型或存储虚拟地址不可用 | 模型代理与 D1/R2 文件工作区尚未实现，自行设置变量不会启用；SQL 使用独立的数据库变量 |
@@ -542,8 +542,8 @@ docker save -o my-agent-1.0.0-amd64.tar my-agent:1.0.0
 10. 如需 SQL，在数据库配置中选择 PostgreSQL 和/或 MySQL 及版本。
     仅后端读取 UNEX_DATABASE_POSTGRESQL_* 和/或 UNEX_DATABASE_MYSQL_*，
     保留 TLS，使用参数化查询，按 CONNECTION_LIMIT 限制总连接池。
-    验证持久化和用户/Agent 隔离；不暴露数据库密码或 URL，
-    不索取 PynamicDB 控制 API 密码。每库独立账号，不授予跨 Agent SQL。
+    验证持久化和用户/Agent 隔离；不暴露数据库密码或连接 URL。
+    每库独立账号，不授予跨 Agent SQL。
 
 使用当前外部 Registry 流程。浏览器 TAR 上传和直接向平台 Docker Push
 尚在规划中。镜像可部署本身不代表第三方生产发布前提已经完成。

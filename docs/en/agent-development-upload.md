@@ -134,9 +134,9 @@ Keep real `.env` files out of version control too. Scan the final image: deletin
 
 In **Minimum resource requirements → Database configuration**, directly below **Instance type**, select **Add database** and choose an engine and version. The default is empty. Add at most one PostgreSQL and one MySQL entry; Redis and MongoDB are disabled. The live catalog shows versions, the default database connection limit, shared server connection capacity, and TLS mode.
 
-The platform creates or reuses one logical database-service user per UnexHub user and a separate database per Agent and engine. On startup it injects `UNEX_DATABASE_POSTGRESQL_*` and/or `UNEX_DATABASE_MYSQL_*` into the backend container. Each family has `HOST`, `PORT`, `DATABASE`, `USERNAME`, `PASSWORD`, `URL`, `SSL_MODE`, `CONNECTION_MODE`, and `CONNECTION_LIMIT`. Only selected engines are injected; your backend must read the variables explicitly.
+UnexHub provides a separate database for each user, Agent, and selected engine. On startup it injects `UNEX_DATABASE_POSTGRESQL_*` and/or `UNEX_DATABASE_MYSQL_*` into the backend container. Each family has `HOST`, `PORT`, `DATABASE`, `USERNAME`, `PASSWORD`, `URL`, `SSL_MODE`, `CONNECTION_MODE`, and `CONNECTION_LIMIT`. Only selected engines are injected; your backend must read the variables explicitly.
 
-Databases persist across instance stops and image updates, with independent logins per database and no automatic cross-Agent access. Requirements belong to the reviewed version; changing them requires another review and does not automatically upgrade an existing database. Existing running containers need to be stopped and started to receive new variables. PynamicDB control credentials remain exclusively on the platform backend.
+Databases persist across instance stops and image updates, with independent logins per database and no automatic cross-Agent access. Requirements belong to the reviewed version; changing them requires another review and does not automatically upgrade an existing database. Existing running containers need to be stopped and started to receive new variables.
 
 Read the [full database guide](agent-mode-b-databases.md) for the variable table, lifecycle and TLS details, [PostgreSQL example](agent-mode-b-databases.md#postgresql-example), and [MySQL example](agent-mode-b-databases.md#mysql-example). Managed SQL does not make container files durable or enable the planned D1/R2 file workspace.
 
@@ -469,7 +469,7 @@ Future upload entry points must validate ownership, size, content, quota, and ar
 | A legacy test image cannot read `UNEX_API_KEY` | This concerns the trusted-test compatibility path. Do not hard-code a long-lived key or ask the browser user for one. |
 | No `unex_agent_token` fragment in the page URL | Image instances do not normally provide one. Do not require pasted tokens. |
 | Database variables are missing | Select and save the engine/version, complete review for ordinary-user launch, and open a new instance. Only configured engines are injected. |
-| Database catalog or engine is unavailable | Ask the platform operator to check PynamicDB integration and engine readiness; do not request its control password. |
+| Database catalog or engine is unavailable | Contact UnexHub support with the Agent ID and sanitized error to check database availability. |
 | Database version mismatch blocks startup | An existing database remains on its allocated version; selecting another version does not migrate it. Coordinate migration or restore compatible requirements. |
 | SQL connection limit or TLS error | Bound total pools using the injected `CONNECTION_LIMIT`, preserve `SSL_MODE`, and check reachability and CA/hostname settings; do not log raw connection details. |
 | Planned model/storage virtual address is unavailable | The model proxy and D1/R2 file workspace are not implemented. Setting their variables does not enable them; SQL uses separate database variables. |
@@ -547,7 +547,7 @@ Delivery requirements:
     UNEX_DATABASE_MYSQL_* only in the backend; preserve TLS, use
     parameterized queries, and bound total pools by CONNECTION_LIMIT.
     Verify persistence and user/Agent isolation. Never expose database
-    passwords/URLs or request the PynamicDB control API password.
+    passwords or connection URLs.
     Databases have separate logins; cross-Agent SQL is not granted.
 
 Use the current external Registry workflow. Browser TAR upload and

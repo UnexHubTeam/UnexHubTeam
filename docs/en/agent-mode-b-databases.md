@@ -4,9 +4,9 @@
 
 Updated: 2026-10-17
 
-Mode B can provision an optional PostgreSQL database, MySQL database, or both for each user of an Agent. The platform prepares the databases at instance startup and injects connection settings into the container environment. Your **backend** reads those settings; developers and end users do not need a PynamicDB account or control API password.
+Mode B can provision an optional PostgreSQL database, MySQL database, or both for each user of an Agent. UnexHub prepares the databases at instance startup and injects connection settings into the container environment. Your **backend** reads those settings; database setup is managed through UnexHub.
 
-This requires the platform operator to enable its PynamicDB integration and prepare database capacity. The deployment form's live catalog determines available engines and versions. This SQL feature is separate from the [existing model-key limitation and planned D1/R2 file workspace](agent-development-upload.md#section-3).
+The UnexHub deployment form's live catalog determines available engines, versions, and connection limits. This SQL feature is separate from the [existing model-key limitation and planned D1/R2 file workspace](agent-development-upload.md#section-3).
 
 ## On this page
 
@@ -28,7 +28,7 @@ This requires the platform operator to enable its PynamicDB integration and prep
 
 The catalog shows the default maximum connections for a database login, the shared server's maximum connections, and its SSL/TLS mode. The server limit is capacity shared by all databases, not a dedicated allowance for each Agent. The injected `CONNECTION_LIMIT` describes the actual allocated database login; it can differ from a later catalog default.
 
-If the catalog is unavailable, an engine is not ready, or no version is selectable, ask the platform operator to check database service readiness. Do not enter control credentials in custom environment variables or ask users to supply them.
+If the catalog is unavailable, an engine is not ready, or no version is selectable, contact UnexHub support with the Agent ID and sanitized error. Database connection settings are supplied by UnexHub at startup; do not add passwords through custom environment variables.
 
 <a id="database-environment"></a>
 ## Injected environment variables
@@ -54,10 +54,10 @@ The backend must explicitly read these variables; injection does not configure a
 <a id="database-lifecycle"></a>
 ## Provisioning, reuse, and version changes
 
-- On first use, the platform creates or reuses one PynamicDB logical user for the UnexHub user. The same logical user is shared across PostgreSQL and MySQL. It then creates one database per selected engine for that user's Agent and obtains its database-scoped login.
+- On first use, UnexHub prepares a separate database and database-scoped login for each selected engine, associated with the current user and Agent.
 - Preparation happens before compute pre-deduction and container creation. A preparation failure prevents those steps; if one engine was already provisioned before another failed, it is retained for a retry.
 - Repeated or concurrent starts and image updates reuse the database for the same **user × Agent × engine**. Another user or Agent receives a separate database and login. New sessions do not create a fresh empty database.
-- Each database has an independent SQL login. Sharing one logical PynamicDB user does **not** grant cross-Agent queries or cross-database permissions. Future Agent collaboration needs explicit authorization.
+- Each database has an independent SQL login. An Agent does not automatically receive access to another Agent's databases or another user's data. Future Agent collaboration needs explicit platform authorization.
 - Selecting another version does not upgrade, migrate, or recreate an existing database. A mismatch between the selected version and the allocated server version blocks startup. Coordinate migration with the platform operator and keep application schemas compatible with release and rollback requirements.
 - Stopping a container, removing a database requirement, or deleting an Agent does not automatically delete its remote database. Do not present any of those actions as data erasure; retention and database cleanup require separate management.
 
@@ -71,7 +71,7 @@ Use Python 3.10+ in the Agent backend. Add these dependencies to your project, t
 python -m pip install 'psycopg[binary]>=3.2,<4' 'PyMySQL[rsa]>=1.1,<1.2'
 ```
 
-Run the examples inside a platform-launched test container after selecting the corresponding database. They create `agent_example_notes` and insert or update row `id=1`; use a disposable test Agent/database. They open one connection, run parameterized SQL, commit a write, read it back, and close the connection. They do not need a model key or a PynamicDB control credential.
+Run the examples inside a platform-launched test container after selecting the corresponding database. They create `agent_example_notes` and insert or update row `id=1`; use a disposable test Agent/database. They open one connection, run parameterized SQL, commit a write, read it back, and close the connection. Connection credentials come from UnexHub's injected environment variables.
 
 <a id="postgresql-example"></a>
 ## PostgreSQL backend example
@@ -184,7 +184,7 @@ def main():
         ssl_disabled=(mode == "disable"),
     ) as conn:
         # PyMySQL 1.1 can fall back when a server does not advertise TLS.
-        # Match the platform's transport check; fail closed for required TLS.
+        # Fail closed when the configured mode requires TLS.
         if mode not in {"disable", "prefer"} and not getattr(conn, "_secure", False):
             raise RuntimeError("The database connection requires TLS")
         try:
@@ -218,13 +218,13 @@ if __name__ == "__main__":
         ) from None
 ```
 
-The example honors the configured mode: `disable` turns TLS off; `prefer` attempts TLS where supported; `require` demands encryption; `verify-ca` also checks the certificate chain; `verify-full` also checks the hostname. `prefer` and `require` do not verify certificates in this MySQL example. Use `DATABASE_CA_FILE` for a private CA when verification is enabled; ask the platform operator to correct certificate problems rather than weakening the configured mode. The `_secure` check matches the platform's PyMySQL 1.1 transport check and prevents required TLS from silently falling back; revalidate it if you replace or upgrade the driver. MySQL DDL can commit independently, so schema migrations need their own recovery plan.
+The example honors the configured mode: `disable` turns TLS off; `prefer` attempts TLS where supported; `require` demands encryption; `verify-ca` also checks the certificate chain; `verify-full` also checks the hostname. `prefer` and `require` do not verify certificates in this MySQL example. Use `DATABASE_CA_FILE` for a private CA when verification is enabled; ask the platform operator to correct certificate problems rather than weakening the configured mode. The `_secure` check uses a PyMySQL 1.1 attribute to prevent required TLS from silently falling back; revalidate it if you replace or upgrade the driver. MySQL DDL can commit independently, so schema migrations need their own recovery plan.
 
 <a id="database-practices"></a>
 ## Connection pools, credentials, and release checks
 
 For a production backend, bound the pool using the selected engine's `CONNECTION_LIMIT`. Count connections from **all processes and containers** using this user–Agent database login, including workers and migrations; leave headroom instead of assigning the full limit to every process. Close connections on shutdown, set timeouts, and handle unavailable capacity without unlimited retries. The shared server maximum is not your pool size. Check `CONNECTION_MODE` before choosing session-dependent SQL features with a pool endpoint.
 
-The injected database password and URL are readable by your container and its dependencies. Keep them in the backend process, avoid logging raw driver errors, and never return them through a configuration endpoint, frontend bundle, browser storage, support report, or page URL. The PynamicDB control API password stays exclusively on the platform backend and is never part of these variables; Agent code should connect to its database rather than call the provisioning API.
+The injected database password and URL are readable by your container and its dependencies. Keep them in the backend process, avoid logging raw driver errors, and never return them through a configuration endpoint, frontend bundle, browser storage, support report, or page URL.
 
 Before release, verify writes and reads, persistence after stopping and starting, reuse after an image update, and isolation between two users and between two Agents. Test missing variables, TLS and connection-limit failures with sanitized user-facing errors. These checks do not replace the [Mode B model-access release prerequisites](agent-development-upload.md#section-10).

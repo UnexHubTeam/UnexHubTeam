@@ -4,9 +4,9 @@
 
 更新日期：2026-10-17
 
-模式 B 可为 Agent 的每位用户配置 PostgreSQL、MySQL，或同时配置两种数据库。平台在用户启动实例时准备数据库，并将连接信息注入容器环境变量，由应用**后端**读取。开发者和终端用户无需注册 PynamicDB 账号，也无需取得控制 API 密码。
+模式 B 可为 Agent 的每位用户配置 PostgreSQL、MySQL，或同时配置两种数据库。UnexHub 在用户启动实例时准备数据库，并将连接信息注入容器环境变量，由应用**后端**读取。数据库配置统一通过 UnexHub 管理。
 
-使用前需要平台运维启用 PynamicDB 集成并准备数据库容量。实际可用类型和版本以部署表单的实时目录为准。SQL 数据库能力与[现有模型 Key 限制、规划中的 D1/R2 文件工作区](agent-development-upload.md#section-3)分别说明。
+实际可用类型、版本和连接限制以 UnexHub 部署表单的实时目录为准。SQL 数据库能力与[现有模型 Key 限制、规划中的 D1/R2 文件工作区](agent-development-upload.md#section-3)分别说明。
 
 ## 本页目录
 
@@ -28,7 +28,7 @@
 
 目录会展示数据库登录账号的默认最大连接数、共享服务器最大连接数及 SSL/TLS 模式。服务器上限由所有数据库共享，不是每个 Agent 独享的额度。启动时注入的 `CONNECTION_LIMIT` 是实际分配账号的上限，可能与之后变动的目录默认值不同。
 
-目录不可用、数据库未就绪或没有可选版本时，应由平台运维检查数据库服务。不要将控制凭据填入自定义环境变量，也不要要求用户提供这些凭据。
+目录不可用、数据库未就绪或没有可选版本时，请向 UnexHub 支持提供 Agent ID 和脱敏错误。连接信息由 UnexHub 在启动时提供，不要通过自定义环境变量填写密码。
 
 <a id="database-environment"></a>
 ## 注入的环境变量
@@ -54,10 +54,10 @@
 <a id="database-lifecycle"></a>
 ## 首次创建、复用与版本变更
 
-- 首次使用时，平台为 UnexHub 用户创建或复用一个 PynamicDB 逻辑用户；PostgreSQL 和 MySQL 共用该逻辑用户，再为该用户的当前 Agent 按所选类型分别创建数据库，取得数据库专属账号。
+- 首次使用时，UnexHub 为当前用户的当前 Agent 按所选类型分别准备独立数据库和专属登录账号。
 - 数据库准备先于算力预扣及容器创建。准备失败不会进入这些步骤；如果先成功创建了一种数据库、另一种失败，已创建的部分会保留供重试。
 - 同一**用户 × Agent × 数据库类型**重复启动、并发启动或更新镜像时复用原数据库；不同用户或不同 Agent 使用不同数据库和账号。新会话不会自动得到一个空库。
-- 每个数据库有独立 SQL 登录账号。共用一个 PynamicDB 逻辑用户**不代表**已授予跨 Agent 查询或跨库权限；未来 Agent 联动需要明确授权。
+- 每个数据库有独立 SQL 登录账号。Agent 不会自动取得其他 Agent 数据库或其他用户数据的访问权限，未来 Agent 联动需要平台明确授权。
 - 改选版本不会自动升级、迁移或重建已有数据库。所选版本与实际分配服务器版本不一致时会拒绝启动。迁移需与平台运维协调，应用表结构应兼容发布和回滚要求。
 - 停止容器、移除数据库要求或删除 Agent 均不会自动删除远端数据库，不能将这些操作描述为数据已擦除；保留与数据库回收需要单独管理。
 
@@ -71,7 +71,7 @@ SQL 数据独立于容器磁盘持久保存。容器文件仍是临时数据，�
 python -m pip install 'psycopg[binary]>=3.2,<4' 'PyMySQL[rsa]>=1.1,<1.2'
 ```
 
-选择对应数据库后，在平台启动的测试容器内运行示例。示例会创建 `agent_example_notes` 表，并插入或更新 `id=1` 的记录，应使用可丢弃的测试 Agent/数据库。示例一次打开一个连接，使用参数化 SQL 写入并提交、读取验证，再关闭连接，不需要模型 Key 或 PynamicDB 控制凭据。
+选择对应数据库后，在平台启动的测试容器内运行示例。示例会创建 `agent_example_notes` 表，并插入或更新 `id=1` 的记录，应使用可丢弃的测试 Agent/数据库。示例一次打开一个连接，使用参数化 SQL 写入并提交、读取验证，再关闭连接；连接凭据来自 UnexHub 注入的环境变量。
 
 <a id="postgresql-example"></a>
 ## PostgreSQL 后端示例
@@ -184,7 +184,7 @@ def main():
         ssl_disabled=(mode == "disable"),
     ) as conn:
         # PyMySQL 1.1 can fall back when a server does not advertise TLS.
-        # Match the platform's transport check; fail closed for required TLS.
+        # Fail closed when the configured mode requires TLS.
         if mode not in {"disable", "prefer"} and not getattr(conn, "_secure", False):
             raise RuntimeError("The database connection requires TLS")
         try:
@@ -218,13 +218,13 @@ if __name__ == "__main__":
         ) from None
 ```
 
-示例遵循已配置的模式：`disable` 关闭 TLS，`prefer` 在支持时尝试 TLS，`require` 要求加密，`verify-ca` 进一步校验证书链，`verify-full` 再校验主机名。本 MySQL 示例的 `prefer` 和 `require` 不校验证书。启用验证且使用私有 CA 时设置 `DATABASE_CA_FILE`；证书异常应由平台运维修复，不应降低已配置的模式。`_secure` 检查与平台的 PyMySQL 1.1 传输检查一致，防止必需 TLS 时静默回退；更换或升级驱动时需重新验证。MySQL DDL 可能独立提交，表结构迁移需要自己的恢复方案。
+示例遵循已配置的模式：`disable` 关闭 TLS，`prefer` 在支持时尝试 TLS，`require` 要求加密，`verify-ca` 进一步校验证书链，`verify-full` 再校验主机名。本 MySQL 示例的 `prefer` 和 `require` 不校验证书。启用验证且使用私有 CA 时设置 `DATABASE_CA_FILE`；证书异常应由平台运维修复，不应降低已配置的模式。`_secure` 检查使用 PyMySQL 1.1 的属性，防止必需 TLS 时静默回退；更换或升级驱动时需重新验证。MySQL DDL 可能独立提交，表结构迁移需要自己的恢复方案。
 
 <a id="database-practices"></a>
 ## 连接池、凭据与发布检查
 
 生产后端应根据对应类型的 `CONNECTION_LIMIT` 限制连接池。计算使用该“用户 × Agent”数据库账号的**所有进程和容器**连接数，包括工作进程与迁移任务，并留出余量，不能让每个进程都占满上限。退出时关闭连接、设置超时，对容量不足限制重试。共享服务器最大连接数不能直接作为自己的池大小。使用连接池入口时，先核对 `CONNECTION_MODE`，再选择依赖连接会话状态的 SQL 功能。
 
-数据库密码与 URL 对容器及其依赖可读，应仅保留在后端进程中，避免记录原始驱动错误，不得通过配置接口、前端打包、浏览器存储、问题报告或页面 URL 暴露。PynamicDB 控制 API 密码只保留在平台后端，从不包含在上述变量中；Agent 应连接自己的数据库，不应调用创建数据库的控制 API。
+数据库密码与 URL 对容器及其依赖可读，应仅保留在后端进程中，避免记录原始驱动错误，不得通过配置接口、前端打包、浏览器存储、问题报告或页面 URL 暴露。
 
 发布前验证写入读取、停止再启动后的数据保留、镜像更新后的复用，以及两个用户之间、两个 Agent 之间的隔离。对缺少变量、TLS 失败和连接数不足验证脱敏错误。这些检查不能替代[模式 B 模型访问的发布前提](agent-development-upload.md#section-10)。

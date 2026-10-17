@@ -47,7 +47,7 @@ def main():
         ssl_disabled=(mode == "disable"),
     ) as conn:
         # PyMySQL 1.1 can fall back when a server does not advertise TLS.
-        # Match the platform's transport check; fail closed for required TLS.
+        # Fail closed when the configured mode requires TLS.
         if mode not in {"disable", "prefer"} and not getattr(conn, "_secure", False):
             raise RuntimeError("The database connection requires TLS")
         try:
