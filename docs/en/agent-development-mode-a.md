@@ -142,6 +142,8 @@ def model_request_config():
     return endpoint, headers, agent_id, user_id
 ```
 
+For optional PostgreSQL/MySQL databases, use **Minimum resource requirements → Database configuration** and select an engine and version. UnexHub prepares the current user’s Agent database at startup and injects `UNEX_DATABASE_POSTGRESQL_*` / `UNEX_DATABASE_MYSQL_*` into the backend only. See [Agent database configuration, variables, and runnable examples](agent-databases.md).
+
 Check required variables at the business request boundary so that `/health` can remain available for runtime health checks. Application-specific non-secret settings, such as a permitted model ID, may use separate environment variables.
 
 <a id="section-5"></a>
@@ -174,7 +176,7 @@ For every topology, validate the actual user entry—not only a container-local 
 <a id="section-6"></a>
 ## 6. Design for a temporary data lifecycle
 
-Mode A currently offers **no server-side persistence guarantee**. Files written inside a container may disappear when a session stops, a node is reclaimed, an image changes, or the runtime is repaired. The `storage_gb` field is not a volume allocation and must not be described to users as cloud storage.
+Mode A supports optional [managed PostgreSQL/MySQL databases](agent-databases.md) for records that must survive container restarts. Container-local files have **no persistence guarantee**. Files written inside a container may disappear when a session stops, a node is reclaimed, an image changes, or the runtime is repaired. The `storage_gb` field is not a volume allocation and must not be described to users as cloud storage.
 
 Files that end users upload through an Agent are session-temporary unless an approved external store is explicitly configured. Tell users that stopping the session may lose these files and offer export during the session. Storage used to stage publishing artifacts, including frontend ZIPs or planned image archives, is not a persistent workspace for end users; using R2 in an artifact pipeline does not create one.
 
@@ -194,7 +196,7 @@ Never put any of the following in browser storage, including `localStorage`, `se
 - sensitive chat content or personal data;
 - records that must be recoverable, shared, audited, or retained.
 
-If the product requires durable server-side data, pause the release until the platform approves an external persistence integration, access model, retention policy, and deletion process. `UNEX_AGENT_ID` and `UNEX_USER_ID` can help namespace approved backend data, but they do not create storage or replace authorization checks.
+For durable SQL records, configure the managed database and verify its read/write, isolation, and restart behavior. Confirm backup, retention, and deletion policies with the platform before release; files still require an approved storage integration. `UNEX_AGENT_ID` and `UNEX_USER_ID` can help namespace approved backend data, but they do not create storage or replace authorization checks.
 
 <a id="section-7"></a>
 ## 7. Build and verify locally
@@ -321,7 +323,7 @@ The green checklist and its per-session namespace/network-allowlist wording are 
 
 #### Step 3: Save runtime settings
 
-On the same page, enter frontend/backend container ports within `1024–65535`, health paths, startup command, minimum node specification, and idle timeout, then select **Save runtime config**. `single` currently requires a command; for `split`, prefer each image's own default command. Keep `gpu_count=1` as one whole-node unit and treat `storage_gb` only as a configuration constraint.
+On the same page, enter frontend/backend container ports within `1024–65535`, health paths, startup command, minimum node specification, and idle timeout. Add optional PostgreSQL/MySQL requirements under **Database configuration**, then select **Save runtime config**. `single` currently requires a command; for `split`, prefer each image's own default command. Keep `gpu_count=1` as one whole-node unit and treat `storage_gb` only as a configuration constraint.
 
 ![Mode A English UI: runtime settings, save action, and listing-review entry](../../assets/en/agent-mode-a-03-runtime-review.png)
 

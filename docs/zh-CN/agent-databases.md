@@ -1,12 +1,12 @@
-# 模式 B：PostgreSQL 与 MySQL 数据库
+# Agent 数据库：PostgreSQL 与 MySQL
 
-[English (primary)](../en/agent-mode-b-databases.md) · [中文目录](README.md) · [模式 B 开发与上传指南](agent-development-upload.md)
+[English (primary)](../en/agent-databases.md) · [中文目录](README.md) · [模式 A 指南](agent-development-mode-a.md) · [模式 B 指南](agent-development-upload.md)
 
-更新日期：2026-10-17
+更新日期：2026-10-21
 
-模式 B 可为 Agent 的每位用户配置 PostgreSQL、MySQL，或同时配置两种数据库。UnexHub 在用户启动实例时准备数据库，并将连接信息注入容器环境变量，由应用**后端**读取。数据库配置统一通过 UnexHub 管理。
+容器模式 A 与模式 B 均可为 Agent 的每位用户配置 PostgreSQL、MySQL，或同时配置两种数据库。UnexHub 在用户启动实例时准备数据库，并将连接信息注入容器环境变量，由应用**后端**读取。数据库配置统一通过 UnexHub 管理。
 
-实际可用类型、版本和连接限制以 UnexHub 部署表单的实时目录为准。SQL 数据库能力与[现有模型 Key 限制、规划中的 D1/R2 文件工作区](agent-development-upload.md#section-3)分别说明。
+实际可用类型、版本和连接限制以 UnexHub 部署表单的实时目录为准。托管 SQL 独立于容器文件保存应用记录，不提供文件持久化，也不改变所选部署模式的模型访问要求。
 
 ## 本页目录
 
@@ -20,20 +20,20 @@
 <a id="database-configuration"></a>
 ## 配置数据库要求
 
-1. 打开 **Agent 部署配置**，选择**模式 B · Cloudflare 容器**。
-2. 在**最小资源要求**卡片中，找到**实例类型**下方的**数据库配置**。默认没有数据库；无需 SQL 的 Agent 可以保持为空。
+1. 打开 **Agent 部署配置**，选择**模式 A · 平台托管独立节点**或**模式 B · Cloudflare 容器**。
+2. 在**最小资源要求**卡片中，找到算力规格设置下方的**数据库配置**。默认没有数据库；无需 SQL 的 Agent 可以保持为空。
 3. 点击**添加数据库**，分别从两个下拉框选择类型和版本。当前支持 PostgreSQL 和 MySQL，每种类型最多一项；继续添加可同时使用两种数据库。Redis 和 MongoDB 尚未实现，保持禁用状态。
 4. 核对页面展示的连接限制与 TLS 模式，保存运行配置。数据库要求会进入提交审核的版本快照。发布后修改数据库要求会下架并要求重新审核；普通用户启动读取已审核版本的快照，开发者自测读取工作配置。
 5. 使用**新实例**测试。已经运行的实例仍使用原环境变量；修改要求后应先停止，再重新启动。
 
-目录会展示数据库登录账号的默认最大连接数、共享服务器最大连接数及 SSL/TLS 模式。服务器上限由所有数据库共享，不是每个 Agent 独享的额度。启动时注入的 `CONNECTION_LIMIT` 是实际分配账号的上限，可能与之后变动的目录默认值不同。
+目录会展示数据库登录账号的默认最大连接数及 SSL/TLS 模式。启动时注入的 `CONNECTION_LIMIT` 是实际分配账号的上限，可能与之后变动的目录默认值不同。
 
 目录不可用、数据库未就绪或没有可选版本时，请向 UnexHub 支持提供 Agent ID 和脱敏错误。连接信息由 UnexHub 在启动时提供，不要通过自定义环境变量填写密码。
 
 <a id="database-environment"></a>
 ## 注入的环境变量
 
-只为已选择的类型注入变量。例如仅配置 PostgreSQL 时，不会出现 `UNEX_DATABASE_MYSQL_*`。所有值均为环境变量字符串。
+只为已选择的类型注入变量。例如仅配置 PostgreSQL 时，不会出现 `UNEX_DATABASE_MYSQL_*`。所有值均为环境变量字符串。`single` 与 `frontend-package` 拓扑注入后端容器；`split` 拓扑只给后端注入，不注入前端容器或前端构建。
 
 | PostgreSQL 变量 | MySQL 变量 | 含义 |
 | --- | --- | --- |
@@ -76,7 +76,7 @@ python -m pip install 'psycopg[binary]>=3.2,<4' 'PyMySQL[rsa]>=1.1,<1.2'
 <a id="postgresql-example"></a>
 ## PostgreSQL 后端示例
 
-[下载 `postgresql_example.py`](../../examples/mode-b-databases/postgresql_example.py)，在测试容器中执行 `python postgresql_example.py`。注入的 URI 已保留凭据转义和 `sslmode`。Psycopg 连接上下文在成功时提交、出错时回滚，并关闭连接。用法见 [Psycopg 官方说明](https://www.psycopg.org/psycopg3/docs/basic/usage.html)。
+[下载 `postgresql_example.py`](../../examples/agent-databases/postgresql_example.py)，在测试容器中执行 `python postgresql_example.py`。注入的 URI 已保留凭据转义和 `sslmode`。Psycopg 连接上下文在成功时提交、出错时回滚，并关闭连接。用法见 [Psycopg 官方说明](https://www.psycopg.org/psycopg3/docs/basic/usage.html)。
 
 ```python
 """Backend-only PostgreSQL example. Run in a disposable Agent test database."""
@@ -132,7 +132,7 @@ if __name__ == "__main__":
 <a id="mysql-example"></a>
 ## MySQL 后端示例
 
-[下载 `mysql_example.py`](../../examples/mode-b-databases/mysql_example.py)，在测试容器中执行 `python mysql_example.py`。示例将注入的 SSL 模式转换为 `ssl.SSLContext`，不假设驱动能直接使用原始 URL。参数说明见 [PyMySQL 官方连接文档](https://pymysql.readthedocs.io/en/latest/modules/connections.html)。
+[下载 `mysql_example.py`](../../examples/agent-databases/mysql_example.py)，在测试容器中执行 `python mysql_example.py`。示例将注入的 SSL 模式转换为 `ssl.SSLContext`，不假设驱动能直接使用原始 URL。参数说明见 [PyMySQL 官方连接文档](https://pymysql.readthedocs.io/en/latest/modules/connections.html)。
 
 ```python
 """Backend-only MySQL example. Run in a disposable Agent test database."""
@@ -223,8 +223,8 @@ if __name__ == "__main__":
 <a id="database-practices"></a>
 ## 连接池、凭据与发布检查
 
-生产后端应根据对应类型的 `CONNECTION_LIMIT` 限制连接池。计算使用该“用户 × Agent”数据库账号的**所有进程和容器**连接数，包括工作进程与迁移任务，并留出余量，不能让每个进程都占满上限。退出时关闭连接、设置超时，对容量不足限制重试。共享服务器最大连接数不能直接作为自己的池大小。使用连接池入口时，先核对 `CONNECTION_MODE`，再选择依赖连接会话状态的 SQL 功能。
+生产后端应根据对应类型的 `CONNECTION_LIMIT` 限制连接池。计算使用该“用户 × Agent”数据库账号的**所有进程和容器**连接数，包括工作进程与迁移任务，并留出余量，不能让每个进程都占满上限。退出时关闭连接、设置超时，对容量不足限制重试。使用连接池入口时，先核对 `CONNECTION_MODE`，再选择依赖连接会话状态的 SQL 功能。
 
 数据库密码与 URL 对容器及其依赖可读，应仅保留在后端进程中，避免记录原始驱动错误，不得通过配置接口、前端打包、浏览器存储、问题报告或页面 URL 暴露。
 
-发布前验证写入读取、停止再启动后的数据保留、镜像更新后的复用，以及两个用户之间、两个 Agent 之间的隔离。对缺少变量、TLS 失败和连接数不足验证脱敏错误。这些检查不能替代[模式 B 模型访问的发布前提](agent-development-upload.md#section-10)。
+发布前验证写入读取、停止再启动后的数据保留、镜像更新后的复用，以及两个用户之间、两个 Agent 之间的隔离。对缺少变量、TLS 失败和连接数不足验证脱敏错误。同时完成所选部署模式的发布检查：[模式 A](agent-development-mode-a.md#section-10)或[模式 B](agent-development-upload.md#section-10)。

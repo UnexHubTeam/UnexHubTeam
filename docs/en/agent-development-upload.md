@@ -35,7 +35,7 @@ Mode B runs your single OCI container image on Cloudflare Containers. You build 
 
 The current artifact workflow is **build a `linux/amd64` image → push to your external Registry → validate the source image and scan it → save runtime settings → deploy the runtime → test and submit for review**. Public and private external registries are supported; private images use Registry read-only credentials saved through the platform's credential controls.
 
-Agents can also request optional PostgreSQL/MySQL databases. The platform provisions a separate database for each user and Agent, then injects backend connection settings at startup. See [database configuration, variables, and runnable examples](agent-mode-b-databases.md).
+Agents can also request optional PostgreSQL/MySQL databases. The platform provisions a separate database for each user and Agent, then injects backend connection settings at startup. See [database configuration, variables, and runnable examples](agent-databases.md).
 
 > **Release limitation:** The image workflow exists, but safe model access for untrusted third-party images is not complete. Current runtime injection of a long-lived user–Agent model key should be used only for trusted internal compatibility tests; it is not a safe production contract. The trusted model proxy and per-user D1/R2 workspaces described in [section 3](#section-3) are planned. A successful deployment does not resolve these limitations.
 
@@ -132,13 +132,13 @@ Keep real `.env` files out of version control too. Scan the final image: deletin
 
 ### Optional PostgreSQL and MySQL — available with platform database service
 
-In **Minimum resource requirements → Database configuration**, directly below **Instance type**, select **Add database** and choose an engine and version. The default is empty. Add at most one PostgreSQL and one MySQL entry; Redis and MongoDB are disabled. The live catalog shows versions, the default database connection limit, shared server connection capacity, and TLS mode.
+In **Minimum resource requirements → Database configuration**, directly below **Instance type**, select **Add database** and choose an engine and version. The default is empty. Add at most one PostgreSQL and one MySQL entry; Redis and MongoDB are disabled. The live catalog shows versions, the default database connection limit, and TLS mode.
 
 UnexHub provides a separate database for each user, Agent, and selected engine. On startup it injects `UNEX_DATABASE_POSTGRESQL_*` and/or `UNEX_DATABASE_MYSQL_*` into the backend container. Each family has `HOST`, `PORT`, `DATABASE`, `USERNAME`, `PASSWORD`, `URL`, `SSL_MODE`, `CONNECTION_MODE`, and `CONNECTION_LIMIT`. Only selected engines are injected; your backend must read the variables explicitly.
 
 Databases persist across instance stops and image updates, with independent logins per database and no automatic cross-Agent access. Requirements belong to the reviewed version; changing them requires another review and does not automatically upgrade an existing database. Existing running containers need to be stopped and started to receive new variables.
 
-Read the [full database guide](agent-mode-b-databases.md) for the variable table, lifecycle and TLS details, [PostgreSQL example](agent-mode-b-databases.md#postgresql-example), and [MySQL example](agent-mode-b-databases.md#mysql-example). Managed SQL does not make container files durable or enable the planned D1/R2 file workspace.
+Read the [full database guide](agent-databases.md) for the variable table, lifecycle and TLS details, [PostgreSQL example](agent-databases.md#postgresql-example), and [MySQL example](agent-databases.md#mysql-example). Managed SQL does not make container files durable or enable the planned D1/R2 file workspace.
 
 ### Current model-key injection and its compatibility limit
 
@@ -359,7 +359,7 @@ Open [Agent deployment configuration](https://unexhub.ai/console/my_agents?tab=d
 | Health path | `/health`; required and begins with `/` |
 | Startup command | Empty to use the image's `ENTRYPOINT` / `CMD` |
 | Instance type | Required; select one of the six tiers based on measurements, for example `basic` |
-| Database configuration | Optional; below Instance type, add PostgreSQL/MySQL and select versions; see [database setup and limits](agent-mode-b-databases.md#database-configuration) |
+| Database configuration | Optional; below Instance type, add PostgreSQL/MySQL and select versions; see [database setup and limits](agent-databases.md#database-configuration) |
 | Idle reclamation | Choose a supported duration appropriate for the workload; temporary files can be lost when the instance stops |
 | Custom environment variables | Non-sensitive application settings only, such as an allowed model ID in `LLM_MODEL`; stored as plaintext, with no `UNEX_` names |
 | Model allowlist | Include only the actual models required by the Agent; this setting does not enable the planned proxy |

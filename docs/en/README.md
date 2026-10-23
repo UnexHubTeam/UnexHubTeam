@@ -77,9 +77,9 @@ Then jump to the client, editor, coding agent, or Agent deployment guide you nee
 | Mode A · Platform-managed Dedicated Server | **Technical preview.** Real-node validation and entry security remain required; frontend ZIP upload is currently blocked. | 21. [Dedicated-node development guide](agent-development-mode-a.md) |
 | Mode B · Cloudflare Container | **External-registry workflow and optional PostgreSQL/MySQL databases.** Long-lived model-key injection remains a barrier to safe third-party image releases; D1/R2 file workspaces are planned. | 22. [Development and upload guide](agent-development-upload.md) |
 
-The Mode A guide covers external image submission, topology limits, and whole-node specifications chosen by users before launch. The Mode B guide covers a single external image, six instance types locked at version publication, Cloudflare image transfer and runtime deployment, optional per-user SQL databases, and current model-key limits. Both guides distinguish working configuration paths from planned upload, model-proxy, and file-workspace capabilities; container files remain temporary in both modes.
+The Mode A guide covers external image submission, topology limits, and whole-node specifications chosen by users before launch. The Mode B guide covers a single external image, six instance types locked at version publication, Cloudflare image transfer and runtime deployment, and current model-key limits. Both container modes support optional per-user SQL databases. Both guides distinguish working configuration paths from planned upload, model-proxy, and file-workspace capabilities; container files remain temporary in both modes.
 
-For Mode B, see [database configuration and injected variables](agent-mode-b-databases.md), with [PostgreSQL](agent-mode-b-databases.md#postgresql-example) and [MySQL](agent-mode-b-databases.md#mysql-example) backend examples.
+For container Agents in either mode, see [database configuration and injected variables](agent-databases.md), with [PostgreSQL](agent-databases.md#postgresql-example) and [MySQL](agent-databases.md#mysql-example) backend examples.
 
 <a id="api-reference"></a>
 ## API reference

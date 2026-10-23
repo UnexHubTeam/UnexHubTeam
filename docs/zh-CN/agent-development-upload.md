@@ -35,7 +35,7 @@
 
 当前制品流程是：**构建 `linux/amd64` 镜像 → 推送到自己的外部 Registry → 校验源镜像并扫描 → 保存运行配置 → 部署运行时 → 自测并提交审核**。外部公共和私有仓库均可使用；私有镜像通过平台的凭证管理功能保存并选择 Registry 只读凭证。
 
-Agent 还可按需选择 PostgreSQL/MySQL。平台为每位用户的每个 Agent 准备独立数据库，在启动时注入后端连接信息。完整操作见[数据库配置、变量与可运行示例](agent-mode-b-databases.md)。
+Agent 还可按需选择 PostgreSQL/MySQL。平台为每位用户的每个 Agent 准备独立数据库，在启动时注入后端连接信息。完整操作见[数据库配置、变量与可运行示例](agent-databases.md)。
 
 > **发布限制：** 镜像流程已经存在，但面向不可信第三方镜像的安全模型访问尚未完成。当前运行时会注入“用户 × Agent”长期模型 Key；这一机制应仅用于可信内部兼容测试，不能作为安全的生产契约。[第 3 节](#section-3)中的可信模型代理和每用户 D1/R2 工作区均为规划能力。部署成功不能消除这些限制。
 
@@ -132,13 +132,13 @@ Agent 还可按需选择 PostgreSQL/MySQL。平台为每位用户的每个 Agent
 
 ### 可选 PostgreSQL 与 MySQL——平台数据库服务启用后可用
 
-在**最小资源要求 → 数据库配置**中，也就是**实例类型**下方，点击**添加数据库**并选择类型和版本。默认没有数据库；PostgreSQL 与 MySQL 各最多一项，Redis 和 MongoDB 保持禁用。实时目录会展示版本、数据库默认连接上限、共享服务器连接容量及 TLS 模式。
+在**最小资源要求 → 数据库配置**中，也就是**实例类型**下方，点击**添加数据库**并选择类型和版本。默认没有数据库；PostgreSQL 与 MySQL 各最多一项，Redis 和 MongoDB 保持禁用。实时目录会展示版本、数据库默认连接上限及 TLS 模式。
 
 UnexHub 为每个用户的每个 Agent 按所选类型提供独立数据库。启动时向后端容器注入 `UNEX_DATABASE_POSTGRESQL_*` 和/或 `UNEX_DATABASE_MYSQL_*`，每组包含 `HOST`、`PORT`、`DATABASE`、`USERNAME`、`PASSWORD`、`URL`、`SSL_MODE`、`CONNECTION_MODE`、`CONNECTION_LIMIT`。只注入已选类型，应用后端必须显式读取。
 
 数据库在实例停止、镜像更新后仍会保留，每库使用独立账号，不自动开放跨 Agent 访问。数据库要求进入审核版本，修改后需要重新审核，不会自动升级已有数据库。运行中的容器需停止并重新启动，才能取得新变量。
 
-完整变量表、生命周期、TLS 说明和 [PostgreSQL 示例](agent-mode-b-databases.md#postgresql-example)、[MySQL 示例](agent-mode-b-databases.md#mysql-example)见[数据库专题指南](agent-mode-b-databases.md)。托管 SQL 不会让容器文件自动持久保存，也不代表规划中的 D1/R2 文件工作区已启用。
+完整变量表、生命周期、TLS 说明和 [PostgreSQL 示例](agent-databases.md#postgresql-example)、[MySQL 示例](agent-databases.md#mysql-example)见[数据库专题指南](agent-databases.md)。托管 SQL 不会让容器文件自动持久保存，也不代表规划中的 D1/R2 文件工作区已启用。
 
 ### 当前模型 Key 注入及兼容使用边界
 
@@ -359,7 +359,7 @@ docker manifest inspect "$AGENT_IMAGE"
 | 健康路径 | `/health`，必填且以 `/` 开头 |
 | 启动命令 | 留空使用镜像的 `ENTRYPOINT` / `CMD` |
 | 实例类型 | 必填；依据测量结果从六档中选择，例如 `basic` |
-| 数据库配置 | 可选；在实例类型下方添加 PostgreSQL/MySQL 并选择版本，见[配置与连接限制](agent-mode-b-databases.md#database-configuration) |
+| 数据库配置 | 可选；在实例类型下方添加 PostgreSQL/MySQL 并选择版本，见[配置与连接限制](agent-databases.md#database-configuration) |
 | 空闲回收 | 在平台允许范围内选择适合业务的时长，实例停止时临时文件可能丢失 |
 | 自定义环境变量 | 仅非敏感应用配置，如 `LLM_MODEL` 中的允许模型 ID；明文存储，名称不以 `UNEX_` 开头 |
 | 模型允许列表 | 只包含 Agent 实际需要的模型；此配置不会启用规划中的代理 |

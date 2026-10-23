@@ -10,9 +10,9 @@ Build with the UNEXHub API, configure supported clients, review billing, or publ
 
 > English is the primary documentation language. Simplified Chinese is maintained as a companion translation.
 >
-> Agent tutorial status: **Mode A · Platform-managed Dedicated Server remains a technical preview. Mode B · Cloudflare Container supports the external-registry workflow and optional per-user PostgreSQL/MySQL databases. Model-key isolation and D1/R2 file workspaces remain pending.**
+> Agent tutorial status: **Mode A · Platform-managed Dedicated Server remains a technical preview. Mode B · Cloudflare Container supports the external-registry workflow. Both container modes support optional per-user PostgreSQL/MySQL databases. Model-key isolation and D1/R2 file workspaces remain pending.**
 
-Updated / 更新: 2026-10-17
+Updated / 更新: 2026-10-21
 
 ## Find the right guide / 精准查找
 
@@ -40,12 +40,12 @@ Updated / 更新: 2026-10-17
 
 | Mode | Status | Documentation |
 | --- | --- | --- |
-| Mode A · Platform-managed Dedicated Server | **Technical preview** — real-node validation and entry security remain required; frontend ZIP upload is currently blocked. | [English guide](docs/en/agent-development-mode-a.md) · [中文指南](docs/zh-CN/agent-development-mode-a.md) |
+| Mode A · Platform-managed Dedicated Server | **Technical preview, with optional PostgreSQL/MySQL databases** — real-node validation and entry security remain required; frontend ZIP upload is currently blocked. | [English guide](docs/en/agent-development-mode-a.md) · [中文指南](docs/zh-CN/agent-development-mode-a.md) |
 | Mode B · Cloudflare Container | **External-registry workflow and optional PostgreSQL/MySQL databases.** Long-lived model-key injection remains a barrier to safe third-party image releases; D1/R2 file workspaces are planned. | [English guide](docs/en/agent-development-upload.md) · [中文指南](docs/zh-CN/agent-development-upload.md) |
 
 Mode A users choose a whole-node specification before launch. Mode B developers select a container instance type that is locked when the version is published. Both modes currently treat container files as temporary data.
 
-Mode B database setup, injected environment variables, and backend connection examples: [English](docs/en/agent-mode-b-databases.md) · [简体中文](docs/zh-CN/agent-mode-b-databases.md).
+Agent database setup for both container modes, injected environment variables, and backend connection examples: [English](docs/en/agent-databases.md) · [简体中文](docs/zh-CN/agent-databases.md).
 
 ## Browse documentation / 浏览全部文档
 

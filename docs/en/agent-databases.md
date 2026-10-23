@@ -1,12 +1,12 @@
-# Mode B: PostgreSQL and MySQL databases
+# Agent databases: PostgreSQL and MySQL
 
-[Documentation home](README.md) · [Mode B development and upload guide](agent-development-upload.md) · [简体中文](../zh-CN/agent-mode-b-databases.md)
+[Documentation home](README.md) · [Mode A guide](agent-development-mode-a.md) · [Mode B guide](agent-development-upload.md) · [简体中文](../zh-CN/agent-databases.md)
 
-Updated: 2026-10-17
+Updated: 2026-10-21
 
-Mode B can provision an optional PostgreSQL database, MySQL database, or both for each user of an Agent. UnexHub prepares the databases at instance startup and injects connection settings into the container environment. Your **backend** reads those settings; database setup is managed through UnexHub.
+Container Agents in Mode A or Mode B can provision an optional PostgreSQL database, MySQL database, or both for each user of an Agent. UnexHub prepares the databases at instance startup and injects connection settings into the container environment. Your **backend** reads those settings; database setup is managed through UnexHub.
 
-The UnexHub deployment form's live catalog determines available engines, versions, and connection limits. This SQL feature is separate from the [existing model-key limitation and planned D1/R2 file workspace](agent-development-upload.md#section-3).
+The UnexHub deployment form's live catalog determines available engines, versions, and connection limits. Managed SQL stores application records independently of container files. It does not provide file persistence or change the model-access requirements of the selected deployment mode.
 
 ## On this page
 
@@ -20,20 +20,20 @@ The UnexHub deployment form's live catalog determines available engines, version
 <a id="database-configuration"></a>
 ## Configure database requirements
 
-1. Open **Agent deployment configuration** and select **Mode B · Cloudflare Containers**.
-2. In **Minimum resource requirements**, find **Database configuration** directly below **Instance type**. It is empty by default; Agents that do not need SQL can leave it empty.
+1. Open **Agent deployment configuration** and select **Mode A · Platform-managed Dedicated Server** or **Mode B · Cloudflare Containers**.
+2. In **Minimum resource requirements**, find **Database configuration** below the compute specification settings. It is empty by default; Agents that do not need SQL can leave it empty.
 3. Select **Add database**, then select the engine and version from the two dropdowns. PostgreSQL and MySQL are supported, with at most one entry per engine. Add another row to use both. Redis and MongoDB are disabled because they are not implemented yet.
 4. Read the displayed limits and TLS mode, then save the runtime configuration. Database requirements are included in the version submitted for review. Changing them after publication takes the Agent off the market and requires another review; ordinary-user startup uses the approved version's snapshot, while developer self-tests use the working configuration.
 5. Test using a **new instance**. Existing running instances keep their original environment; stop and start again after changing the requirements.
 
-The catalog shows the default maximum connections for a database login, the shared server's maximum connections, and its SSL/TLS mode. The server limit is capacity shared by all databases, not a dedicated allowance for each Agent. The injected `CONNECTION_LIMIT` describes the actual allocated database login; it can differ from a later catalog default.
+The catalog shows the default maximum connections for a database login and its SSL/TLS mode. The injected `CONNECTION_LIMIT` describes the actual allocated database login; it can differ from a later catalog default.
 
 If the catalog is unavailable, an engine is not ready, or no version is selectable, contact UnexHub support with the Agent ID and sanitized error. Database connection settings are supplied by UnexHub at startup; do not add passwords through custom environment variables.
 
 <a id="database-environment"></a>
 ## Injected environment variables
 
-Only selected engines receive variables. A PostgreSQL-only Agent receives no `UNEX_DATABASE_MYSQL_*` variables. All values are environment strings.
+Only selected engines receive variables. A PostgreSQL-only Agent receives no `UNEX_DATABASE_MYSQL_*` variables. All values are environment strings. For `single` and `frontend-package` topologies, the backend container receives them; for `split`, only the backend receives them. They are never injected into the frontend container or a frontend build.
 
 | PostgreSQL variable | MySQL variable | Meaning |
 | --- | --- | --- |
@@ -76,7 +76,7 @@ Run the examples inside a platform-launched test container after selecting the c
 <a id="postgresql-example"></a>
 ## PostgreSQL backend example
 
-[Download `postgresql_example.py`](../../examples/mode-b-databases/postgresql_example.py), then run `python postgresql_example.py` in the test container. The injected URI preserves credential escaping and `sslmode`. Psycopg's connection context commits on success, rolls back on error, and closes the connection. See the [Psycopg usage guide](https://www.psycopg.org/psycopg3/docs/basic/usage.html).
+[Download `postgresql_example.py`](../../examples/agent-databases/postgresql_example.py), then run `python postgresql_example.py` in the test container. The injected URI preserves credential escaping and `sslmode`. Psycopg's connection context commits on success, rolls back on error, and closes the connection. See the [Psycopg usage guide](https://www.psycopg.org/psycopg3/docs/basic/usage.html).
 
 ```python
 """Backend-only PostgreSQL example. Run in a disposable Agent test database."""
@@ -132,7 +132,7 @@ For certificate verification with a private CA, include the public CA certificat
 <a id="mysql-example"></a>
 ## MySQL backend example
 
-[Download `mysql_example.py`](../../examples/mode-b-databases/mysql_example.py), then run `python mysql_example.py` in the test container. This example translates the injected SSL mode into an `ssl.SSLContext`; it does not assume a driver can consume the URL unchanged. See [PyMySQL connection options](https://pymysql.readthedocs.io/en/latest/modules/connections.html).
+[Download `mysql_example.py`](../../examples/agent-databases/mysql_example.py), then run `python mysql_example.py` in the test container. This example translates the injected SSL mode into an `ssl.SSLContext`; it does not assume a driver can consume the URL unchanged. See [PyMySQL connection options](https://pymysql.readthedocs.io/en/latest/modules/connections.html).
 
 ```python
 """Backend-only MySQL example. Run in a disposable Agent test database."""
@@ -223,8 +223,8 @@ The example honors the configured mode: `disable` turns TLS off; `prefer` attemp
 <a id="database-practices"></a>
 ## Connection pools, credentials, and release checks
 
-For a production backend, bound the pool using the selected engine's `CONNECTION_LIMIT`. Count connections from **all processes and containers** using this user–Agent database login, including workers and migrations; leave headroom instead of assigning the full limit to every process. Close connections on shutdown, set timeouts, and handle unavailable capacity without unlimited retries. The shared server maximum is not your pool size. Check `CONNECTION_MODE` before choosing session-dependent SQL features with a pool endpoint.
+For a production backend, bound the pool using the selected engine's `CONNECTION_LIMIT`. Count connections from **all processes and containers** using this user–Agent database login, including workers and migrations; leave headroom instead of assigning the full limit to every process. Close connections on shutdown, set timeouts, and handle unavailable capacity without unlimited retries. Check `CONNECTION_MODE` before choosing session-dependent SQL features with a pool endpoint.
 
 The injected database password and URL are readable by your container and its dependencies. Keep them in the backend process, avoid logging raw driver errors, and never return them through a configuration endpoint, frontend bundle, browser storage, support report, or page URL.
 
-Before release, verify writes and reads, persistence after stopping and starting, reuse after an image update, and isolation between two users and between two Agents. Test missing variables, TLS and connection-limit failures with sanitized user-facing errors. These checks do not replace the [Mode B model-access release prerequisites](agent-development-upload.md#section-10).
+Before release, verify writes and reads, persistence after stopping and starting, reuse after an image update, and isolation between two users and between two Agents. Test missing variables, TLS and connection-limit failures with sanitized user-facing errors. Also complete the release checks for your selected deployment mode: [Mode A](agent-development-mode-a.md#section-10) or [Mode B](agent-development-upload.md#section-10).
