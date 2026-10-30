@@ -27,9 +27,9 @@
 
 For Agent developers · Mode B / Cloudflare Containers
 
-Document version: 1.2 · Updated: 2026-10-17
+Document version: 1.2 · Updated: 2026-10-23
 
-> **Scope:** This guide covers Mode B. For the separate dedicated-node workflow, see the [Mode A technical-preview guide](agent-development-mode-a.md). “Current” below describes the available workflow; “planned” describes work that is not implemented.
+> **Scope:** This guide covers Mode B. For Unexhub Containers, see the [Mode A development guide](agent-development-mode-a.md). “Current” below describes the available workflow; “planned” describes work that is not implemented.
 
 Mode B runs your single OCI container image on Cloudflare Containers. You build and publish the image; the platform copies it to its Cloudflare registry and deploys the Worker/Container runtime. User instances start for sessions and are reclaimed after idling. You do not deploy the platform's Worker yourself.
 
@@ -99,7 +99,7 @@ The planned three-entry upload experience is described in [section 8](#section-8
 | `standard-3` | 2 | 8 GiB | 16 GB | More demanding workloads |
 | `standard-4` | 4 | 12 GiB | 20 GB | Heavy workloads |
 
-These are the platform's current tier definitions, not a claim about every Cloudflare plan. Choose and save an instance type before review. **Mode B fixes it at the published version; users cannot change it at launch.** In Mode A, the user chooses a node SKU before launch.
+These are initial tier examples. The live catalog and administrator-configured hourly prices are authoritative. Choose and save an instance type before review. **Mode B fixes it at the published version; users cannot change it at launch.** Mode A also uses an administrator-defined instance type selected by the developer; users choose runtime at launch.
 
 `lite` has only 256 MiB of memory. Do not assume it will fit a JVM or a large application dependency tree; measure your image. The platform controls concurrent instances, with a current default cap of 50. A concurrency cap limits simultaneous exposure, not total cost. Cost also depends on instance type, running time, actual resource metering, and the platform's separate budget and settlement rules.
 
@@ -366,7 +366,7 @@ Open [Agent deployment configuration](https://unexhub.ai/console/my_agents?tab=d
 
 ### Follow the deployment stages
 
-> **About these screenshots:** These are local UI demonstrations with fictional data and mocked backend states. They predate the optional database controls; use the current form and the database guide for those settings. This English guide shows the English UI; the Chinese companion shows the Chinese UI. Registry references and digests are placeholders. The screenshots are not evidence of a production upload, validation, image copy, or deployment.
+> **About these screenshots:** These are local UI demonstrations with fictional data and mocked backend states. They predate the current database controls and configurable compute catalog; use the current form and database guide. This English guide shows the English UI; the Chinese companion shows the Chinese UI. Registry references and digests are placeholders. The screenshots are not evidence of a production upload, validation, image copy, or deployment.
 
 #### Step 1: Enter the external image reference
 
@@ -376,7 +376,7 @@ Create or select the Agent, choose **Mode B** and **External registry**, and ent
 
 *Figure B1. Mode B currently accepts one image reference from an external Registry; the reference shown is an example.*
 
-The helper paragraph still mentions a dedicated Tencent Cloud server because this is shared UI copy. Mode B deploys to Cloudflare Containers; that paragraph does not add a Tencent Cloud deployment option.
+This screenshot predates the Unexhub Containers naming and configurable compute-price catalog. Follow the current mode description and live instance dropdown.
 
 **Checkpoint:** The reference points to the image you pushed, contains no `https://` prefix, and uses the appropriate public or private pull access. Mode B has no current browser TAR upload or direct platform Docker Push entry.
 
@@ -400,7 +400,7 @@ Set the entry port, health path, instance type, optional database engines and ve
 
 *Figure B3. The page before runtime deployment: the save, deployment, and review actions are visible, but no deployed runtime is shown.*
 
-The shared form marks **Startup Command** as required and says it cannot be blank. For Mode B, omitting the command uses the image's `ENTRYPOINT` / `CMD`; the command shown is an optional example override. The **Minimum resource requirements** heading, user-selection hint, and GPU-pool message are also shared UI copy. Mode B uses the published version's fixed instance type, with no GPU tier or launch-time node-SKU selection.
+This is an older form screenshot. Startup command is now optional: leave it empty to use the image's `ENTRYPOINT` / `CMD`. Both container modes select administrator-defined instance types; users confirm runtime and cost at launch. Use the current page for database settings.
 
 **Checkpoint:** Confirm both the Cloudflare copy and Worker runtime states. If the page says that no image is bound, return to image verification before trying to deploy. Keep the deployment page open until it is ready. If you leave, return and inspect the state; trigger deployment again if the page requires it. Do not assume all later stages continue automatically after closing the page.
 
@@ -557,7 +557,7 @@ does not complete the third-party production release prerequisites.
 
 ### References and scope
 
-This guide reflects the platform's Mode B baseline as of 2026-10-17. Instance tiers and user charging rules follow the platform's definitions and published pricing. Cloudflare limits and pricing can change; the links below explain the underlying services, not additional platform features:
+This guide reflects the platform's Mode B baseline as of 2026-10-23. Instance tiers and user charging rules follow the platform's definitions and published pricing. Cloudflare limits and pricing can change; the links below explain the underlying services, not additional platform features:
 
 - [Cloudflare Containers architecture and lifecycle](https://developers.cloudflare.com/containers/concepts/architecture/)
 - [Cloudflare Containers image management](https://developers.cloudflare.com/containers/guides/image-management/)
@@ -566,6 +566,22 @@ This guide reflects the platform's Mode B baseline as of 2026-10-17. Instance ti
 - [D1 Worker API](https://developers.cloudflare.com/d1/worker-api/)
 
 Agent developers use the platform's deployment page. Planned D1/R2 bindings belong to platform-controlled services and are not credentials developers should request for their containers.
+
+## Outbound domain permissions
+
+Containers use a deduplicated combination of the platform’s global domains and **approved personal domains selected for that Agent**. Approvals granted to another developer are not shared with you. A user launching your Agent does not contribute their own permissions. An empty list does not allow unrestricted outbound access.
+
+Click **Request domain** beside the **Allowed domain list** on the right of Deployment configuration. Requests are saved immediately and independently of Agent publication review. Leaving before submitting the Agent for review does not lose requests. The sidebar shows global domains marked visible by administrators and your requests with their current review status. Hidden global rules still apply and do not need selecting.
+
+After approval, click **Add domain** in the outbound domain allowlist on the left. Select the personal domains this Agent needs, then click **Save domain selection**. You may select multiple domains. Personal domains are selected separately for each Agent; global domains are included automatically and do not need selecting.
+
+Saving choices or an administrator removing a domain automatically synchronizes deployed instances. Mode A updates rules in place. Mode B briefly stops, updates and resumes the same instance, preserving its original expiry and billing records. A personal-domain removal requires a reason, delivered to the developer’s inbox. Reapproval requires selecting the domain again. A domain still allowed globally remains accessible through that global permission.
+
+Request up to 20 domains at a time, one per line, without a scheme, port or path. `api.example.com` matches that exact hostname. `*.example.com` covers subdomains at any depth; request the root domain `example.com` separately.
+
+For Mode A, administrators can configure global HTTP, HTTPS, TCP and UDP rules with targets and ports. TCP/UDP targets are actual IPv4 addresses or subnets. Personal requests still contain domain names only. Mode B uses HTTP/HTTPS domain permissions; these global TCP/UDP entries do not enable native connections in Mode B.
+
+Applications must use the provided HTTP/HTTPS proxy settings; include domains needed for platform API calls and other services.
 
 <!-- DOCS-PAGER:START -->
 

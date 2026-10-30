@@ -10,9 +10,9 @@ Build with the UNEXHub API, configure supported clients, review billing, or publ
 
 > English is the primary documentation language. Simplified Chinese is maintained as a companion translation.
 >
-> Agent tutorial status: **Mode A · Platform-managed Dedicated Server remains a technical preview. Mode B · Cloudflare Container supports the external-registry workflow. Both container modes support optional per-user PostgreSQL/MySQL databases. Model-key isolation and D1/R2 file workspaces remain pending.**
+> Agent tutorial status: **Mode A · Unexhub Containers uses configurable instance types and runtime-based billing. Mode B · Cloudflare Container supports the external-registry workflow. Both container modes support optional per-user PostgreSQL/MySQL databases. Model-key isolation and D1/R2 file workspaces remain pending.**
 
-Updated / 更新: 2026-10-21
+Updated / 更新: 2026-10-23
 
 ## Find the right guide / 精准查找
 
@@ -40,10 +40,10 @@ Updated / 更新: 2026-10-21
 
 | Mode | Status | Documentation |
 | --- | --- | --- |
-| Mode A · Platform-managed Dedicated Server | **Technical preview, with optional PostgreSQL/MySQL databases** — real-node validation and entry security remain required; frontend ZIP upload is currently blocked. | [English guide](docs/en/agent-development-mode-a.md) · [中文指南](docs/zh-CN/agent-development-mode-a.md) |
+| Mode A · Unexhub Containers | **Single-container workflow with optional PostgreSQL/MySQL databases.** Choose an instance type in deployment settings; users select runtime. Split containers and idle shutdown are unavailable. | [English guide](docs/en/agent-development-mode-a.md) · [中文指南](docs/zh-CN/agent-development-mode-a.md) |
 | Mode B · Cloudflare Container | **External-registry workflow and optional PostgreSQL/MySQL databases.** Long-lived model-key injection remains a barrier to safe third-party image releases; D1/R2 file workspaces are planned. | [English guide](docs/en/agent-development-upload.md) · [中文指南](docs/zh-CN/agent-development-upload.md) |
 
-Mode A users choose a whole-node specification before launch. Mode B developers select a container instance type that is locked when the version is published. Both modes currently treat container files as temporary data.
+For both modes, developers select an administrator-defined instance type and users confirm runtime and the current estimate before launch. Both modes treat container files as temporary data.
 
 Agent database setup for both container modes, injected environment variables, and backend connection examples: [English](docs/en/agent-databases.md) · [简体中文](docs/zh-CN/agent-databases.md).
 
@@ -55,7 +55,7 @@ Agent database setup for both container modes, injected environment variables, a
 | API and account | [Chat Completions](docs/en/chat-completions.md) · [Routing](docs/en/third-party-routing.md) · [Billing](docs/en/billing.md) · [FAQ](docs/en/faq.md) | [聊天补全](docs/zh-CN/chat-completions.md) · [路由](docs/zh-CN/third-party-routing.md) · [计费](docs/zh-CN/billing.md) · [常见问题](docs/zh-CN/faq.md) |
 | Apps and editors | [Chatbox](docs/en/chatbox.md) · [Cherry Studio](docs/en/cherry-studio.md) · [Cursor](docs/en/cursor.md) · [Windsurf](docs/en/windsurf.md) | [Chatbox](docs/zh-CN/chatbox.md) · [Cherry Studio](docs/zh-CN/cherry-studio.md) · [Cursor](docs/zh-CN/cursor.md) · [Windsurf](docs/zh-CN/windsurf.md) |
 | CLI and coding agents | [Aider](docs/en/aider.md) · [Claude Code](docs/en/claude-code.md) · [Codex](docs/en/codex.md) · [CC Switch](docs/en/cc-switch.md) · [openclaw-cn](docs/en/openclaw-cn.md) | [Aider](docs/zh-CN/aider.md) · [Claude Code](docs/zh-CN/claude-code.md) · [Codex](docs/zh-CN/codex.md) · [CC Switch](docs/zh-CN/cc-switch.md) · [openclaw-cn](docs/zh-CN/openclaw-cn.md) |
-| Agent development | [Mode A · Platform-managed Dedicated Server](docs/en/agent-development-mode-a.md) · [Mode B · Cloudflare Container](docs/en/agent-development-upload.md) | [模式 A · 平台托管独立节点](docs/zh-CN/agent-development-mode-a.md) · [模式 B · Cloudflare 容器](docs/zh-CN/agent-development-upload.md) |
+| Agent development | [Mode A · Unexhub Containers](docs/en/agent-development-mode-a.md) · [Mode B · Cloudflare Container](docs/en/agent-development-upload.md) | [模式 A · Unexhub 容器](docs/zh-CN/agent-development-mode-a.md) · [模式 B · Cloudflare 容器](docs/zh-CN/agent-development-upload.md) |
 | Reference | [Chat Completions API](docs/en/chat-completions.md) · [Agent Developer Center ↗](https://unexhub.ai/agent-doc) | [Chat Completions API](docs/zh-CN/chat-completions.md) · [Agent 开发中心 ↗](https://unexhub.ai/agent-doc) |
 
 For the complete A–Z index and guided sequence, open the [English documentation home](docs/en/README.md) or [中文目录](docs/zh-CN/README.md).

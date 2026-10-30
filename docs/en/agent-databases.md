@@ -20,7 +20,7 @@ The UnexHub deployment form's live catalog determines available engines, version
 <a id="database-configuration"></a>
 ## Configure database requirements
 
-1. Open **Agent deployment configuration** and select **Mode A · Platform-managed Dedicated Server** or **Mode B · Cloudflare Containers**.
+1. Open **Agent deployment configuration** and select **Mode A · Unexhub Containers** or **Mode B · Cloudflare Containers**.
 2. In **Minimum resource requirements**, find **Database configuration** below the compute specification settings. It is empty by default; Agents that do not need SQL can leave it empty.
 3. Select **Add database**, then select the engine and version from the two dropdowns. PostgreSQL and MySQL are supported, with at most one entry per engine. Add another row to use both. Redis and MongoDB are disabled because they are not implemented yet.
 4. Read the displayed limits and TLS mode, then save the runtime configuration. Database requirements are included in the version submitted for review. Changing them after publication takes the Agent off the market and requires another review; ordinary-user startup uses the approved version's snapshot, while developer self-tests use the working configuration.
@@ -48,6 +48,8 @@ Only selected engines receive variables. A PostgreSQL-only Agent receives no `UN
 | `UNEX_DATABASE_POSTGRESQL_CONNECTION_LIMIT` | `UNEX_DATABASE_MYSQL_CONNECTION_LIMIT` | Actual maximum connections for the allocated database login |
 
 The backend must explicitly read these variables; injection does not configure an ORM automatically. Use the provided host, port, database, and login without assuming a default port or physical name. Preserve the configured TLS behavior. Some MySQL clients do not understand the platform URI's SSL parameters; the example below uses individual fields and an explicit TLS context.
+
+Injected connection variables do not grant network access. In Mode A, native database connections require an administrator to allow the actual database TCP address and port through global rules, with appropriate hostname-resolution permissions. An HTTP/HTTPS domain permission does not replace database TCP access. For timeouts, give platform support the Agent ID and a sanitized error.
 
 `UNEX_` is reserved. Do not manually add these names through **Add environment variable**. Custom environment variables are stored as plaintext and must contain only non-sensitive application settings. Database connection settings are injected at container creation, outside the editable runtime configuration and instance/billing snapshots.
 
