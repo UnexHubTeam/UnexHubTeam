@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-11-04
+
+### Agent APIs
+
+- Added matching English and Simplified Chinese API references, organized into user identity and wallet categories with shared authentication and error handling.
+- Documented reading `UNEX_USER_ID`, querying username/display name, and querying wallet balances using existing runtime credentials, with request examples and response fields.
+- Added links from the documentation indexes and both deployment guides; clarified quota units and backend-only credential use.
+
 ## 2026-10-17
 
 ### Mode B databases

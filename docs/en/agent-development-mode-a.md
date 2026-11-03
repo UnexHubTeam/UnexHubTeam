@@ -8,7 +8,7 @@
 
 For Agent developers · Mode A / Unexhub Containers
 
-Updated: 2026-10-23
+Updated: 2026-11-04
 
 Mode A starts an isolated application container from your OCI image for each user session. Developers select an administrator-defined **instance type** in deployment configuration. Users choose a runtime, review the estimate, and launch. Expiry or an explicit stop releases the container and its temporary files.
 
@@ -59,6 +59,10 @@ CMD ["python", "app.py"]
 ```
 
 Python is only an example. Other languages can use the same image and runtime requirements. `EXPOSE` does not make the application listen.
+
+### Runtime user identity and balance
+
+Read the platform-injected `UNEX_USER_ID` in the backend to identify the current user. For usernames, display names, and wallet balances, use the [Agent API reference](agent-api/README.md), grouped into [User identity](agent-api/users.md) and [Wallet](agent-api/wallet.md). These queries reuse the injected credentials; do not add them as custom environment settings.
 
 <a id="section-4"></a>
 ## 4. Publish and validate the image

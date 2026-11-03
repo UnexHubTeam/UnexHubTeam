@@ -12,7 +12,7 @@ Build with the UNEXHub API, configure supported clients, review billing, or publ
 >
 > Agent tutorial status: **Mode A · Unexhub Containers uses configurable instance types and runtime-based billing. Mode B · Cloudflare Container supports the external-registry workflow. Both container modes support optional per-user PostgreSQL/MySQL databases. Model-key isolation and D1/R2 file workspaces remain pending.**
 
-Updated / 更新: 2026-10-23
+Updated / 更新: 2026-11-04
 
 ## Find the right guide / 精准查找
 
@@ -24,6 +24,7 @@ Updated / 更新: 2026-10-23
 | Set up Chatbox or Cherry Studio | [Client setup guides](docs/en/README.md#apps-and-editors) | [客户端配置指南](docs/zh-CN/README.md#apps-and-editors) |
 | Set up Claude Code, Codex, or Aider | [Coding agent setup guides](docs/en/README.md#cli-and-coding-agents) | [编程 Agent 配置指南](docs/zh-CN/README.md#cli-and-coding-agents) |
 | Review usage and export billing records | [Billing and usage](docs/en/billing.md) | [计费与用量](docs/zh-CN/billing.md) |
+| Read an Agent user's ID, profile, or balance | [Agent API reference](docs/en/agent-api/README.md) | [Agent API 参考](docs/zh-CN/agent-api/README.md) |
 | Troubleshoot an issue | [Troubleshooting](docs/en/faq.md) | [故障排查](docs/zh-CN/faq.md) |
 
 ## Recommended paths / 推荐路径
@@ -47,6 +48,8 @@ For both modes, developers select an administrator-defined instance type and use
 
 Agent database setup for both container modes, injected environment variables, and backend connection examples: [English](docs/en/agent-databases.md) · [简体中文](docs/zh-CN/agent-databases.md).
 
+For user identity and wallet queries, see the categorized Agent API reference: [English](docs/en/agent-api/README.md) · [简体中文](docs/zh-CN/agent-api/README.md).
+
 ## Browse documentation / 浏览全部文档
 
 | Section | English | 简体中文 |
@@ -56,6 +59,6 @@ Agent database setup for both container modes, injected environment variables, a
 | Apps and editors | [Chatbox](docs/en/chatbox.md) · [Cherry Studio](docs/en/cherry-studio.md) · [Cursor](docs/en/cursor.md) · [Windsurf](docs/en/windsurf.md) | [Chatbox](docs/zh-CN/chatbox.md) · [Cherry Studio](docs/zh-CN/cherry-studio.md) · [Cursor](docs/zh-CN/cursor.md) · [Windsurf](docs/zh-CN/windsurf.md) |
 | CLI and coding agents | [Aider](docs/en/aider.md) · [Claude Code](docs/en/claude-code.md) · [Codex](docs/en/codex.md) · [CC Switch](docs/en/cc-switch.md) · [openclaw-cn](docs/en/openclaw-cn.md) | [Aider](docs/zh-CN/aider.md) · [Claude Code](docs/zh-CN/claude-code.md) · [Codex](docs/zh-CN/codex.md) · [CC Switch](docs/zh-CN/cc-switch.md) · [openclaw-cn](docs/zh-CN/openclaw-cn.md) |
 | Agent development | [Mode A · Unexhub Containers](docs/en/agent-development-mode-a.md) · [Mode B · Cloudflare Container](docs/en/agent-development-upload.md) | [模式 A · Unexhub 容器](docs/zh-CN/agent-development-mode-a.md) · [模式 B · Cloudflare 容器](docs/zh-CN/agent-development-upload.md) |
-| Reference | [Chat Completions API](docs/en/chat-completions.md) · [Agent Developer Center ↗](https://unexhub.ai/agent-doc) | [Chat Completions API](docs/zh-CN/chat-completions.md) · [Agent 开发中心 ↗](https://unexhub.ai/agent-doc) |
+| Reference | [Agent APIs](docs/en/agent-api/README.md) · [Chat Completions API](docs/en/chat-completions.md) · [Agent Developer Center ↗](https://unexhub.ai/agent-doc) | [Agent API](docs/zh-CN/agent-api/README.md) · [Chat Completions API](docs/zh-CN/chat-completions.md) · [Agent 开发中心 ↗](https://unexhub.ai/agent-doc) |
 
 For the complete A–Z index and guided sequence, open the [English documentation home](docs/en/README.md) or [中文目录](docs/zh-CN/README.md).

@@ -6,7 +6,7 @@
 
 > 本页是中文文档地图。使用 `Ctrl+F` 或 `⌘+F` 可按产品、协议、任务或错误码精准查找。
 
-文档更新：2026-10-17
+文档更新：2026-11-04
 
 ## 精准找到教程
 
@@ -19,6 +19,7 @@
 | 配置编辑器 | [Cursor](cursor.md) · [Windsurf](windsurf.md) | 核对当前版本是否支持自定义网关 |
 | 配置编程 Agent | [Claude Code](claude-code.md) · [Codex](codex.md) · [Aider](aider.md) | 选择正确协议与 Base URL |
 | 查看或导出费用 | [计费记录](billing.md) | 定位请求、核对最终扣费并导出记录 |
+| 获取 Agent 用户 ID、资料或余额 | [Agent API 参考](agent-api/README.md) | 读取运行时身份并查询用户资料或钱包 |
 | 排查错误 | [常见问题](faq.md) | 排查 401、404、429、5xx、模型与路径问题 |
 
 ## 推荐阅读顺序
@@ -81,9 +82,12 @@
 
 容器模式 A / B 的数据库接入请查看[数据库配置与注入变量说明](agent-databases.md)，内含 [PostgreSQL](agent-databases.md#postgresql-example) 和 [MySQL](agent-databases.md#mysql-example) 后端示例。
 
+运行时接入请查看 [Agent API 参考](agent-api/README.md)：[用户 ID 与资料](agent-api/users.md) · [钱包余额](agent-api/wallet.md)。
+
 <a id="api-reference"></a>
 ## API 参考
 
+- [按能力分类的 Agent API](agent-api/README.md)——[用户身份](agent-api/users.md) · [钱包](agent-api/wallet.md)
 - [聊天补全 API 指南](chat-completions.md)
 - [客户端与协议兼容说明](compatibility.md)
 - [Agent 开发中心 ↗](https://unexhub.ai/agent-doc)
@@ -93,4 +97,4 @@
 
 ## A–Z 索引
 
-[Aider](aider.md) · [CC MAX](cc-max.md) · [CC Switch](cc-switch.md) · [Chatbox](chatbox.md) · [Cherry Studio](cherry-studio.md) · [Claude Code](claude-code.md) · [Claude Code 安装](claude-code-install.md) · [Codex](codex.md) · [Codex 安装](codex-install.md) · [Cursor](cursor.md) · [VS Code](vscode-claude-code.md) · [Windsurf](windsurf.md) · [常见问题](faq.md) · [第三方路由](third-party-routing.md) · [计费](billing.md) · [聊天补全](chat-completions.md) · [快速开始](getting-started.md) · [模式 A Agent 开发](agent-development-mode-a.md) · [模式 B Agent 开发](agent-development-upload.md) · [控制台操作](quickstart.md) · [协议兼容](compatibility.md) · [openclaw-cn](openclaw-cn.md)
+[Agent API 参考](agent-api/README.md) · [Aider](aider.md) · [CC MAX](cc-max.md) · [CC Switch](cc-switch.md) · [Chatbox](chatbox.md) · [Cherry Studio](cherry-studio.md) · [Claude Code](claude-code.md) · [Claude Code 安装](claude-code-install.md) · [Codex](codex.md) · [Codex 安装](codex-install.md) · [Cursor](cursor.md) · [VS Code](vscode-claude-code.md) · [Windsurf](windsurf.md) · [常见问题](faq.md) · [第三方路由](third-party-routing.md) · [计费](billing.md) · [聊天补全](chat-completions.md) · [快速开始](getting-started.md) · [模式 A Agent 开发](agent-development-mode-a.md) · [模式 B Agent 开发](agent-development-upload.md) · [控制台操作](quickstart.md) · [协议兼容](compatibility.md) · [openclaw-cn](openclaw-cn.md)

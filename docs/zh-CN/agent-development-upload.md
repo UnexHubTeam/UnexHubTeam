@@ -27,7 +27,7 @@
 
 面向 Agent 开发者 · 模式 B / Cloudflare 容器
 
-文档版本：1.2　更新日期：2026-10-23
+文档版本：1.3　更新日期：2026-11-04
 
 > **范围说明：** 本指南覆盖模式 B。Unexhub 容器流程请查看[模式 A 开发指南](agent-development-mode-a.md)。下文“当前”指现有流程，“规划中”指尚未实现的工作。
 
@@ -37,7 +37,7 @@
 
 Agent 还可按需选择 PostgreSQL/MySQL。平台为每位用户的每个 Agent 准备独立数据库，在启动时注入后端连接信息。完整操作见[数据库配置、变量与可运行示例](agent-databases.md)。
 
-> **发布限制：** 镜像流程已经存在，但面向不可信第三方镜像的安全模型访问尚未完成。当前运行时会注入“用户 × Agent”长期模型 Key；这一机制应仅用于可信内部兼容测试，不能作为安全的生产契约。[第 3 节](#section-3)中的可信模型代理和每用户 D1/R2 工作区均为规划能力。部署成功不能消除这些限制。
+> **发布限制：** 镜像流程已经存在，但面向不可信第三方镜像的安全模型访问尚未完成，容器可读取的 Key 本身不代表模型访问隔离。[第 3 节](#section-3)中的模型代理和 D1/R2 工作区仍为规划能力；部署成功或调用[用户身份与钱包接口](agent-api/README.md)不会启用这些能力。
 
 示例使用 `my-agent:1.0.0` 和端口 `8080`。请将 Registry 占位信息和模型标识替换为自己项目的实际值。本文不提供某个示例项目的镜像或凭据。
 
@@ -142,16 +142,20 @@ UnexHub 为每个用户的每个 Agent 按所选类型提供独立数据库。�
 
 ### 当前模型 Key 注入及兼容使用边界
 
-当前运行时会注入 `UNEX_API_KEY`、`UNEX_API_BASE_URL`、`UNEX_AGENT_ID` 和 `UNEX_USER_ID`。模型 Key 按“用户 × Agent”生成，但它是容器进程可读取的长期凭据。开发者控制的镜像、镜像内的依赖，或能读取运行环境的运维人员都可能取得它。Key 没有进入浏览器，不能防止上述暴露。
+当前运行时向容器后端提供 `UNEX_API_KEY`、`UNEX_API_BASE_URL`、`UNEX_AGENT_ID` 和 `UNEX_USER_ID`。Key 由平台为当前用户实例管理，仅供后端使用，不进入镜像、前端构建、响应或日志。
 
 | 已有运行变量 | 含义 |
 | --- | --- |
-| `UNEX_API_KEY` | “用户 × Agent”的长期托管模型 Key，受下方使用边界限制 |
+| `UNEX_API_KEY` | 当前用户实例的托管 API Key；模型访问仍受下方接入要求限制 |
 | `UNEX_API_BASE_URL` | 平台模型 API 基址，以 `/v1` 结尾 |
 | `UNEX_AGENT_ID` | 当前 Agent ID，仅作信息使用，不代表访问其他 Agent 的权限 |
 | `UNEX_USER_ID` | 当前平台用户 ID，仅作信息使用，不能由容器自报来决定计费主体 |
 
-已有的可信内部测试镜像可能仍需兼容这一行为。**不要将真实 `UNEX_API_KEY` 注入列为新第三方 Agent 的交付要求，也不要将其视为生产环境的安全隔离。** 因此本文不提供真实 Key 注入模板。缺少凭据时，不要通过硬编码 Key、要求用户在浏览器填写 Key 或共享开发者 Key 来绕过。镜像实例通常不会提供 `unex_agent_token` URL fragment。
+**不要将真实 `UNEX_API_KEY` 注入列为新第三方 Agent 的交付要求，也不要将其视为生产环境的安全隔离。** 因此本文不提供真实 Key 注入模板。缺少凭据时，不要通过硬编码 Key、要求用户在浏览器填写 Key 或共享开发者 Key 来绕过。镜像实例通常不会提供 `unex_agent_token` URL fragment。
+
+### 用户身份与余额
+
+用户信息的只读查询见 [Agent API 参考](agent-api/README.md)：[读取用户 ID 与资料](agent-api/users.md) · [查询钱包余额](agent-api/wallet.md)。这些操作复用已提供的变量，不会启用下方规划中的模型代理。
 
 ### 规划中的模型契约——尚未实现
 
@@ -581,5 +585,5 @@ Agent 开发者通过平台部署页操作。规划中的 D1/R2 binding 属于�
 
 ---
 
-[← 上一篇：模式 A Agent 开发](agent-development-mode-a.md) · [中文目录](README.md)
+[← 上一篇：模式 A Agent 开发](agent-development-mode-a.md) · [中文目录](README.md) · [下一篇：Agent API 参考 →](agent-api/README.md)
 <!-- DOCS-PAGER:END -->

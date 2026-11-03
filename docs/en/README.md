@@ -6,7 +6,7 @@
 
 > Use this page as the documentation map. Press `Ctrl+F` or `⌘+F` to find a product, protocol, task, or error code.
 
-Updated: 2026-10-17
+Updated: 2026-11-04
 
 ## Find the right guide
 
@@ -19,6 +19,7 @@ Updated: 2026-10-17
 | Configure an editor | [Cursor](cursor.md) · [Windsurf](windsurf.md) | Check whether the current version accepts a custom gateway |
 | Configure a coding agent | [Claude Code](claude-code.md) · [Codex](codex.md) · [Aider](aider.md) | Select the correct protocol and Base URL |
 | Review or export charges | [Billing records](billing.md) | Find requests, review Final Charge, and export records |
+| Read an Agent user's ID, profile, or balance | [Agent API reference](agent-api/README.md) | Read runtime identity and query the user's profile or wallet |
 | Diagnose a failure | [FAQ](faq.md) | Work through 401, 404, 429, 5xx, model, and path issues |
 
 ## Suggested reading order
@@ -81,9 +82,12 @@ The Mode A guide covers external image submission, topology limits, and administ
 
 For container Agents in either mode, see [database configuration and injected variables](agent-databases.md), with [PostgreSQL](agent-databases.md#postgresql-example) and [MySQL](agent-databases.md#mysql-example) backend examples.
 
+For runtime integration, use the [Agent API reference](agent-api/README.md): [user ID and profile](agent-api/users.md) · [wallet balance](agent-api/wallet.md).
+
 <a id="api-reference"></a>
 ## API reference
 
+- [Agent APIs by capability](agent-api/README.md) — [User identity](agent-api/users.md) · [Wallet](agent-api/wallet.md)
 - [Chat Completions API guide](chat-completions.md)
 - [Client and protocol compatibility](compatibility.md)
 - [Agent Developer Center ↗](https://unexhub.ai/agent-doc)
@@ -93,4 +97,4 @@ For container Agents in either mode, see [database configuration and injected va
 
 ## A–Z index
 
-[Aider](aider.md) · [Billing](billing.md) · [CC MAX](cc-max.md) · [CC Switch](cc-switch.md) · [Chatbox](chatbox.md) · [Chat Completions](chat-completions.md) · [Cherry Studio](cherry-studio.md) · [Claude Code](claude-code.md) · [Claude Code installation](claude-code-install.md) · [Codex](codex.md) · [Codex installation](codex-install.md) · [Compatibility](compatibility.md) · [Cursor](cursor.md) · [FAQ](faq.md) · [Getting started](getting-started.md) · [Mode A Agent development](agent-development-mode-a.md) · [Mode B Agent development](agent-development-upload.md) · [openclaw-cn](openclaw-cn.md) · [Quickstart](quickstart.md) · [Third-party routing](third-party-routing.md) · [VS Code](vscode-claude-code.md) · [Windsurf](windsurf.md)
+[Agent APIs](agent-api/README.md) · [Aider](aider.md) · [Billing](billing.md) · [CC MAX](cc-max.md) · [CC Switch](cc-switch.md) · [Chatbox](chatbox.md) · [Chat Completions](chat-completions.md) · [Cherry Studio](cherry-studio.md) · [Claude Code](claude-code.md) · [Claude Code installation](claude-code-install.md) · [Codex](codex.md) · [Codex installation](codex-install.md) · [Compatibility](compatibility.md) · [Cursor](cursor.md) · [FAQ](faq.md) · [Getting started](getting-started.md) · [Mode A Agent development](agent-development-mode-a.md) · [Mode B Agent development](agent-development-upload.md) · [openclaw-cn](openclaw-cn.md) · [Quickstart](quickstart.md) · [Third-party routing](third-party-routing.md) · [VS Code](vscode-claude-code.md) · [Windsurf](windsurf.md)

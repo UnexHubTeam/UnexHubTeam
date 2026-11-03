@@ -27,7 +27,7 @@
 
 For Agent developers · Mode B / Cloudflare Containers
 
-Document version: 1.2 · Updated: 2026-10-23
+Document version: 1.3 · Updated: 2026-11-04
 
 > **Scope:** This guide covers Mode B. For Unexhub Containers, see the [Mode A development guide](agent-development-mode-a.md). “Current” below describes the available workflow; “planned” describes work that is not implemented.
 
@@ -37,7 +37,7 @@ The current artifact workflow is **build a `linux/amd64` image → push to your 
 
 Agents can also request optional PostgreSQL/MySQL databases. The platform provisions a separate database for each user and Agent, then injects backend connection settings at startup. See [database configuration, variables, and runnable examples](agent-databases.md).
 
-> **Release limitation:** The image workflow exists, but safe model access for untrusted third-party images is not complete. Current runtime injection of a long-lived user–Agent model key should be used only for trusted internal compatibility tests; it is not a safe production contract. The trusted model proxy and per-user D1/R2 workspaces described in [section 3](#section-3) are planned. A successful deployment does not resolve these limitations.
+> **Release limitation:** The image workflow exists, but safe model access for untrusted third-party images is not complete. A container-readable key does not by itself provide model-access isolation. The model proxy and D1/R2 workspaces in [section 3](#section-3) remain planned; a successful deployment or use of the [user identity and wallet APIs](agent-api/README.md) does not enable those capabilities.
 
 Examples use `my-agent:1.0.0` and port `8080`. Replace Registry placeholders and model identifiers with values appropriate to your project. This guide does not supply an example project's image or credentials.
 
@@ -142,16 +142,20 @@ Read the [full database guide](agent-databases.md) for the variable table, lifec
 
 ### Current model-key injection and its compatibility limit
 
-The current runtime injects `UNEX_API_KEY`, `UNEX_API_BASE_URL`, `UNEX_AGENT_ID`, and `UNEX_USER_ID`. The model key is created for a user–Agent pair, but it is a long-lived credential readable by the container process. A developer-controlled image, a dependency inside it, or an operator with environment access may obtain it. Keeping it out of the browser does not prevent those exposures.
+The current runtime supplies `UNEX_API_KEY`, `UNEX_API_BASE_URL`, `UNEX_AGENT_ID`, and `UNEX_USER_ID` to the container backend. The key is managed by the platform for the current user's instance. Use it only in the backend; keep it out of images, frontend bundles, responses, and logs.
 
 | Existing runtime variable | Meaning |
 | --- | --- |
-| `UNEX_API_KEY` | Long-lived managed model key for the user–Agent pair, subject to the limitation below |
+| `UNEX_API_KEY` | Managed API key for the current user's instance; model access remains subject to the requirements below |
 | `UNEX_API_BASE_URL` | Platform model API base URL, ending in `/v1` |
 | `UNEX_AGENT_ID` | Current Agent ID; informational, not authority to access another Agent |
 | `UNEX_USER_ID` | Current platform user ID; informational, not a container-supplied billing identity |
 
-Existing trusted internal test images may need this behavior for compatibility. **Do not make real `UNEX_API_KEY` injection a requirement for a new third-party Agent, and do not treat it as production isolation.** This guide therefore provides no real-key injection template. Do not work around missing credentials by hard-coding a key, requesting one in the browser, or using a shared developer key. Image instances do not normally provide an `unex_agent_token` URL fragment.
+**Do not make real `UNEX_API_KEY` injection a requirement for a new third-party Agent, and do not treat it as production isolation.** This guide therefore provides no real-key injection template. Do not work around missing credentials by hard-coding a key, requesting one in the browser, or using a shared developer key. Image instances do not normally provide an `unex_agent_token` URL fragment.
+
+### User identity and balance
+
+For read-only user queries, see the [Agent API reference](agent-api/README.md): [read the user ID or profile](agent-api/users.md) · [query the wallet balance](agent-api/wallet.md). These operations reuse the supplied variables and do not enable the planned model proxy described below.
 
 ### Planned model contract — not implemented
 
@@ -587,5 +591,5 @@ Applications must use the provided HTTP/HTTPS proxy settings; include domains ne
 
 ---
 
-[← Previous: Mode A Agent development](agent-development-mode-a.md) · [Documentation home](README.md)
+[← Previous: Mode A Agent development](agent-development-mode-a.md) · [Documentation home](README.md) · [Next: Agent API reference →](agent-api/README.md)
 <!-- DOCS-PAGER:END -->
